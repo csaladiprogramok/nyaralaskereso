@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nyaraláskereső 2027</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      color: #17324d;
+      background:
+        linear-gradient(rgba(0, 151, 178, 0.12), rgba(255,255,255,0.95)),
+        linear-gradient(135deg, #8ee3ef, #fff3c4);
+    }
+
+    .page {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 28px 18px 50px;
+    }
+
+    /* FEJLÉC */
+
+    .hero {
+      text-align: center;
+      padding: 35px 10px 30px;
+    }
+
+    .sun {
+      font-size: 54px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 8vw, 52px);
+      line-height: 1.05;
+      color: #087f8c;
+      margin-bottom: 14px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      line-height: 1.5;
+      color: #40566b;
+      font-style: italic;
+    }
+
+    /* SZŰRŐ */
+
+    .filter-box {
+      background: rgba(255,255,255,0.92);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 12px 35px rgba(0,80,100,0.15);
+    }
+
+    .filter-title {
+      font-size: 21px;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+
+    .filter-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .filter-btn {
+      border: 2px solid #10a8b5;
+      background: white;
+      color: #087f8c;
+      border-radius: 50px;
+      padding: 13px 8px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: #10a8b5;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* KÁRTYÁK */
+
+    .results {
+      margin-top: 22px;
+    }
+
+    .destination {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: white;
+      border-radius: 22px;
+      padding: 12px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 25px rgba(0,70,90,0.12);
+      overflow: hidden;
+    }
+
+    .destination-image {
+      width: 180px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 16px;
+      flex-shrink: 0;
+    }
+
+    .destination-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .destination h2 {
+      color: #087f8c;
+      font-size: 23px;
+      margin-bottom: 8px;
+    }
+
+    .destination p {
+      color: #607080;
+      line-height: 1.5;
+      font-size: 15px;
+    }
+
+    /* RÉSZLETEK GOMB */
+
+    .details-btn {
+      display: inline-block;
+      flex-shrink: 0;
+      text-decoration: none;
+      background: #10a8b5;
+      color: white;
+      font-weight: bold;
+      padding: 12px 17px;
+      border-radius: 50px;
+      transition: 0.2s ease;
+      margin-right: 5px;
+    }
+
+    .details-btn:hover {
+      background: #087f8c;
+      transform: translateY(-2px);
+    }
+
+    /* MOBIL */
+
+    @media (max-width: 650px) {
+
+      .page {
+        padding: 20px 14px 40px;
+      }
+
+      .filter-buttons {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-btn {
+        width: 100%;
+        font-size: 16px;
+      }
+
+      .destination {
+        display: grid;
+        grid-template-columns: 105px 1fr;
+        gap: 12px;
+        padding: 10px;
+      }
+
+      .destination-image {
+        width: 105px;
+        height: 120px;
+        grid-row: 1 / 3;
+      }
+
+      .destination h2 {
+        font-size: 20px;
+      }
+
+      .destination p {
+        font-size: 14px;
+      }
+
+      .details-btn {
+        justify-self: end;
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+    }
+
+  </style>
+  <style>
+.hamarosan {
+    text-align: center;
+    font-size: 30px;
+    color: #087f8c;
+    animation: hamarosanAnimacio 1.5s ease-in-out infinite;
+}
+
+@keyframes hamarosanAnimacio {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.18);
+        opacity: 0.6;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="page">
+
+  <header class="hero">
+
+    <h1>NYARALÁSKERESŐ 2027</h1>
+
+    <p class="subtitle">
+      „Az együtt töltött idő a legszebb ajándék.”
+    </p>
+  </header> <br><br><br><br>
+
+<h1 class="hamarosan">Hamarosan...</h1>
+  <!------
+  <section class="filter-box">
+
+    <div class="filter-title">
+      🔎 Szűrés úti cél szerint
+    </div>
+
+    <div class="filter-buttons">
+
+      <button class="filter-btn"
+              onclick="filterDestination('ciprus', this)">
+        Ciprus
+      </button>
+
+      <button class="filter-btn"
+              onclick="filterDestination('zakynthos', this)">
+        Zakynthos
+      </button>
+
+      <button class="filter-btn"
+              onclick="filterDestination('kefalonia', this)">
+        Kefalónia
+      </button>
+
+    </div>
+
+  </section>
+
+
+
+
+  <section class="results">
+
+ 
+
+    <article class="destination" data-place="ciprus">
+
+      <img
+        class="destination-image"
+        src="ciprus.jpg"
+        alt="Ciprus tengerpart">
+
+      <div class="destination-content">
+        <h2>Ciprus</h2>
+
+        <p>
+          Napsütés, kristálytiszta tenger és gyönyörű
+          mediterrán strandok.
+        </p>
+      </div>
+
+      <a class="details-btn" href="ciprus.html">
+        Részletek
+      </a>
+
+    </article>
+
+
+   
+
+    <article class="destination" data-place="zakynthos">
+
+      <img
+        class="destination-image"
+        src="images/zakynthos.jpg"
+        alt="Zakynthos tengerpart">
+
+      <div class="destination-content">
+        <h2>Zakynthos</h2>
+
+        <p>
+          Türkizkék öblök, görög hangulat és látványos
+          tengerpartok.
+        </p>
+      </div>
+
+      <a class="details-btn" href="zakynthos.html">
+        Részletek
+      </a>
+
+    </article>
+
+
+    
+
+    <article class="destination" data-place="kefalonia">
+
+      <img
+        class="destination-image"
+        src="images/kefalonia.jpg"
+        alt="Kefalónia tengerpart">
+
+      <div class="destination-content">
+        <h2>Kefalónia</h2>
+
+        <p>
+          Hangulatos falvak, csodálatos strandok és
+          nyugodt mediterrán életérzés.
+        </p>
+      </div>
+
+      <a class="details-btn" href="kefalonia.html">
+        Részletek
+      </a>
+
+    </article>
+
+  </section>
+
+</main>
+
+-------> 
+<script>
+
+  let selectedDestination = null;
+
+  function filterDestination(place, button) {
+
+    const cards = document.querySelectorAll(".destination");
+    const buttons = document.querySelectorAll(".filter-btn");
+
+    if (selectedDestination === place) {
+
+      selectedDestination = null;
+
+      cards.forEach(card => {
+        card.style.display = "";
+      });
+
+      buttons.forEach(btn => {
+        btn.classList.remove("active");
+      });
+
+      return;
+    }
+
+    selectedDestination = place;
+
+    buttons.forEach(btn => {
+      btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    cards.forEach(card => {
+
+      if (card.dataset.place === place) {
+        card.style.display = "";
+      } else {
+        card.style.display = "none";
+      }
+
+    });
+
+  }
+
+</script>
+
+</body>
+</html>
+
