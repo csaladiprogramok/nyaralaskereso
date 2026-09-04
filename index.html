@@ -1,405 +1,673 @@
 <!DOCTYPE html>
 <html lang="hu">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nyaraláskereső 2027</title>
-
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
-      padding: 0;
+      padding: 0
     }
 
     body {
-      font-family: Arial, sans-serif;
-      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
       color: #17324d;
-      background:
-        linear-gradient(rgba(0, 151, 178, 0.12), rgba(255,255,255,0.95)),
-        linear-gradient(135deg, #8ee3ef, #fff3c4);
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, #fff4cf 0%, transparent 34%), linear-gradient(135deg, #f3d7a4, #fffaf0)
     }
 
     .page {
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 28px 18px 50px;
+      width: min(1040px, 100%);
+      margin: auto;
+      padding: 20px 16px 55px
     }
-
-    /* FEJLÉC */
 
     .hero {
       text-align: center;
-      padding: 35px 10px 30px;
+      padding: 30px 10px 24px
     }
 
     .sun {
-      font-size: 54px;
-      margin-bottom: 10px;
+      font-size: 52px;
+      display: inline-block;
+      filter: drop-shadow(0 0 15px rgba(255, 183, 0, .5));
+      animation: sun 3s ease-in-out infinite
     }
 
     h1 {
-      font-size: clamp(32px, 8vw, 52px);
-      line-height: 1.05;
-      color: #087f8c;
-      margin-bottom: 14px;
+      margin-top: 8px;
+      font-size: clamp(36px, 6vw, 62px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      background: linear-gradient(90deg, #087f8c, #00b8c8, #ffb703, #ff8c42, #087f8c);
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: colors 5s linear infinite
     }
 
     .subtitle {
-      font-size: 18px;
-      line-height: 1.5;
-      color: #40566b;
+      margin-top: 12px;
+      font-size: clamp(15px, 2.5vw, 19px);
       font-style: italic;
+      color: #566b73
     }
 
-    /* SZŰRŐ */
 
-    .filter-box {
-      background: rgba(255,255,255,0.92);
+    /* Központi Hamarosan főfelirat */
+    .coming-soon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      width: 100%;
+      margin: 0 auto 22px;
+      text-align: center
+    }
+
+    .coming-soon h2 {
+      flex: 0 0 auto;
+      font-size: clamp(30px, 5vw, 52px);
+      font-weight: 900;
+      letter-spacing: -1px;
+      background: linear-gradient(90deg, #087f8c, #00b8c8, #ffb703, #ff8c42, #087f8c);
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 6px 12px rgba(8, 127, 140, .13));
+      animation: colors 5s linear infinite, soonFloat 2.8s ease-in-out infinite
+    }
+
+    .coming-line {
+      width: min(150px, 15vw);
+      height: 3px;
+      border-radius: 99px;
+      background: linear-gradient(90deg, transparent, #00a9b7, #ffb703, transparent)
+    }
+
+    @keyframes soonFloat {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-5px)
+      }
+    }
+
+    /* Egy soros, lenyíló szűrő */
+    .filter-dropdown {
+      max-width: 680px;
+      margin: 6px auto 28px;
+      position: relative
+    }
+
+    .filter-trigger {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, .95);
+      cursor: pointer;
+      background: rgba(255, 255, 255, .94);
+      border-radius: 999px;
+      padding: 15px 54px 15px 22px;
+      box-shadow: 0 14px 35px rgba(80, 60, 20, .13);
+      color: #17324d;
+      font-size: 15px;
+      font-weight: 800;
+      text-align: left;
+      position: relative
+    }
+
+    .filter-trigger::after {
+      content: "⌄";
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-55%);
+      font-size: 24px;
+      color: #087f8c;
+      transition: transform .25s ease
+    }
+
+    .filter-dropdown.open .filter-trigger::after {
+      transform: translateY(-45%) rotate(180deg)
+    }
+
+    .filter-menu {
+      position: absolute;
+      z-index: 20;
+      left: 0;
+      right: 0;
+      top: calc(100% + 10px);
+      background: rgba(255, 255, 255, .98);
       border-radius: 24px;
-      padding: 22px;
-      box-shadow: 0 12px 35px rgba(0,80,100,0.15);
+      padding: 9px;
+      box-shadow: 0 18px 42px rgba(55, 45, 25, .18);
+      border: 1px solid rgba(255, 255, 255, .95);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px) scale(.98);
+      transition: .2s ease
     }
 
-    .filter-title {
-      font-size: 21px;
-      font-weight: bold;
-      margin-bottom: 16px;
+    .filter-dropdown.open .filter-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1)
     }
 
-    .filter-buttons {
+    .filter-option {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      padding: 14px 16px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #38525c;
+      transition: .18s ease
+    }
+
+    .filter-option:hover,
+    .filter-option.active {
+      background: #e9f8f8;
+      color: #087f8c
+    }
+
+    /* Kártyák */
+    .cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 20px;
+      align-items: stretch
     }
 
-    .filter-btn {
-      border: 2px solid #10a8b5;
-      background: white;
-      color: #087f8c;
-      border-radius: 50px;
-      padding: 13px 8px;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s ease;
+    .cards.filtered {
+      grid-template-columns: minmax(0, 460px);
+      justify-content: center;
     }
 
-    .filter-btn:hover,
-    .filter-btn.active {
-      background: #10a8b5;
-      color: white;
-      transform: translateY(-2px);
-    }
-
-    /* KÁRTYÁK */
-
-    .results {
-      margin-top: 22px;
+    .cards.filtered .destination {
+      width: 100%;
     }
 
     .destination {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      background: white;
-      border-radius: 22px;
-      padding: 12px;
-      margin-bottom: 18px;
-      box-shadow: 0 8px 25px rgba(0,70,90,0.12);
+      background: rgba(255, 255, 255, .96);
+      border-radius: 25px;
       overflow: hidden;
+      box-shadow: 0 16px 38px rgba(75, 60, 25, .14);
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      transition: transform .3s ease, box-shadow .3s ease;
+      animation: cardIn .65s ease both
     }
 
-    .destination-image {
-      width: 180px;
-      height: 130px;
+    .destination:nth-child(2) {
+      animation-delay: .12s
+    }
+
+    .destination:nth-child(3) {
+      animation-delay: .24s
+    }
+
+    .destination:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 48px rgba(75, 60, 25, .2)
+    }
+
+    .image-wrap {
+      height: 225px;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg, #7ddfe9, #f4d28d)
+    }
+
+    .destination img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      border-radius: 16px;
-      flex-shrink: 0;
+      display: block;
+      transition: transform .6s ease
     }
 
-    .destination-content {
-      flex: 1;
-      min-width: 0;
+    .destination:hover img {
+      transform: scale(1.07)
     }
 
-    .destination h2 {
+    .image-wrap::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 40%;
+      background: linear-gradient(transparent, rgba(0, 0, 0, .2));
+      pointer-events: none
+    }
+
+    .card-body {
+      padding: 20px 20px 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1
+    }
+
+    .card-body h2 {
+      font-size: 26px;
       color: #087f8c;
-      font-size: 23px;
-      margin-bottom: 8px;
+      margin-bottom: 12px
     }
 
-    .destination p {
-      color: #607080;
-      line-height: 1.5;
-      font-size: 15px;
+    .card-body p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: #60727b;
+      margin-bottom: 24px;
+      flex: 1;
+      text-align: justify;
+      text-justify: inter-word;
+      hyphens: auto
     }
-
-    /* RÉSZLETEK GOMB */
 
     .details-btn {
-      display: inline-block;
-      flex-shrink: 0;
+      align-self: flex-start;
       text-decoration: none;
-      background: #10a8b5;
       color: white;
-      font-weight: bold;
-      padding: 12px 17px;
-      border-radius: 50px;
-      transition: 0.2s ease;
-      margin-right: 5px;
+      font-weight: 800;
+      padding: 12px 19px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #00b4c4, #087f8c);
+      box-shadow: 0 8px 20px rgba(8, 127, 140, .28);
+      transition: .25s
     }
 
     .details-btn:hover {
-      background: #087f8c;
-      transform: translateY(-2px);
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 12px 24px rgba(8, 127, 140, .36)
     }
 
-    /* MOBIL */
+    .no-result {
+      display: none;
+      grid-column: 1/-1;
+      text-align: center;
+      background: rgba(255, 255, 255, .85);
+      border-radius: 24px;
+      padding: 30px;
+      font-size: 18px;
+      color: #65767d
+    }
 
-    @media (max-width: 650px) {
+    @keyframes colors {
+      from {
+        background-position: 0 center
+      }
 
+      to {
+        background-position: 300% center
+      }
+    }
+
+    @keyframes sun {
+
+      0%,
+      100% {
+        transform: rotate(-7deg) scale(1)
+      }
+
+      50% {
+        transform: rotate(7deg) scale(1.12)
+      }
+    }
+
+    @keyframes cardIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    @media(max-width:900px) {
+      .cards {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .image-wrap {
+        height: 220px
+      }
+    }
+
+    @media(max-width:620px) {
       .page {
-        padding: 20px 14px 40px;
+        padding: 14px 12px 45px
       }
 
-      .filter-buttons {
+      .hero {
+        padding: 26px 5px 23px
+      }
+
+      .sun {
+        font-size: 50px
+      }
+
+      .filter-dropdown {
+        margin-bottom: 24px
+      }
+
+      .cards {
         grid-template-columns: 1fr;
+        gap: 20px
       }
 
-      .filter-btn {
-        width: 100%;
-        font-size: 16px;
+      .coming-soon {
+        gap: 10px;
+        margin-bottom: 22px
       }
 
-      .destination {
-        display: grid;
-        grid-template-columns: 105px 1fr;
-        gap: 12px;
-        padding: 10px;
+      .coming-line {
+        width: 45px
       }
 
-      .destination-image {
-        width: 105px;
-        height: 120px;
-        grid-row: 1 / 3;
+      .image-wrap {
+        height: 215px
       }
 
-      .destination h2 {
-        font-size: 20px;
+      .card-body {
+        padding: 18px
       }
 
-      .destination p {
-        font-size: 14px;
+      .card-body h2 {
+        font-size: 24px
+      }
+
+      .card-body p {
+        font-size: 14px
       }
 
       .details-btn {
-        justify-self: end;
-        padding: 10px 15px;
-        font-size: 14px;
+        width: 100%;
+        text-align: center;
+        padding: 14px 18px
       }
     }
 
-  </style>
-  <style>
-.hamarosan {
-    text-align: center;
-    font-size: 30px;
-    color: #087f8c;
-    animation: hamarosanAnimacio 1.5s ease-in-out infinite;
-}
+    /* Extra mobil optimalizálás */
+    @media (max-width: 620px) {
+      body {
+        overflow-x: hidden
+      }
 
-@keyframes hamarosanAnimacio {
-    0%, 100% {
-        transform: scale(1);
-        opacity: 1;
+      .page {
+        width: 100%;
+        padding: 12px 10px 38px
+      }
+
+      .hero {
+        padding: 22px 4px 20px
+      }
+
+      .sun {
+        font-size: 44px;
+        margin-bottom: 8px
+      }
+
+      h1 {
+        font-size: clamp(34px, 11vw, 48px);
+        letter-spacing: -1px;
+        line-height: 1.05
+      }
+
+      .subtitle {
+        font-size: 15px;
+        line-height: 1.45;
+        padding: 0 8px
+      }
+
+      .coming-soon {
+        margin: 0 auto 18px;
+        gap: 8px
+      }
+
+      .coming-soon h2 {
+        font-size: clamp(28px, 9vw, 38px)
+      }
+
+      .coming-line {
+        width: 32px
+      }
+
+      .filter-dropdown {
+        width: 100%;
+        max-width: none;
+        margin: 4px auto 22px
+      }
+
+      .filter-trigger {
+        padding: 14px 48px 14px 18px;
+        font-size: 15px
+      }
+
+      .filter-trigger::after {
+        right: 18px
+      }
+
+      .filter-menu {
+        top: calc(100% + 7px);
+        border-radius: 19px
+      }
+
+      .filter-option {
+        padding: 13px 14px;
+        font-size: 15px
+      }
+
+      .cards,
+      .cards.filtered {
+        grid-template-columns: 1fr;
+        width: 100%;
+        gap: 18px
+      }
+
+      .cards.filtered {
+        justify-content: stretch
+      }
+
+      .destination,
+      .cards.filtered .destination {
+        width: 100%;
+        max-width: 440px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 22px
+      }
+
+      .image-wrap {
+        height: 210px
+      }
+
+      .card-body {
+        padding: 18px
+      }
+
+      .card-body h2 {
+        font-size: 24px;
+        margin-bottom: 9px
+      }
+
+      .card-body p {
+        font-size: 14px;
+        line-height: 1.58;
+        margin-bottom: 19px;
+        text-align: justify;
+        text-justify: inter-word;
+        hyphens: auto
+      }
+
+      .details-btn {
+        width: 100%;
+        text-align: center;
+        padding: 13px 16px;
+        font-size: 14px
+      }
     }
 
-    50% {
-        transform: scale(1.18);
-        opacity: 0.6;
+    @media (max-width: 380px) {
+      .page {
+        padding-left: 8px;
+        padding-right: 8px
+      }
+
+      h1 {
+        font-size: 32px
+      }
+
+      .image-wrap {
+        height: 190px
+      }
+
+      .card-body {
+        padding: 16px
+      }
+
+      .card-body p {
+        font-size: 13.5px
+      }
     }
-}
-.close-btn{position:absolute;top:10px;right:15px;text-decoration:none;font-size:24px;font-weight:700;color:#333;background:#f1f1f1;border:1px solid #ccc;border-radius:50%;width:35px;height:35px;display:flex;align-items:center;justify-content:center;transition:.3s}
+        .close-btn{position:absolute;top:10px;right:15px;text-decoration:none;font-size:24px;font-weight:700;color:#333;background:#f1f1f1;border:1px solid #ccc;border-radius:50%;width:35px;height:35px;display:flex;align-items:center;justify-content:center;transition:.3s}
     .close-btn:hover{background:#ff4d4d;color:#fff;border-color:#ff1a1a}
-
-</style>
+  </style>
 </head>
 
 <body>
+  <a href="https://csaladiprogramok.github.io/vakaciovagyo/szamlalo.html" class="close-btn" aria-label="Vissza az akciókhoz">×</a>
+  <main class="page">
+    <header class="hero">
+      <div class="sun">☀️</div>
+      <h1>Nyaraláskereső 2027</h1>
+      <p class="subtitle">„Az együtt töltött idő a legszebb ajándék.”</p>
+    </header>
 
-<main class="page">
-<a href="https://csaladiprogramok.github.io/vakaciovagyo/szamlalo.html" class="close-btn" aria-label="Vissza az akciókhoz">×</a>
-  <header class="hero">
+    <div class="filter-dropdown" id="filterDropdown">
+      <button class="filter-trigger" id="filterTrigger" type="button" aria-expanded="false">
+        🔎 Összes úti cél
+      </button><br><br><br><br><br>
 
-    <h1>NYARALÁSKERESŐ 2027</h1>
+      <section class="coming-soon" aria-label="Hamarosan">
+        <div class="coming-line"></div>
+        <h2>Hamarosan...</h2>
+        <div class="coming-line"></div>
+      </section>
 
-    <p class="subtitle">
-      „Az együtt töltött idő a legszebb ajándék.”
-    </p>
-  </header> <br><br><br><br>
-
-<h1 class="hamarosan">Hamarosan...</h1>
-  <!------
-  <section class="filter-box">
-
-    <div class="filter-title">
-      🔎 Szűrés úti cél szerint
+      <!------
+    <div class="filter-menu" id="filterMenu">
+      <button class="filter-option active" type="button" data-place="all">Összes úti cél</button>
+      <button class="filter-option" type="button" data-place="ciprus">Ciprus</button>
+      <button class="filter-option" type="button" data-place="zakynthos">Zakynthos</button>
+      <button class="filter-option" type="button" data-place="kefalonia">Kefalónia</button>
     </div>
+  </div>
 
-    <div class="filter-buttons">
-
-      <button class="filter-btn"
-              onclick="filterDestination('ciprus', this)">
-        Ciprus
-      </button>
-
-      <button class="filter-btn"
-              onclick="filterDestination('zakynthos', this)">
-        Zakynthos
-      </button>
-
-      <button class="filter-btn"
-              onclick="filterDestination('kefalonia', this)">
-        Kefalónia
-      </button>
-
-    </div>
-
-  </section>
-
-
-
-
-  <section class="results">
-
- 
-
+  <section class="cards" id="cards">
     <article class="destination" data-place="ciprus">
-
-      <img
-        class="destination-image"
-        src="ciprus.jpg"
-        alt="Ciprus tengerpart">
-
-      <div class="destination-content">
-        <h2>Ciprus</h2>
-
-        <p>
-          Napsütés, kristálytiszta tenger és gyönyörű
-          mediterrán strandok.
-        </p>
+      <div class="image-wrap">
+        <img src="images/ciprus.jpg" alt="Ciprus tengerpartja">
       </div>
-
-      <a class="details-btn" href="ciprus.html">
-        Részletek
-      </a>
-
+      <div class="card-body">
+        <h2>Ciprus</h2>
+        <p>
+          Ciprus a napsütés, a kristálytiszta Földközi-tenger és a hosszú, homokos partszakaszok világa.
+          A sziget remek választás, ha a strandolást hangulatos városokkal, mediterrán ételekkel és
+          közös kirándulásokkal szeretnétek összekötni. Egy igazán sokszínű úti cél pihenéshez és felfedezéshez.
+        </p>
+        <a class="details-btn" href="ciprus.html">Részletek →</a>
+      </div>
     </article>
-
-
-   
 
     <article class="destination" data-place="zakynthos">
-
-      <img
-        class="destination-image"
-        src="images/zakynthos.jpg"
-        alt="Zakynthos tengerpart">
-
-      <div class="destination-content">
-        <h2>Zakynthos</h2>
-
-        <p>
-          Türkizkék öblök, görög hangulat és látványos
-          tengerpartok.
-        </p>
+      <div class="image-wrap">
+        <img src="images/zakynthos.jpg" alt="Zakynthos tengerpartja">
       </div>
-
-      <a class="details-btn" href="zakynthos.html">
-        Részletek
-      </a>
-
+      <div class="card-body">
+        <h2>Zakynthos</h2>
+        <p>
+          Zakynthos látványos öbleiről, türkizkék vizéről és jellegzetes görög hangulatáról ismert.
+          A sziget egyszerre kínál nyugodt strandokat, hajókirándulásokat és pezsgőbb üdülőhelyeket.
+          Ideális választás azoknak, akik egy klasszikus görög szigetnyaralást sok közös élménnyel képzelnek el.
+        </p>
+        <a class="details-btn" href="zakynthos.html">Részletek →</a>
+      </div>
     </article>
-
-
-    
 
     <article class="destination" data-place="kefalonia">
-
-      <img
-        class="destination-image"
-        src="images/kefalonia.jpg"
-        alt="Kefalónia tengerpart">
-
-      <div class="destination-content">
-        <h2>Kefalónia</h2>
-
-        <p>
-          Hangulatos falvak, csodálatos strandok és
-          nyugodt mediterrán életérzés.
-        </p>
+      <div class="image-wrap">
+        <img src="images/kefalonia.jpg" alt="Kefalónia tengerpartja">
       </div>
-
-      <a class="details-btn" href="kefalonia.html">
-        Részletek
-      </a>
-
+      <div class="card-body">
+        <h2>Kefalónia</h2>
+        <p>
+          Kefalónia lenyűgöző strandokkal, zöld hegyoldalakkal és hangulatos kis falvakkal vár.
+          Nyugodtabb szigetélményt kínál, miközben rengeteg felfedeznivaló akad a part mentén és a sziget belsejében is.
+          Különösen jó választás, ha természetközeli, romantikus és pihentető nyaralásra vágytok.
+        </p>
+        <a class="details-btn" href="kefalonia.html">Részletek →</a>
+      </div>
     </article>
 
+    <div class="no-result" id="noResult">Erre a keresésre nincs találat. 🌴</div>
   </section>
-
 </main>
+----->
+      <script>
+        const dropdown = document.getElementById("filterDropdown");
+        const trigger = document.getElementById("filterTrigger");
+        const options = [...document.querySelectorAll(".filter-option")];
+        const cards = [...document.querySelectorAll(".destination")];
+        const cardsContainer = document.getElementById("cards");
 
--------> 
-<script>
+        trigger.addEventListener("click", () => {
+          const isOpen = dropdown.classList.toggle("open");
+          trigger.setAttribute("aria-expanded", isOpen);
+        });
 
-  let selectedDestination = null;
+        options.forEach(option => {
+          option.addEventListener("click", () => {
+            const place = option.dataset.place;
+            trigger.textContent = "🔎 " + option.textContent;
 
-  function filterDestination(place, button) {
+            options.forEach(item => item.classList.remove("active"));
+            option.classList.add("active");
 
-    const cards = document.querySelectorAll(".destination");
-    const buttons = document.querySelectorAll(".filter-btn");
+            cards.forEach(card => {
+              card.style.display =
+                place === "all" || card.dataset.place === place ? "" : "none";
+            });
 
-    if (selectedDestination === place) {
+            /* Szűréskor az egyetlen találat középre kerül */
+            cardsContainer.classList.toggle("filtered", place !== "all");
 
-      selectedDestination = null;
+            dropdown.classList.remove("open");
+            trigger.setAttribute("aria-expanded", "false");
+          });
+        });
 
-      cards.forEach(card => {
-        card.style.display = "";
-      });
-
-      buttons.forEach(btn => {
-        btn.classList.remove("active");
-      });
-
-      return;
-    }
-
-    selectedDestination = place;
-
-    buttons.forEach(btn => {
-      btn.classList.remove("active");
-    });
-
-    button.classList.add("active");
-
-    cards.forEach(card => {
-
-      if (card.dataset.place === place) {
-        card.style.display = "";
-      } else {
-        card.style.display = "none";
-      }
-
-    });
-
-  }
-
-</script>
-
+        document.addEventListener("click", event => {
+          if (!dropdown.contains(event.target)) {
+            dropdown.classList.remove("open");
+            trigger.setAttribute("aria-expanded", "false");
+          }
+        });
+      </script>
 </body>
-</html>
 
+</html>
