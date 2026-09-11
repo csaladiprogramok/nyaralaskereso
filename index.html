@@ -299,7 +299,167 @@ h1{font-size:23px}
     width:min(95px,13vw);
   }
 }
+/* ===== FRISSÍTÉSI NAPLÓ ===== */
 
+.update-log-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-top:10px;
+  padding:7px 12px;
+  border:1px solid rgba(8,127,140,.18);
+  border-radius:999px;
+  background:rgba(255,255,255,.82);
+  color:#087f8c;
+  font-size:12px;
+  font-weight:800;
+  cursor:pointer;
+  box-shadow:0 5px 14px rgba(75,60,25,.10);
+  transition:.25s;
+}
+
+.update-log-btn:hover{
+  transform:translateY(-2px);
+  background:#e9f8f8;
+  box-shadow:0 8px 18px rgba(8,127,140,.16);
+}
+
+/* Háttér */
+.update-modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  padding:18px;
+  background:rgba(23,50,77,.42);
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
+  align-items:center;
+  justify-content:center;
+}
+
+.update-modal.show{
+  display:flex;
+}
+
+/* Ablak */
+.update-modal-box{
+  position:relative;
+  width:min(520px,100%);
+  max-height:80vh;
+  overflow-y:auto;
+  background:rgba(255,255,255,.97);
+  border:1px solid rgba(255,255,255,.95);
+  border-radius:22px;
+  padding:22px;
+  box-shadow:0 24px 65px rgba(23,50,77,.25);
+  animation:updateModalIn .3s ease;
+}
+
+@keyframes updateModalIn{
+  from{
+    opacity:0;
+    transform:translateY(18px) scale(.97);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+/* Cím */
+.update-modal-title{
+  margin:0 42px 20px 0;
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:-.5px;
+  background:linear-gradient(
+    90deg,
+    #087f8c,
+    #00b8c8,
+    #ffb703,
+    #ff8c42,
+    #087f8c
+  );
+  background-size:300% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:colors 5s linear infinite;
+}
+
+/* X bezárás */
+.update-modal-close{
+  position:absolute;
+  top:13px;
+  right:14px;
+  width:32px;
+  height:32px;
+  border:0;
+  border-radius:50%;
+  background:#f1f1f1;
+  color:#566b73;
+  font-size:20px;
+  font-weight:700;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.2s;
+}
+
+.update-modal-close:hover{
+  background:#ff4d4d;
+  color:#fff;
+}
+
+/* Egy frissítés */
+.update-entry{
+  padding:13px 0;
+  border-top:1px solid rgba(8,127,140,.12);
+}
+
+.update-entry:first-of-type{
+  border-top:0;
+}
+
+.update-date{
+  display:inline-block;
+  margin-bottom:5px;
+  padding:4px 9px;
+  border-radius:999px;
+  background:#e9f8f8;
+  color:#087f8c;
+  font-size:12px;
+  font-weight:900;
+}
+
+.update-description{
+  color:#60727b;
+  font-size:14px;
+  line-height:1.5;
+}
+
+/* Mobil */
+@media(max-width:620px){
+  .update-modal{
+    padding:12px;
+  }
+
+  .update-modal-box{
+    padding:18px;
+    border-radius:18px;
+    max-height:85vh;
+  }
+
+  .update-modal-title{
+    font-size:21px;
+  }
+
+  .update-description{
+    font-size:13px;
+  }
+}
 </style>
 </head>
 <body>
@@ -308,20 +468,54 @@ h1{font-size:23px}
 <main class="page">
 <section class="top-box">
 <header class="hero"><h1>NYARALÁSKERESŐ <br>2027</h1><p class="subtitle">„ Az együtt töltött idő a legszebb ajándék. ”</p></header>
+<!------
 <section class="coming-soon" aria-label="Hamarosan">
         <div class="coming-line"></div>
         <h2>Hamarosan...</h2>
         <div class="coming-line"></div>
-      </section><!------
-<p class="update-note">Az utazási irodák folyamatosan töltik fel saját weboldalukra a <strong>2027 - es nyári ajánlataikat</strong>. Azok alapján fog frissülni folyamatosan ez a weboldal is. <strong>Nézz vissza később is, ne marad le a legjobb ajánlatokról! :)</strong><br><br><i><b>Utolsó frissítés: </b><strong style="color: red;">2026.09.11. 22:00 </i></strong></p>
+      </section>
+      --> <br>
+<p style="text-align: justify;">Az utazási irodák folyamatosan töltik fel saját weboldalukra a <strong>2027 - es nyári ajánlataikat</strong>. Azok alapján fog frissülni folyamatosan ez a weboldal is. <strong>Nézz vissza később is, ne marad le a legjobb ajánlatokról! :)</strong><br><br></p>
+<p class="update-note"><i><b>&nbsp;&nbsp;Utolsó frissítés: </b><strong style="color: red;">2026.09.12. 12:00 </i></strong></p>
+  <button class="update-log-btn" id="openUpdateLog" type="button">
+  🕘 Frissítési napló
+</button>
+<!-- FRISSÍTÉSI NAPLÓ MODAL -->
+<div class="update-modal" id="updateModal">
+
+  <div class="update-modal-box">
+
+    <button class="update-modal-close"
+            id="closeUpdateLog"
+            type="button"
+            aria-label="Bezárás">×</button>
+
+    <h2 class="update-modal-title">FRISSÍTÉSI NAPLÓ</h2>
+<div><b> </b></div>
+        <div class="update-entry">
+      <span class="update-date">2026.09.12. 12:00</span>
+      <p class="update-description" style="text-align: justify;">
+        A 2027-es <b>Zemplén Tourist és Atlaszt Travel</b> nyaralási ajánlataik elérhetővé váltak a <b>Törökországi desztinációba.</b> Hamarosan <b>további </b> ajánlatok is érkeznek a többi utazási irodától is.
+      </p>
+    </div>
+    <!-- RÉGEBBI FRISSÍTÉS -->
+     <div><b> </b></div>
+    <div class="update-entry">
+      <span class="update-date">2026.09.12. 12:00</span>
+      <p class="update-description" style="text-align: justify;">
+        A 2027-es <b>Zemplén Tourist és Atlaszt Travel</b> nyaralási ajánlataik elérhetővé váltak a <b>Törökországi </b> desztinációba. Hamarosan <b>további </b> ajánlatok is érkeznek a többi utazási irodától is.
+      </p>
+    </div>
+
+  </div>
+
+</div>
 <h2 class="agency-title">Utazási iroda választó</h2>
 <div class="agency-grid">
 <button class="agency-btn" type="button" data-agency="zemplen"><img src="zemplentouristlogo.png" alt="Zemplén Tour"><span>Zemplén Tourist</span></button>
-<!-----
-<button class="agency-btn" type="button" data-agency="soon"><img src="images/zakynthos.jpg" alt="Hamarosan új utazási iroda"><span>Hamarosan...</span></button>
------->
-</div><!------
-</section>
+<button class="agency-btn" type="button" data-agency="atlasz"><img src="atlasztravel.jpg" alt="Hamarosan új utazási iroda"><span>Atlasz Travel</span></button>
+<button class="agency-btn" type="button" data-agency="itaka"><img src="itakalogo.jpg" alt="Hamarosan új utazási iroda"><span>ITAKA</span></button>
+
 <article class="agency-card" id="zemplenCard">
 <div class="card-image"><img id="offerImage" src="zemplentouristlogo.png" alt="Zemplén Tour nyári ajánlat"></div>
 <div class="card-body">
@@ -332,7 +526,7 @@ h1{font-size:23px}
 <button class="country-tab" data-country="gorog">🇬🇷 Görögország</button>
 <button class="country-tab" data-country="ciprus">🇨🇾 Ciprus</button>
 ------->
-</div><!------
+</div>
 <h3 class="offer-title" id="offerTitle">Törökország</h3>
 <div class="offer-text" id="offerText">A mai nappal megnyitottuk a <strong>2027-es nyári szezon előfoglalási időszakát.</strong> Elsőként Törökország legnépszerűbb üdülőhelyeire hoztuk el előfoglalási ajánlatainkat, kedvező feltételekkel és számos extra előnnyel.<br><br>
 <strong>Előfoglalási kedvezmények</strong>
@@ -349,19 +543,185 @@ h1{font-size:23px}
 <li><strong>10% kedvezménykupon</strong> bizonyos fakultatív programokra.</li>
 </ol>
 A kedvezmények a <strong>2026. november 30-ig</strong> beérkezett foglalásokra érvényesek.</div>
-<a class="details-btn" id="detailsBtn" href="https://zemplentourist.hu/talalati-lista/torokorszag/wQxlG">Részletek ---&gt;</a>
+<a class="details-btn" id="detailsBtn" href="https://zemplentourist.hu/talalati-lista/torokorszag/wKviq">Ajánlatok ---&gt;</a>
 </div>
 </article>
+</div>
+</section> 
+
+<article class="agency-card" id="atlasz">
+<div class="card-image"><img id="offerImage" src="atlasztravel.jpg" alt="Zemplén Tour nyári ajánlat"></div>
+<div class="card-body">
+<h2 class="agency-name">Atlasz Travel</h2>
+<div class="country-tabs" aria-label="Ország választó">
+<button class="country-tab active" data-country="torok"><span class="tr-flag" aria-hidden="true"><span class="cut"></span></span>Törökország</button>
+<!----
+<button class="country-tab" data-country="gorog">🇬🇷 Görögország</button>
+<button class="country-tab" data-country="ciprus">🇨🇾 Ciprus</button>
+------->
+</div>
+<div class="offer-text">
+
+  <h3>🌴 ☀️ MEGÉRKEZETT A 2027-ES NYÁR! ✈️</h3>
+
+  <p><strong>🔥 ELINDULT A NYÁRI ELŐFOGLALÁS! 🔥</strong></p>
+
+  <p>
+    Még csak most ért véget a nyár, de mi már <strong>2027-re készülünk!</strong> 😍
+  </p>
+
+  <br>
+
+  <h3>💥 MIÉRT ÉRDEMES MOST LEFOGLALNI A 2027-ES NYARALÁST?</h3>
+
+  <p>
+    💰 <strong>Mindössze 40 000 Ft/fő első befizetés!</strong><br>
+    A következő részlet csak a foglalástól számított 60 napon belül
+    esedékes, a fennmaradó összeget pedig elég az indulás előtt
+    30 nappal rendezni.
+  </p>
+
+  <p>
+    🔒 <strong>ÁRRÖGZÍTÉS</strong><br>
+    A lefoglalt utazás árát később sem emelik meg az üzemanyagárak
+    vagy az árfolyamok változása miatt.
+  </p>
+
+  <p>
+    🎁 <strong>25 000 Ft értékű utazási utalvány</strong><br>
+    A promócióban véglegesített foglalások mellé egy következő
+    utazásra felhasználható utalvány is jár.
+  </p>
+
+  <p>
+    📱 <strong>INGYENES 5 GB eSIM</strong><br>
+    Minden utas részére, hogy a nyaralás alatt is egyszerűbb legyen
+    online maradni. 🌍
+  </p>
+
+  <p>
+    📸 <strong>20% CEWE kedvezmény</strong><br>
+    Hogy a nyaralás legjobb pillanataiból fotókönyv vagy más emlék
+    is készülhessen.
+  </p>
+
+  <p>
+    🩺 ⚖️ <strong>Travel Care</strong><br>
+    Prémium telefonos orvosi és jogi asszisztencia az utazást
+    megelőző és követő időszakban.
+  </p>
+
+  <p>
+    🔄 <strong>KORLÁTLAN DÍJMENTES MÓDOSÍTÁS</strong><br>
+    Az indulás előtti 30. napig akár többször is módosítható többek között:
+  </p>
+
+  <ul>
+    <li>✈️ az indulás időpontja</li>
+    <li>🌍 az úti cél</li>
+    <li>🏨 a szálloda</li>
+    <li>🛏️ a szobatípus</li>
+    <li>📅 az utazás időtartama</li>
+  </ul>
+
+  <br>
+
+  <p>
+    📅 <strong>Előfoglalási időszak:</strong>
+    2026.09.09–11.02.
+  </p>
+
+  <p>
+    ☀️ A promóció a <strong>2027.05.01–10.31.</strong> közötti nyári
+    utazásokra, valamint meghatározott 2027-es városlátogatásokra
+    és körutazásokra érvényes.
+  </p>
+
+</div>
+<a class="details-btn" id="detailsBtn" href="https://www.atlasztravel.hu/utazas-kereses/1?ci%5B0%5D=227&df=2027-07-15&dt=2027-09-10&uf=7&ut=16&ac=3&cc=1&rooms%5B0%5D=18%2C18%2C18%2C16&ti=1&ai%5B0%5D=18&ai%5B1%5D=19&ai%5B2%5D=24&pt=15000000&ca1=16&page=1">Ajánlatok ---&gt;</a>
+</div>
+</article>
+
+<article class="agency-card" id="itaka">
+<div class="card-image"><img id="offerImage" src="itakalogo.jpg" alt="Zemplén Tour nyári ajánlat"></div>
+<div class="card-body">
+<h2 class="agency-name">ITAKA</h2>
+
+<br><br>
+<section class="coming-soon" aria-label="Hamarosan">
+        <div class="coming-line"></div>
+        <h2>Hamarosan...</h2>
+        <div class="coming-line"></div>
+      </section>
+<!----
+<div class="country-tabs" aria-label="Ország választó">
+<button class="country-tab active" data-country="torok"><span class="tr-flag" aria-hidden="true"><span class="cut"></span></span>Törökország</button>
+
+<button class="country-tab" data-country="gorog">🇬🇷 Görögország</button>
+<button class="country-tab" data-country="ciprus">🇨🇾 Ciprus</button>
+
+</div>
+
+<a class="details-btn" id="detailsBtn" href="https://www.atlasztravel.hu/utazas-kereses/1?ci%5B0%5D=227&df=2027-07-15&dt=2027-09-10&uf=7&ut=16&ac=3&cc=1&rooms%5B0%5D=18%2C18%2C18%2C16&ti=1&ai%5B0%5D=18&ai%5B1%5D=19&ai%5B2%5D=24&pt=15000000&ca1=16&page=1">Ajánlatok ---&gt;</a>
+</div>
+------->
+</article>
+
 </main>
 <script>
 const card=document.getElementById('zemplenCard');
+const atlaszcard=document.getElementById('atlasz');
+const itakacard=document.getElementById('itaka');
 const data={
  torok:{title:'Törökország',html:'A mai nappal megnyitottuk a <strong>2027-es nyári szezon előfoglalási időszakát.</strong> Elsőként Törökország legnépszerűbb üdülőhelyeire hoztuk el előfoglalási ajánlatainkat, kedvező feltételekkel és számos extra előnnyel.<br><br><strong>Előfoglalási kedvezmények</strong><ol class="offer-list"><li>Akár <strong>45% kedvezmény</strong> az utazási csomagban foglalt hotelek árából.</li><li>Az <strong>útlemondási biztosítás</strong> az utazási csomag részét képezi.</li><li>Már <strong>20% előleggel</strong> foglalhatóak az utak.</li><li><strong>5% kedvezmény</strong> az utazási csomag alapárából.</li><li>Árgarancia <strong>10.000 Ft / fő</strong> díj ellenében.</li><li>Foglalásonként <strong>2 alkalommal díjmentes módosítás.</strong></li><li>Ingyenes privát transzfer meghatározott, magas kategóriájú szállodák esetén.</li><li>Ingyenes shopping-city túra az Antalya régióba utazók számára.</li><li><strong>10% kedvezmény</strong> a BBP biztosítás árából.</li><li><strong>10% kedvezménykupon</strong> bizonyos fakultatív programokra.</li></ol>A kedvezmények a <strong>2026. november 30-ig</strong> beérkezett foglalásokra érvényesek.',href:'torokorszag.html',img:'images/ciprus.jpg'},
  gorog:{title:'Görögország',text:'Görögország 2027-es nyári kínálatában szigetek, hangulatos tengerparti üdülőhelyek és családi nyaralások közül lehet majd választani. A részletes ajánlatok a Zemplén Tour frissítései alapján kerülnek fel.',href:'gorogorszag.html',img:'images/zakynthos.jpg'},
  ciprus:{title:'Ciprus',text:'Ciprus napsütéses tengerpartjai és mediterrán hangulata remek választás lehet a 2027-es nyárra. A konkrét szállások, időpontok és további részletek az iroda aktuális kínálata szerint frissülnek.',href:'ciprus.html',img:'images/ciprus.jpg'}
 };
-document.querySelectorAll('.agency-btn').forEach(btn=>btn.addEventListener('click',()=>{if(btn.dataset.agency==='zemplen'){card.classList.add('show');card.scrollIntoView({behavior:'smooth',block:'start'});}}));
-document.querySelectorAll('.country-tab').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.country-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const d=data[btn.dataset.country];document.getElementById('offerTitle').textContent=d.title;document.getElementById('offerText').innerHTML=d.html||d.text;document.getElementById('detailsBtn').href=d.href;document.getElementById('offerImage').src=d.img;document.getElementById('offerImage').alt=d.title+' nyári ajánlat';}));
+document.querySelectorAll('.agency-btn').forEach(btn=>btn.addEventListener('click',()=>{
+  card.classList.remove('show');
+  atlaszcard.classList.remove('show');
+  itakacard.classList.remove('show');
+
+  if(btn.dataset.agency==='zemplen'){
+    card.classList.add('show');
+    card.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  if(btn.dataset.agency==='atlasz'){
+    atlaszcard.classList.add('show');
+    atlaszcard.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+    if(btn.dataset.agency==='itaka'){
+    itakacard.classList.add('show');
+    itakacard.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+}));
+const updateModal = document.getElementById('updateModal');
+const openUpdateLog = document.getElementById('openUpdateLog');
+const closeUpdateLog = document.getElementById('closeUpdateLog');
+
+openUpdateLog.addEventListener('click', () => {
+  updateModal.classList.add('show');
+});
+
+closeUpdateLog.addEventListener('click', () => {
+  updateModal.classList.remove('show');
+});
+
+/* A sötét háttérre kattintva is bezáródik */
+updateModal.addEventListener('click', (e) => {
+  if(e.target === updateModal){
+    updateModal.classList.remove('show');
+  }
+});
+
+/* ESC billentyűvel is bezárható */
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape'){
+    updateModal.classList.remove('show');
+  }
+});
 </script>
+
 ------->
 </body></html>
