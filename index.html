@@ -1,65 +1,216 @@
 <!DOCTYPE html>
 <html lang="hu">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nyaraláskereső 2027</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nyaraláskereső 2027</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;color:#17324d;min-height:100vh;background:radial-gradient(circle at top left,#fff4cf 0%,transparent 34%),linear-gradient(135deg,#f3d7a4,#fffaf0)}
+.page{width:min(1040px,100%);margin:auto;padding:20px 16px 55px}
+.top-box{width:min(820px,100%);margin:0 auto 18px;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.95);border-radius:20px;padding:14px 16px 13px;box-shadow:0 12px 28px rgba(75,60,25,.12);text-align:left}
+.hero{text-align:left;padding:0}
+h1{margin-top:8px;font-size:clamp(25px,5vw,38px);font-weight:900;letter-spacing:-2px;background:linear-gradient(90deg,#087f8c,#00b8c8,#ffb703,#ff8c42,#087f8c);background-size:300% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:colors 5s linear infinite;text-align:left}
+.subtitle{margin-top:12px;font-size:clamp(15px,2.5vw,19px);font-style:italic;color:#566b73;text-align:justify;text-justify:inter-word;hyphens:auto}
+.update-note{margin-top:22px;max-width:850px;font-size:15px;line-height:1.65;color:#566b73;text-align:justify;text-justify:inter-word;hyphens:auto}.update-note strong{color:#087f8c}
+.agency-title{font-size:clamp(18px,3vw,23px);font-weight:900;margin:18px auto 9px;color:#087f8c;text-align:left;width:min(820px,100%)}
+.agency-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;width:min(820px,100%);margin:0 auto}
+.agency-btn{width:100%;height:76px;border:0;border-radius:15px;overflow:hidden;cursor:pointer;position:relative;background:#fff;box-shadow:0 14px 35px rgba(80,60,20,.13);transition:transform .3s ease,box-shadow .3s ease}.agency-btn:hover{transform:translateY(-6px);box-shadow:0 22px 42px rgba(75,60,25,.2)}.agency-btn img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}.agency-btn:hover img{transform:scale(1.06)}.agency-btn span{position:absolute;left:0;right:0;bottom:0;padding:7px 9px;color:#fff;font-weight:900;font-size:13px;text-align:left;background:linear-gradient(transparent,rgba(0,0,0,.72))}
+.agency-card{display:none;width:min(820px,100%);max-width:820px;margin:12px auto 0;background:rgba(255,255,255,.96);border-radius:25px;overflow:hidden;box-shadow:0 16px 38px rgba(75,60,25,.14);animation:cardIn .65s ease both}.agency-card.show{display:block}.card-image{height:150px;overflow:hidden;background:linear-gradient(135deg,#7ddfe9,#f4d28d)}.card-image img{width:100%;height:100%;object-fit:cover;display:block}.card-body{padding:15px}.agency-name{font-size:23px;color:#087f8c;margin-bottom:14px}.country-tabs{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px}.country-tab{border:1px solid rgba(8,127,140,.18);background:#e9f8f8;color:#087f8c;border-radius:999px;padding:9px 14px;font-weight:800;cursor:pointer;transition:.2s}.country-tab.active,.country-tab:hover{background:linear-gradient(135deg,#00b4c4,#087f8c);color:white}.offer-title{font-size:20px;color:#087f8c;margin-bottom:10px}.offer-text{font-size:14px;line-height:1.65;color:#60727b;margin-bottom:20px;text-align:justify;text-justify:inter-word;hyphens:auto}.details-btn{display:inline-block;text-decoration:none;color:white;font-weight:800;padding:12px 19px;border-radius:999px;background:linear-gradient(135deg,#00b4c4,#087f8c);box-shadow:0 8px 20px rgba(8,127,140,.28);transition:.25s}.details-btn:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 12px 24px rgba(8,127,140,.36)}
+.close-btn{position:absolute;top:10px;right:15px;text-decoration:none;font-size:24px;font-weight:700;color:#333;background:#f1f1f1;border:1px solid #ccc;border-radius:50%;width:35px;height:35px;display:flex;align-items:center;justify-content:center;transition:.3s}.close-btn:hover{background:#ff4d4d;color:#fff;border-color:#ff1a1a}
+@keyframes colors{from{background-position:0 center}to{background-position:300% center}}@keyframes cardIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:620px){
+.page{width:100%;padding:10px 10px 32px}
+.top-box,.agency-title,.agency-grid,.agency-card{width:100%;max-width:820px}
+.top-box{padding:12px 13px 11px;border-radius:17px}
+.hero{padding:0}
+h1{font-size:clamp(23px,7.5vw,31px);line-height:1.08;letter-spacing:-.5px;overflow-wrap:anywhere}
+.subtitle{font-size:13px;line-height:1.35;margin-top:7px;text-align:justify}
+.update-note{font-size:12px;line-height:1.4;margin-top:10px;text-align:justify}
+.agency-title{font-size:19px;margin-top:15px;margin-bottom:8px}
+.agency-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.agency-btn{height:68px;border-radius:13px}
+.agency-btn span{font-size:11.5px;padding:6px 7px}
+.agency-card{border-radius:18px;margin-top:10px}
+.card-image{height:130px}
+.card-body{padding:13px}
+.agency-name{font-size:21px;margin-bottom:10px}
+.country-tabs{gap:6px;margin-bottom:13px}
+.country-tab{font-size:12px;padding:7px 9px}
+.offer-title{font-size:18px}
+.offer-text{font-size:13px;line-height:1.5;margin-bottom:15px;text-align:justify}
+.details-btn{width:100%;text-align:center;padding:11px 14px;font-size:13px}
+}
+@media(max-width:460px){
+.page{padding-left:7px;padding-right:7px}
+.top-box,.agency-title,.agency-grid,.agency-card{width:calc(100vw - 14px);max-width:none}
+.agency-btn{height:61px}
+.agency-btn span{font-size:10.5px}
+h1{font-size:23px}
+}
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      color: #17324d;
-      min-height: 100vh;
-      background: radial-gradient(circle at top left, #fff4cf 0%, transparent 34%), linear-gradient(135deg, #f3d7a4, #fffaf0)
-    }
-
-    .page {
-      width: min(1040px, 100%);
-      margin: auto;
-      padding: 20px 16px 55px
-    }
-
-    .hero {
-      text-align: center;
-      padding: 30px 10px 24px
-    }
-
-    .sun {
-      font-size: 52px;
-      display: inline-block;
-      filter: drop-shadow(0 0 15px rgba(255, 183, 0, .5));
-      animation: sun 3s ease-in-out infinite
-    }
-
-    h1 {
-      margin-top: 8px;
-      font-size: clamp(36px, 6vw, 62px);
-      font-weight: 900;
-      letter-spacing: -2px;
-      background: linear-gradient(90deg, #087f8c, #00b8c8, #ffb703, #ff8c42, #087f8c);
-      background-size: 300% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: colors 5s linear infinite
-    }
-
-    .subtitle {
-      margin-top: 12px;
-      font-size: clamp(15px, 2.5vw, 19px);
-      font-style: italic;
-      color: #566b73
-    }
+@media (max-width: 620px){
+  body{overflow-x:hidden}
+  .page{width:100%;max-width:100%;padding-left:10px;padding-right:10px}
+  .top-box,.agency-title,.agency-grid,.agency-card{
+    width:100%;
+    max-width:100%;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .agency-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .agency-btn{min-width:0}
+  .country-tabs{width:100%}
+}
+@media (max-width: 360px){
+  .agency-grid{gap:5px}
+  .country-tab{font-size:11px;padding:7px 8px}
+}
 
 
-    /* Központi Hamarosan főfelirat */
-    .coming-soon {
+/* 16:9 arányú, reszponzív képek */
+.agency-btn{
+  height:auto !important;
+  aspect-ratio:16 / 9;
+}
+.agency-btn img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.card-image{
+  height:auto !important;
+  aspect-ratio:16 / 9;
+}
+.card-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* Mobilon a két irodakép továbbra is egymás mellett marad,
+   ezért természetesen kisebb 16:9-es bélyegképek lesznek. */
+@media(max-width:620px){
+  .agency-btn{
+    height:auto !important;
+    aspect-ratio:16 / 9;
+  }
+  .card-image{
+    height:auto !important;
+    aspect-ratio:16 / 9;
+  }
+}
+
+
+/* Jól olvasható ajánlati felsorolás */
+.offer-text ul,
+.offer-text ol,
+.offer-list{
+  margin:10px 0 14px 0;
+  padding-left:28px;
+  list-style-position:outside;
+}
+.offer-text li,
+.offer-list li{
+  padding-left:4px;
+  margin:4px 0;
+  line-height:1.45;
+}
+.offer-text{
+  overflow-wrap:anywhere;
+}
+
+/* A valódi török zászló megjelenítése CSS-ből, emoji helyett */
+.tr-flag{
+  display:inline-block;
+  width:22px;
+  aspect-ratio:3 / 2;
+  margin-right:7px;
+  vertical-align:-3px;
+  border-radius:2px;
+  background:#e30a17;
+  position:relative;
+  box-shadow:0 0 0 1px rgba(0,0,0,.08);
+}
+.tr-flag::before{
+  content:"";
+  position:absolute;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#fff;
+  left:5px;
+  top:4px;
+}
+.tr-flag::after{
+  content:"★";
+  position:absolute;
+  color:#fff;
+  font-size:7px;
+  line-height:1;
+  left:12px;
+  top:5px;
+  transform:rotate(8deg);
+}
+.tr-flag .cut{
+  position:absolute;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#e30a17;
+  left:8px;
+  top:5px;
+  z-index:2;
+}
+
+@media(max-width:620px){
+  .offer-text ul,
+  .offer-text ol,
+  .offer-list{
+    padding-left:25px;
+  }
+  .offer-text li,
+  .offer-list li{
+    padding-left:3px;
+  }
+}
+
+
+/* Magasabb országválasztó gombok – a zászló biztosan teljesen kifér */
+.country-tab{
+  min-height:48px;
+  padding:10px 16px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  line-height:1.2;
+  white-space:nowrap;
+  overflow:visible;
+}
+.country-tab .tr-flag{
+  flex:0 0 24px;
+  width:24px;
+  height:16px;
+  margin-right:0;
+  vertical-align:middle;
+  overflow:visible;
+}
+
+@media(max-width:620px){
+  .country-tab{
+    min-height:44px;
+    padding:9px 12px;
+    font-size:12px;
+  }
+  .country-tab .tr-flag{
+    flex-basis:22px;
+    width:22px;
+    height:15px;
+  }
+}
+.coming-soon {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -102,571 +253,70 @@
       }
     }
 
-    /* Egy soros, lenyíló szűrő */
-    .filter-dropdown {
-      max-width: 680px;
-      margin: 6px auto 28px;
-      position: relative
-    }
-
-    .filter-trigger {
-      width: 100%;
-      border: 1px solid rgba(255, 255, 255, .95);
-      cursor: pointer;
-      background: rgba(255, 255, 255, .94);
-      border-radius: 999px;
-      padding: 15px 54px 15px 22px;
-      box-shadow: 0 14px 35px rgba(80, 60, 20, .13);
-      color: #17324d;
-      font-size: 15px;
-      font-weight: 800;
-      text-align: left;
-      position: relative
-    }
-
-    .filter-trigger::after {
-      content: "⌄";
-      position: absolute;
-      right: 24px;
-      top: 50%;
-      transform: translateY(-55%);
-      font-size: 24px;
-      color: #087f8c;
-      transition: transform .25s ease
-    }
-
-    .filter-dropdown.open .filter-trigger::after {
-      transform: translateY(-45%) rotate(180deg)
-    }
-
-    .filter-menu {
-      position: absolute;
-      z-index: 20;
-      left: 0;
-      right: 0;
-      top: calc(100% + 10px);
-      background: rgba(255, 255, 255, .98);
-      border-radius: 24px;
-      padding: 9px;
-      box-shadow: 0 18px 42px rgba(55, 45, 25, .18);
-      border: 1px solid rgba(255, 255, 255, .95);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-8px) scale(.98);
-      transition: .2s ease
-    }
-
-    .filter-dropdown.open .filter-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0) scale(1)
-    }
-
-    .filter-option {
-      width: 100%;
-      border: 0;
-      background: transparent;
-      cursor: pointer;
-      text-align: left;
-      padding: 14px 16px;
-      border-radius: 16px;
-      font-size: 16px;
-      font-weight: 700;
-      color: #38525c;
-      transition: .18s ease
-    }
-
-    .filter-option:hover,
-    .filter-option.active {
-      background: #e9f8f8;
-      color: #087f8c
-    }
-
-    /* Kártyák */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      align-items: stretch
-    }
-
-    .cards.filtered {
-      grid-template-columns: minmax(0, 460px);
-      justify-content: center;
-    }
-
-    .cards.filtered .destination {
-      width: 100%;
-    }
-
-    .destination {
-      background: rgba(255, 255, 255, .96);
-      border-radius: 25px;
-      overflow: hidden;
-      box-shadow: 0 16px 38px rgba(75, 60, 25, .14);
-      display: flex;
-      flex-direction: column;
-      min-height: 100%;
-      transition: transform .3s ease, box-shadow .3s ease;
-      animation: cardIn .65s ease both
-    }
-
-    .destination:nth-child(2) {
-      animation-delay: .12s
-    }
-
-    .destination:nth-child(3) {
-      animation-delay: .24s
-    }
-
-    .destination:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 24px 48px rgba(75, 60, 25, .2)
-    }
-
-    .image-wrap {
-      height: 225px;
-      overflow: hidden;
-      position: relative;
-      background: linear-gradient(135deg, #7ddfe9, #f4d28d)
-    }
-
-    .destination img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform .6s ease
-    }
-
-    .destination:hover img {
-      transform: scale(1.07)
-    }
-
-    .image-wrap::after {
-      content: "";
-      position: absolute;
-      inset: auto 0 0;
-      height: 40%;
-      background: linear-gradient(transparent, rgba(0, 0, 0, .2));
-      pointer-events: none
-    }
-
-    .card-body {
-      padding: 20px 20px 22px;
-      display: flex;
-      flex-direction: column;
-      flex: 1
-    }
-
-    .card-body h2 {
-      font-size: 26px;
-      color: #087f8c;
-      margin-bottom: 12px
-    }
-
-    .card-body p {
-      font-size: 14px;
-      line-height: 1.65;
-      color: #60727b;
-      margin-bottom: 24px;
-      flex: 1;
-      text-align: justify;
-      text-justify: inter-word;
-      hyphens: auto
-    }
-
-    .details-btn {
-      align-self: flex-start;
-      text-decoration: none;
-      color: white;
-      font-weight: 800;
-      padding: 12px 19px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #00b4c4, #087f8c);
-      box-shadow: 0 8px 20px rgba(8, 127, 140, .28);
-      transition: .25s
-    }
-
-    .details-btn:hover {
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 12px 24px rgba(8, 127, 140, .36)
-    }
-
-    .no-result {
-      display: none;
-      grid-column: 1/-1;
-      text-align: center;
-      background: rgba(255, 255, 255, .85);
-      border-radius: 24px;
-      padding: 30px;
-      font-size: 18px;
-      color: #65767d
-    }
-
-    @keyframes colors {
-      from {
-        background-position: 0 center
-      }
-
-      to {
-        background-position: 300% center
-      }
-    }
-
-    @keyframes sun {
-
-      0%,
-      100% {
-        transform: rotate(-7deg) scale(1)
-      }
-
-      50% {
-        transform: rotate(7deg) scale(1.12)
-      }
-    }
-
-    @keyframes cardIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px)
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0)
-      }
-    }
-
-    @media(max-width:900px) {
-      .cards {
-        grid-template-columns: 1fr 1fr
-      }
-
-      .image-wrap {
-        height: 220px
-      }
-    }
-
-    @media(max-width:620px) {
-      .page {
-        padding: 14px 12px 45px
-      }
-
-      .hero {
-        padding: 26px 5px 23px
-      }
-
-      .sun {
-        font-size: 50px
-      }
-
-      .filter-dropdown {
-        margin-bottom: 24px
-      }
-
-      .cards {
-        grid-template-columns: 1fr;
-        gap: 20px
-      }
-
-      .coming-soon {
-        gap: 10px;
-        margin-bottom: 22px
-      }
-
-      .coming-line {
-        width: 45px
-      }
-
-      .image-wrap {
-        height: 215px
-      }
-
-      .card-body {
-        padding: 18px
-      }
-
-      .card-body h2 {
-        font-size: 24px
-      }
-
-      .card-body p {
-        font-size: 14px
-      }
-
-      .details-btn {
-        width: 100%;
-        text-align: center;
-        padding: 14px 18px
-      }
-    }
-
-    /* Extra mobil optimalizálás */
-    @media (max-width: 620px) {
-      body {
-        overflow-x: hidden
-      }
-
-      .page {
-        width: 100%;
-        padding: 12px 10px 38px
-      }
-
-      .hero {
-        padding: 22px 4px 20px
-      }
-
-      .sun {
-        font-size: 44px;
-        margin-bottom: 8px
-      }
-
-      h1 {
-        font-size: clamp(34px, 11vw, 48px);
-        letter-spacing: -1px;
-        line-height: 1.05
-      }
-
-      .subtitle {
-        font-size: 15px;
-        line-height: 1.45;
-        padding: 0 8px
-      }
-
-      .coming-soon {
-        margin: 0 auto 18px;
-        gap: 8px
-      }
-
-      .coming-soon h2 {
-        font-size: clamp(28px, 9vw, 38px)
-      }
-
-      .coming-line {
-        width: 32px
-      }
-
-      .filter-dropdown {
-        width: 100%;
-        max-width: none;
-        margin: 4px auto 22px
-      }
-
-      .filter-trigger {
-        padding: 14px 48px 14px 18px;
-        font-size: 15px
-      }
-
-      .filter-trigger::after {
-        right: 18px
-      }
-
-      .filter-menu {
-        top: calc(100% + 7px);
-        border-radius: 19px
-      }
-
-      .filter-option {
-        padding: 13px 14px;
-        font-size: 15px
-      }
-
-      .cards,
-      .cards.filtered {
-        grid-template-columns: 1fr;
-        width: 100%;
-        gap: 18px
-      }
-
-      .cards.filtered {
-        justify-content: stretch
-      }
-
-      .destination,
-      .cards.filtered .destination {
-        width: 100%;
-        max-width: 440px;
-        margin-left: auto;
-        margin-right: auto;
-        border-radius: 22px
-      }
-
-      .image-wrap {
-        height: 210px
-      }
-
-      .card-body {
-        padding: 18px
-      }
-
-      .card-body h2 {
-        font-size: 24px;
-        margin-bottom: 9px
-      }
-
-      .card-body p {
-        font-size: 14px;
-        line-height: 1.58;
-        margin-bottom: 19px;
-        text-align: justify;
-        text-justify: inter-word;
-        hyphens: auto
-      }
-
-      .details-btn {
-        width: 100%;
-        text-align: center;
-        padding: 13px 16px;
-        font-size: 14px
-      }
-    }
-
-    @media (max-width: 380px) {
-      .page {
-        padding-left: 8px;
-        padding-right: 8px
-      }
-
-      h1 {
-        font-size: 32px
-      }
-
-      .image-wrap {
-        height: 190px
-      }
-
-      .card-body {
-        padding: 16px
-      }
-
-      .card-body p {
-        font-size: 13.5px
-      }
-    }
-        .close-btn{position:absolute;top:10px;right:15px;text-decoration:none;font-size:24px;font-weight:700;color:#333;background:#f1f1f1;border:1px solid #ccc;border-radius:50%;width:35px;height:35px;display:flex;align-items:center;justify-content:center;transition:.3s}
-    .close-btn:hover{background:#ff4d4d;color:#fff;border-color:#ff1a1a}
-  </style>
+</style>
 </head>
-
 <body>
-  <a href="https://csaladiprogramok.github.io/vakaciovagyo/szamlalo.html" class="close-btn" aria-label="Vissza az akciókhoz">×</a> <br>
-  <main class="page">
-    <header class="hero">
-      <h1>NYARALÁSKERESŐ <br>2027</h1>
-      <p class="subtitle">„ Az együtt töltött idő a legszebb ajándék. ”</p>
-    </header>
+<a href="https://csaladiprogramok.github.io/vakaciovagyo/szamlalo.html" class="close-btn" aria-label="Vissza az akciókhoz">×</a>
+<br><br>
 
-    <div class="filter-dropdown" id="filterDropdown">
-      <button class="filter-trigger" id="filterTrigger" type="button" aria-expanded="false">
-        🔎 Összes úti cél
-      </button><br><br><br><br>
-
-      <section class="coming-soon" aria-label="Hamarosan">
+<main class="page">
+<section class="top-box">
+<header class="hero"><h1>NYARALÁSKERESŐ <br>2027</h1><p class="subtitle">„ Az együtt töltött idő a legszebb ajándék. ”</p></header>
+<br><br> 
+<section class="coming-soon" aria-label="Hamarosan">
         <div class="coming-line"></div>
         <h2>Hamarosan...</h2>
         <div class="coming-line"></div>
-      </section>
-
-      <!------
-    <div class="filter-menu" id="filterMenu">
-      <button class="filter-option active" type="button" data-place="all">Összes úti cél</button>
-      <button class="filter-option" type="button" data-place="ciprus">Ciprus</button>
-      <button class="filter-option" type="button" data-place="zakynthos">Zakynthos</button>
-      <button class="filter-option" type="button" data-place="kefalonia">Kefalónia</button>
-    </div>
-  </div>
-
-  <section class="cards" id="cards">
-    <article class="destination" data-place="ciprus">
-      <div class="image-wrap">
-        <img src="images/ciprus.jpg" alt="Ciprus tengerpartja">
-      </div>
-      <div class="card-body">
-        <h2>Ciprus</h2>
-        <p>
-          Ciprus a napsütés, a kristálytiszta Földközi-tenger és a hosszú, homokos partszakaszok világa.
-          A sziget remek választás, ha a strandolást hangulatos városokkal, mediterrán ételekkel és
-          közös kirándulásokkal szeretnétek összekötni. Egy igazán sokszínű úti cél pihenéshez és felfedezéshez.
-        </p>
-        <a class="details-btn" href="ciprus.html">Részletek →</a>
-      </div>
-    </article>
-
-    <article class="destination" data-place="zakynthos">
-      <div class="image-wrap">
-        <img src="images/zakynthos.jpg" alt="Zakynthos tengerpartja">
-      </div>
-      <div class="card-body">
-        <h2>Zakynthos</h2>
-        <p>
-          Zakynthos látványos öbleiről, türkizkék vizéről és jellegzetes görög hangulatáról ismert.
-          A sziget egyszerre kínál nyugodt strandokat, hajókirándulásokat és pezsgőbb üdülőhelyeket.
-          Ideális választás azoknak, akik egy klasszikus görög szigetnyaralást sok közös élménnyel képzelnek el.
-        </p>
-        <a class="details-btn" href="zakynthos.html">Részletek →</a>
-      </div>
-    </article>
-
-    <article class="destination" data-place="kefalonia">
-      <div class="image-wrap">
-        <img src="images/kefalonia.jpg" alt="Kefalónia tengerpartja">
-      </div>
-      <div class="card-body">
-        <h2>Kefalónia</h2>
-        <p>
-          Kefalónia lenyűgöző strandokkal, zöld hegyoldalakkal és hangulatos kis falvakkal vár.
-          Nyugodtabb szigetélményt kínál, miközben rengeteg felfedeznivaló akad a part mentén és a sziget belsejében is.
-          Különösen jó választás, ha természetközeli, romantikus és pihentető nyaralásra vágytok.
-        </p>
-        <a class="details-btn" href="kefalonia.html">Részletek →</a>
-      </div>
-    </article>
-
-    <div class="no-result" id="noResult">Erre a keresésre nincs találat. 🌴</div>
-  </section>
+      </section><!------
+<p class="update-note">Az utazási irodák folyamatosan töltik fel saját weboldalukra a <strong>2027 - es nyári ajánlataikat</strong>. Azok alapján fog frissülni folyamatosan ez a weboldal is. <strong>Nézz vissza később is, ne marad le a legjobb ajánlatokról! :)</strong><br><br><i><b>Utolsó frissítés: </b><strong style="color: red;">2026.09.11. 22:00 </i></strong></p>
+<h2 class="agency-title">Utazási iroda választó</h2>
+<div class="agency-grid">
+<button class="agency-btn" type="button" data-agency="zemplen"><img src="zemplentouristlogo.png" alt="Zemplén Tour"><span>Zemplén Tourist</span></button>
+<!-----
+<button class="agency-btn" type="button" data-agency="soon"><img src="images/zakynthos.jpg" alt="Hamarosan új utazási iroda"><span>Hamarosan...</span></button>
+------>
+</div><!------
+</section>
+<article class="agency-card" id="zemplenCard">
+<div class="card-image"><img id="offerImage" src="zemplentouristlogo.png" alt="Zemplén Tour nyári ajánlat"></div>
+<div class="card-body">
+<h2 class="agency-name">Zemplén Tourist</h2>
+<div class="country-tabs" aria-label="Ország választó">
+<button class="country-tab active" data-country="torok"><span class="tr-flag" aria-hidden="true"><span class="cut"></span></span>Törökország</button>
+<!----
+<button class="country-tab" data-country="gorog">🇬🇷 Görögország</button>
+<button class="country-tab" data-country="ciprus">🇨🇾 Ciprus</button>
+------->
+</div><!------
+<h3 class="offer-title" id="offerTitle">Törökország</h3>
+<div class="offer-text" id="offerText">A mai nappal megnyitottuk a <strong>2027-es nyári szezon előfoglalási időszakát.</strong> Elsőként Törökország legnépszerűbb üdülőhelyeire hoztuk el előfoglalási ajánlatainkat, kedvező feltételekkel és számos extra előnnyel.<br><br>
+<strong>Előfoglalási kedvezmények</strong>
+<ol class="offer-list">
+<li>Akár <strong>45% kedvezmény</strong> az utazási csomagban foglalt hotelek árából.</li>
+<li>Az <strong>útlemondási biztosítás</strong> az utazási csomag részét képezi.</li>
+<li>Már <strong>20% előleggel</strong> foglalhatóak az utak.</li>
+<li><strong>5% kedvezmény</strong> az utazási csomag alapárából.</li>
+<li>Árgarancia <strong>10.000 Ft / fő</strong> díj ellenében.</li>
+<li>Foglalásonként <strong>2 alkalommal díjmentes módosítás.</strong></li>
+<li>Ingyenes privát transzfer meghatározott, magas kategóriájú szállodák esetén.</li>
+<li>Ingyenes shopping-city túra az Antalya régióba utazók számára.</li>
+<li><strong>10% kedvezmény</strong> a BBP biztosítás árából.</li>
+<li><strong>10% kedvezménykupon</strong> bizonyos fakultatív programokra.</li>
+</ol>
+A kedvezmények a <strong>2026. november 30-ig</strong> beérkezett foglalásokra érvényesek.</div>
+<a class="details-btn" id="detailsBtn" href="https://zemplentourist.hu/talalati-lista/torokorszag/wQxlG">Részletek ---&gt;</a>
+</div>
+</article>
 </main>
------>
-      <script>
-        const dropdown = document.getElementById("filterDropdown");
-        const trigger = document.getElementById("filterTrigger");
-        const options = [...document.querySelectorAll(".filter-option")];
-        const cards = [...document.querySelectorAll(".destination")];
-        const cardsContainer = document.getElementById("cards");
-
-        trigger.addEventListener("click", () => {
-          const isOpen = dropdown.classList.toggle("open");
-          trigger.setAttribute("aria-expanded", isOpen);
-        });
-
-        options.forEach(option => {
-          option.addEventListener("click", () => {
-            const place = option.dataset.place;
-            trigger.textContent = "🔎 " + option.textContent;
-
-            options.forEach(item => item.classList.remove("active"));
-            option.classList.add("active");
-
-            cards.forEach(card => {
-              card.style.display =
-                place === "all" || card.dataset.place === place ? "" : "none";
-            });
-
-            /* Szűréskor az egyetlen találat középre kerül */
-            cardsContainer.classList.toggle("filtered", place !== "all");
-
-            dropdown.classList.remove("open");
-            trigger.setAttribute("aria-expanded", "false");
-          });
-        });
-
-        document.addEventListener("click", event => {
-          if (!dropdown.contains(event.target)) {
-            dropdown.classList.remove("open");
-            trigger.setAttribute("aria-expanded", "false");
-          }
-        });
-      </script>
-</body>
-
-</html>
+<script>
+const card=document.getElementById('zemplenCard');
+const data={
+ torok:{title:'Törökország',html:'A mai nappal megnyitottuk a <strong>2027-es nyári szezon előfoglalási időszakát.</strong> Elsőként Törökország legnépszerűbb üdülőhelyeire hoztuk el előfoglalási ajánlatainkat, kedvező feltételekkel és számos extra előnnyel.<br><br><strong>Előfoglalási kedvezmények</strong><ol class="offer-list"><li>Akár <strong>45% kedvezmény</strong> az utazási csomagban foglalt hotelek árából.</li><li>Az <strong>útlemondási biztosítás</strong> az utazási csomag részét képezi.</li><li>Már <strong>20% előleggel</strong> foglalhatóak az utak.</li><li><strong>5% kedvezmény</strong> az utazási csomag alapárából.</li><li>Árgarancia <strong>10.000 Ft / fő</strong> díj ellenében.</li><li>Foglalásonként <strong>2 alkalommal díjmentes módosítás.</strong></li><li>Ingyenes privát transzfer meghatározott, magas kategóriájú szállodák esetén.</li><li>Ingyenes shopping-city túra az Antalya régióba utazók számára.</li><li><strong>10% kedvezmény</strong> a BBP biztosítás árából.</li><li><strong>10% kedvezménykupon</strong> bizonyos fakultatív programokra.</li></ol>A kedvezmények a <strong>2026. november 30-ig</strong> beérkezett foglalásokra érvényesek.',href:'torokorszag.html',img:'images/ciprus.jpg'},
+ gorog:{title:'Görögország',text:'Görögország 2027-es nyári kínálatában szigetek, hangulatos tengerparti üdülőhelyek és családi nyaralások közül lehet majd választani. A részletes ajánlatok a Zemplén Tour frissítései alapján kerülnek fel.',href:'gorogorszag.html',img:'images/zakynthos.jpg'},
+ ciprus:{title:'Ciprus',text:'Ciprus napsütéses tengerpartjai és mediterrán hangulata remek választás lehet a 2027-es nyárra. A konkrét szállások, időpontok és további részletek az iroda aktuális kínálata szerint frissülnek.',href:'ciprus.html',img:'images/ciprus.jpg'}
+};
+document.querySelectorAll('.agency-btn').forEach(btn=>btn.addEventListener('click',()=>{if(btn.dataset.agency==='zemplen'){card.classList.add('show');card.scrollIntoView({behavior:'smooth',block:'start'});}}));
+document.querySelectorAll('.country-tab').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.country-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const d=data[btn.dataset.country];document.getElementById('offerTitle').textContent=d.title;document.getElementById('offerText').innerHTML=d.html||d.text;document.getElementById('detailsBtn').href=d.href;document.getElementById('offerImage').src=d.img;document.getElementById('offerImage').alt=d.title+' nyári ajánlat';}));
+</script>
+------->
+</body></html>
