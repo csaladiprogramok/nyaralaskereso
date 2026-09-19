@@ -562,7 +562,7 @@ h1{font-size:23px}
   #kozlemeny-ok {
     border: 0;
     border-radius: 10px;
-    background: #198754;
+    background: green;
     color: #ffffff;
     padding: 14px 35px;
     font-size: 17px;
@@ -574,7 +574,7 @@ h1{font-size:23px}
   }
 
   #kozlemeny-ok:hover {
-    background: #146c43;
+    background: green;
     transform: translateY(-2px);
     box-shadow: 0 7px 18px rgba(25, 135, 84, 0.3);
   }
@@ -668,6 +668,131 @@ h1{font-size:23px}
       padding: 14px 20px;
     }
   }
+  /* ===== KÖZLEMÉNY – 16:9 KÉP ===== */
+
+.kozlemeny-kep {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 14px;
+  margin: 0 auto 22px;
+  background: #f3f3f3;
+  box-shadow: 0 8px 22px rgba(0,0,0,.13);
+}
+
+.kozlemeny-kep img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+/* ===== ELŐFOGLALÁSI AJÁNLATOK CÍM ===== */
+
+.kozlemeny-alcim {
+  margin: 5px 0 14px;
+  color: #087f8c;
+  font-size: 18px;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: .3px;
+}
+
+
+/* ===== NAPLÓSTÍLUSÚ GOMBOK ===== */
+
+.kozlemeny-ajanlatok {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  margin: 0 auto 24px;
+}
+
+.kozlemeny-ajanlat-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 8px 13px;
+
+  border: 1px solid rgba(8,127,140,.18);
+  border-radius: 999px;
+
+  background: rgba(255,255,255,.82);
+  color: #087f8c;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  text-decoration: none;
+
+  box-shadow: 0 5px 14px rgba(75,60,25,.10);
+
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    box-shadow .25s ease;
+}
+
+.kozlemeny-ajanlat-btn:hover {
+  transform: translateY(-2px);
+  background: #e9f8f8;
+  box-shadow: 0 8px 18px rgba(8,127,140,.16);
+}
+
+
+/* ===== RENDBEN GOMB ELVÁLASZTÁSA ===== */
+
+#kozlemeny-ok {
+  margin-top: 2px;
+}
+
+
+/* ===== MOBIL ===== */
+
+@media (max-width: 600px) {
+
+  .kozlemeny-kep {
+    border-radius: 11px;
+    margin-bottom: 18px;
+  }
+
+  .kozlemeny-alcim {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .kozlemeny-ajanlatok {
+    gap: 7px;
+    margin-bottom: 20px;
+  }
+
+  .kozlemeny-ajanlat-btn {
+    font-size: 11px;
+    padding: 8px 10px;
+  }
+}
+
+
+/* Nagyon keskeny mobilokon is egymás mellett maradjanak,
+   amíg fizikailag elférnek */
+
+@media (max-width: 390px) {
+
+  .kozlemeny-ajanlatok {
+    gap: 5px;
+  }
+
+  .kozlemeny-ajanlat-btn {
+    font-size: 10px;
+    padding: 7px 8px;
+  }
+}
 </style>
 
 </head>
@@ -695,7 +820,7 @@ h1{font-size:23px}
 </button>
 <br><br><hr>
 <button class="update-log-btn" id="openAgencyOffers" type="button">
-  ✈️ ELŐFOGLALÁSI AKCIÓK
+  ✈️ ELŐFOGLALÁSI AJÁNLATOK
 </button> <br><br><hr>
 <div class="update-modal" id="updateModal">
 
@@ -737,13 +862,34 @@ h1{font-size:23px}
 
     <h2>📢 KÖZLEMÉNY 📢</h2>
 
-    <p>
-      Az oldalon a <strong>Zemplén Tourist</strong>,
-      <strong>ITAKA</strong> és az <strong>Atlasz Travel</strong>
-      utazási irodák előfoglalási ajánlataik jelenleg többnyire
-      <span class="kozlemeny-datum">2026 október és november végéig</span>
-      <b>érvényesek!</b> <br><br> <b><i>További részletek az előfoglalási akciók menüpont alatt!</i></b>
-    </p>
+    <!-- 16:9-es kép -->
+    <div class="kozlemeny-kep">
+      <img src="ajanlatokervenyessege.png" alt="Előfoglalási ajánlatok 2027">
+    </div>
+
+    <h3 class="kozlemeny-alcim">
+      ELŐFOGLALÁSI AJÁNLATOK
+    </h3>
+
+    <!-- Naplóstílusú gombok -->
+    <div class="kozlemeny-ajanlatok">
+
+            <a class="kozlemeny-ajanlat-btn"
+         href="https://drive.google.com/file/d/1i01HTJUKwZkxu4DeZETbLeDuw0kkPslY/view?usp=sharing">
+        ITAKA
+      </a>
+      
+      <a class="kozlemeny-ajanlat-btn"
+         href="https://drive.google.com/file/d/1Y5ZkjjkZCfxTR_xuqD6Hmd-PnIuhXYd9/view?usp=sharing">
+        ZEMPLÉN TOURIST
+      </a>
+
+      <a class="kozlemeny-ajanlat-btn"
+         href="https://drive.google.com/file/d/16XcG55Wc82t_-y52iGfdlaBbp8uVahjv/view?usp=sharing">
+        ATLASZ TRAVEL
+      </a>
+
+    </div>
 
     <button id="kozlemeny-ok"
             type="button"
@@ -1061,14 +1207,19 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-const agencyOffersModal=document.getElementById('agencyOffersModal');
-const openAgencyOffers=document.getElementById('openAgencyOffers');
-const closeAgencyOffers=document.getElementById('closeAgencyOffers');
-openAgencyOffers.addEventListener('click',()=>agencyOffersModal.classList.add('show'));
-closeAgencyOffers.addEventListener('click',()=>agencyOffersModal.classList.remove('show'));
-agencyOffersModal.addEventListener('click',e=>{if(e.target===agencyOffersModal)agencyOffersModal.classList.remove('show');});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')agencyOffersModal.classList.remove('show');});
+const openAgencyOffers = document.getElementById('openAgencyOffers');
 
+openAgencyOffers.addEventListener('click', () => {
+
+  const overlay = document.getElementById('kozlemeny-overlay');
+
+  // Bezárási animáció osztály törlése
+  overlay.classList.remove('bezaras');
+
+  // Ablak ismételt megjelenítése
+  overlay.style.display = 'flex';
+
+});
 const choiceModal=document.getElementById('choiceModal');
 const choiceModalTitle=document.getElementById('choiceModalTitle');
 const choiceModalContent=document.getElementById('choiceModalContent');
