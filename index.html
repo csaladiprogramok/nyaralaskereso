@@ -796,6 +796,258 @@ h1{font-size:23px}
     padding: 7px 8px;
   }
 }
+
+
+/* ===== KEDVEZMÉNYES AJÁNLATOK – külön modal ===== */
+.kozlemeny-actions{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+#kedvezmenyes-open{border:0;border-radius:12px;padding:14px 22px;min-width:210px;cursor:pointer;color:#fff;font-size:15px;font-weight:900;letter-spacing:.2px;background:linear-gradient(135deg,#ff8c42,#ffb703);box-shadow:0 8px 22px rgba(255,140,66,.28);transition:transform .2s ease,box-shadow .2s ease,filter .2s ease}
+#kedvezmenyes-open:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(255,140,66,.36);filter:saturate(1.08)}
+#kedvezmenyes-open:active{transform:scale(.97)}
+#kedvezmenyes-modal{display:none;position:fixed;inset:0;z-index:1000000;padding:18px;background:rgba(23,50,77,.58);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);align-items:center;justify-content:center}
+#kedvezmenyes-modal.show{display:flex}
+.kedvezmenyes-box{position:relative;width:min(820px,100%);max-height:90vh;overflow-y:auto;background:#fff;border-radius:22px;padding:20px;box-shadow:0 24px 70px rgba(23,50,77,.32);animation:updateModalIn .3s ease}
+.kedvezmenyes-close{position:sticky;float:right;top:0;z-index:3;width:34px;height:34px;border:0;border-radius:50%;background:#f1f1f1;color:#566b73;font-size:21px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.kedvezmenyes-close:hover{background:#ff4d4d;color:#fff}
+.kedvezmenyes-title{margin:3px 48px 7px 0;font-size:clamp(22px,4vw,29px);font-weight:900;color:#087f8c}
+.kedvezmenyes-lead{margin:0 0 16px;color:#60727b;font-size:14px;line-height:1.5}
+.kedvezmenyes-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.kedvezmenyes-card{display:block;position:relative;aspect-ratio:16/9;border-radius:15px;overflow:hidden;text-decoration:none;background:#fff;box-shadow:0 10px 25px rgba(75,60,25,.14);transition:transform .25s ease,box-shadow .25s ease}
+.kedvezmenyes-card:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(75,60,25,.20)}
+.kedvezmenyes-card img{width:100%;height:100%;object-fit:cover;display:block}
+.kedvezmenyes-card span{position:absolute;left:0;right:0;bottom:0;padding:10px;color:#fff;font-weight:900;font-size:13px;text-align:left;background:linear-gradient(transparent,rgba(0,0,0,.82))}
+@media(max-width:600px){.kozlemeny-actions{flex-direction:column}.kozlemeny-actions #kedvezmenyes-open{order:1;width:100%;font-size:14px;padding:13px 16px}.kozlemeny-actions #kozlemeny-ok{order:2;width:100%}.kedvezmenyes-box{padding:14px;border-radius:19px}.kedvezmenyes-title{font-size:21px}.kedvezmenyes-lead{font-size:13px}.kedvezmenyes-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.kedvezmenyes-card span{font-size:11.5px;padding:7px}}
+@media(max-width:360px){.kedvezmenyes-grid{grid-template-columns:1fr}}
+
+</style>
+
+
+<style>
+/* Kedvezményes ajánlat gombok – kompakt asztalon, egymás alatt mobilon */
+.kedvezmenyes-trigger{border:0;border-radius:11px;padding:8px 12px;min-width:0;cursor:pointer;color:#fff;font-size:11px;font-weight:900;letter-spacing:.15px;background:linear-gradient(135deg,#ff8c42,#ffb703);box-shadow:0 6px 16px rgba(255,140,66,.24);transition:transform .2s ease,box-shadow .2s ease,filter .2s ease}
+.kedvezmenyes-trigger:hover{transform:translateY(-2px);box-shadow:0 9px 20px rgba(255,140,66,.32);filter:saturate(1.08)}
+.kedvezmenyes-trigger:active{transform:scale(.97)}
+.kozlemeny-actions{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:nowrap}
+#page-action-buttons{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+#page-action-buttons .update-log-btn{margin-top:0}
+@media(max-width:600px){
+ .kozlemeny-actions{flex-direction:column;gap:8px}
+ .kozlemeny-actions .kedvezmenyes-trigger{order:1;width:auto;max-width:230px;font-size:11px;padding:9px 12px}
+ .kozlemeny-actions #kozlemeny-ok{order:2;width:100%}
+ #page-action-buttons{display:flex;flex-direction:column;align-items:stretch;gap:8px;margin-bottom:18px}
+ #page-action-buttons .update-log-btn,#page-action-buttons .kedvezmenyes-trigger{width:100%;margin:0;text-align:center;justify-content:center}
+}
+</style>
+
+<style>
+/* Előfoglalási közlemény modal – kisebb Kedvezményes ajánlatok gomb */
+#kozlemeny-box #kedvezmenyes-open{
+  padding:7px 10px !important;
+  min-width:0 !important;
+  width:auto !important;
+  max-width:none !important;
+  font-size:10.5px !important;
+  border-radius:10px !important;
+  line-height:1.2;
+}
+@media(max-width:600px){
+  #kozlemeny-box .kozlemeny-actions #kedvezmenyes-open{
+    width:auto !important;
+    max-width:205px !important;
+    padding:8px 10px !important;
+    font-size:10.5px !important;
+  }
+}
+</style>
+
+<style>
+/* Közlemény modal: a kompakt Kedvezményes ajánlatok gomb mindig a Rendben felett */
+#kozlemeny-box .kozlemeny-actions{
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:9px !important;
+}
+#kozlemeny-box #kedvezmenyes-open{
+  order:1 !important;
+  width:auto !important;
+  min-width:0 !important;
+  max-width:205px !important;
+  padding:8px 10px !important;
+  font-size:10.5px !important;
+  border-radius:10px !important;
+  line-height:1.2 !important;
+}
+#kozlemeny-box #kozlemeny-ok{
+  order:2 !important;
+}
+</style>
+
+<style>
+/* Előfoglalási akciók modal – 3 egyforma utazási iroda gomb */
+.agency-offer-buttons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;width:100%}
+.agency-offer-btn{display:flex;align-items:center;justify-content:center;min-width:0;min-height:48px;padding:10px 8px;border:1px solid rgba(8,127,140,.18);border-radius:12px;background:linear-gradient(135deg,#00b4c4,#087f8c);color:#fff;text-decoration:none;text-align:center;font-size:12px;font-weight:900;box-shadow:0 7px 18px rgba(8,127,140,.20);transition:.2s}
+.agency-offer-btn:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(8,127,140,.28)}
+#openAgencyOffersNotice{font-family:inherit;cursor:pointer}
+@media(max-width:600px){.agency-offer-buttons{grid-template-columns:1fr}.agency-offer-btn{width:100%;min-height:44px}}
+</style>
+
+<style>
+/* Közlemény modal: Előfoglalási és Kedvezményes gomb teljesen azonos stílusban */
+#kozlemeny-box .kozlemeny-actions{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:8px !important;
+}
+#kozlemeny-box .notice-offer-btn{
+  appearance:none !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:205px !important;
+  min-width:205px !important;
+  max-width:205px !important;
+  min-height:34px !important;
+  margin:0 !important;
+  padding:8px 10px !important;
+  border:0 !important;
+  border-radius:10px !important;
+  background:linear-gradient(135deg,#ff8c42,#ffb703) !important;
+  color:#fff !important;
+  font-family:inherit !important;
+  font-size:10.5px !important;
+  font-weight:900 !important;
+  line-height:1.2 !important;
+  letter-spacing:.15px !important;
+  text-align:center !important;
+  cursor:pointer !important;
+  box-shadow:0 6px 16px rgba(255,140,66,.24) !important;
+  transition:transform .2s ease,box-shadow .2s ease,filter .2s ease !important;
+}
+#kozlemeny-box .notice-offer-btn:hover{
+  transform:translateY(-2px) !important;
+  box-shadow:0 9px 20px rgba(255,140,66,.32) !important;
+  filter:saturate(1.08) !important;
+}
+#kozlemeny-box .notice-offer-btn:active{transform:scale(.97) !important}
+#kozlemeny-box #kozlemeny-ok{margin-top:2px !important}
+@media(max-width:600px){
+  #kozlemeny-box .notice-offer-btn{
+    width:205px !important;
+    min-width:205px !important;
+    max-width:205px !important;
+    min-height:34px !important;
+    padding:8px 10px !important;
+    font-size:10.5px !important;
+  }
+}
+</style>
+
+<style>
+/* Közlemény: az Előfoglalási és Kedvezményes gomb felirata mindig egy sorban */
+#kozlemeny-box .kozlemeny-actions button,
+#kozlemeny-box .kozlemeny-actions a,
+#kozlemeny-box #kedvezmenyes-open,
+#kozlemeny-box #elofoglalasi-open {
+  white-space: nowrap !important;
+  width: auto !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  font-size: 10.5px !important;
+  padding: 8px 10px !important;
+}
+@media(max-width:600px){
+  #kozlemeny-box .kozlemeny-actions button,
+  #kozlemeny-box .kozlemeny-actions a,
+  #kozlemeny-box #kedvezmenyes-open,
+  #kozlemeny-box #elofoglalasi-open {
+    white-space: nowrap !important;
+    width: auto !important;
+    max-width: none !important;
+    font-size: 10px !important;
+    padding: 8px 9px !important;
+  }
+}
+</style>
+
+
+<style>
+/* Közlemény modal: Rendben gomb teljes szélességű */
+#kozlemeny-box #kozlemeny-ok{
+  display:block !important;
+  width:100% !important;
+  max-width:none !important;
+  box-sizing:border-box !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
+}
+#kozlemeny-box .kozlemeny-actions{
+  width:100% !important;
+}
+</style>
+
+
+<style>
+/* Közlemény modal: nagyobb, vastagabb Rendben gomb */
+#kozlemeny-box #kozlemeny-ok{
+  width:100% !important;
+  min-height:58px !important;
+  padding:17px 24px !important;
+  font-size:18px !important;
+  font-weight:900 !important;
+  border-radius:12px !important;
+  line-height:1.2 !important;
+}
+@media(max-width:600px){
+  #kozlemeny-box #kozlemeny-ok{
+    min-height:56px !important;
+    padding:16px 20px !important;
+    font-size:17px !important;
+  }
+}
+</style>
+
+
+<style>
+/* Közlemény modal: a két felső akciógomb is teljes szélességű */
+#kozlemeny-box .kozlemeny-actions{
+  width:100% !important;
+  align-items:stretch !important;
+}
+#kozlemeny-box #elofoglalasi-open,
+#kozlemeny-box #kedvezmenyes-open{
+  display:flex !important;
+  width:100% !important;
+  max-width:none !important;
+  box-sizing:border-box !important;
+  justify-content:center !important;
+  align-items:center !important;
+  white-space:nowrap !important;
+}
+/* A Rendben gomb korábbi nagyobb magassága változatlan marad. */
+</style>
+
+
+<style>
+/* Közlemény modal: a két felső gomb pontosan azonos, teljes szélességű */
+#kozlemeny-box .kozlemeny-actions{
+  width:100% !important;
+  align-items:stretch !important;
+}
+#kozlemeny-box #elofoglalasi-open,
+#kozlemeny-box #kedvezmenyes-open{
+  display:flex !important;
+  flex:0 0 auto !important;
+  width:100% !important;
+  min-width:100% !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+  justify-content:center !important;
+  align-items:center !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
+}
 </style>
 
 </head>
@@ -816,15 +1068,21 @@ h1{font-size:23px}
 <p style="text-align: justify;">Az utazási irodák folyamatosan töltik fel saját weboldalukra a <strong>2027 - es nyári ajánlataikat</strong>. Azok alapján fog frissülni folyamatosan ez a weboldal is. <strong>Nézz vissza később is, ne marad le a legjobb ajánlatokról! :)</strong><br><br> Az <b>Országválasztóban</b> elérheted a különböző <b>utazási irodák</b> folyamatosan frissülő ajánlataikat!</b></p>
 
 <br><hr>
-<p class="update-note"><i><b>&nbsp;&nbsp;Utolsó frissítés: </b><strong style="color: red;">2026.09.19. 23:00 </i></strong></p>
+<p class="update-note"><i><b>&nbsp;&nbsp;Utolsó frissítés: </b><strong style="color: red;">2026.09.24. 23:00 </i></strong></p>
 
 <button class="update-log-btn" id="openUpdateLog" type="button">
   🕘 FRISSÍTÉSI NAPLÓ
 </button>
-<br><br><hr>
-<button class="update-log-btn" id="openAgencyOffers" type="button">
-  ✈️ ELŐFOGLALÁSI AJÁNLATOK
-</button> <br><br><hr>
+<br><br><hr><br>
+<div id="page-action-buttons">
+  <button class="update-log-btn" id="openAgencyOffers" type="button">
+    ✈️ ELŐFOGLALÁSI AJÁNLATOK
+  </button>
+  <button class="kedvezmenyes-trigger" id="kedvezmenyes-open-page" type="button">
+    💰 KEDVEZMÉNYES AJÁNLATOK
+  </button>
+</div>
+<hr>
 <div class="update-modal" id="updateModal">
 
   <div class="update-modal-box">
@@ -839,14 +1097,19 @@ h1{font-size:23px}
 
     
     <div class="update-entry">
-      <span class="update-date">Aktuális: 2026.09.19. 23:00</span>
+      <span class="update-date">Aktuális: 2026.09.24. 23:00</span>
+      <p class="update-description" style="text-align: justify;">
+        <b>Elérhetővé</b> váltak egy külön <b>KEDVEZMÉNYES AJÁNLATOK</b> című menüpont alá azok az utak, desztinációk közül, amelyek során a szállás <b>kiemelten jó helyen van, félpanzízós</b> és a <b>teljes összeg 1 millió Ft körül mozog.</b></p>
+    </div>
+<div><b> </b></div>
+
+         <div class="update-entry">
+      <span class="update-date">2026.09.19. 23:00</span>
       <p class="update-description" style="text-align: justify;">
         <b>Elérhetővé </b>vált egy újabb desztináció <b>Málta</b> és elérhető egy újabb funkció amelynek segítségével <b>megnézheted</b>
-a különböző desztinációk <b>látnivalóikat!</b>      </p>
+a különböző desztinációk <b>látnivalóikat!</b></p>
     </div>
-
-
-     <div><b> </b></div>
+    <div><b> </b></div>
     <div class="update-entry">
           <div class="update-entry">
       <span class="update-date">2026.09.18. 18:00</span>
@@ -854,11 +1117,13 @@ a különböző desztinációk <b>látnivalóikat!</b>      </p>
         Elérhetővé vált újabb <b>három desztináció</b> amelyből az egyik <b>Thasos szigete</b> a másik pedig <b>Olaszország </b>régiói. A harmadik pedig a <b>spanyol riviéra.</b> Nézd meg őket!
       </p>
     </div>
+    <div><b> </b></div>
       <span class="update-date">2026.09.12. 18:00</span>
       <p class="update-description" style="text-align: justify;">
         A 2027-es <b>Zemplén Tourist és Atlaszt Travel</b> nyaralási ajánlataik elérhetővé váltak a <b>Törökországi </b> desztinációba. Hamarosan <b>további </b> ajánlatok is érkeznek a többi utazási irodától is.
       </p>
     </div>
+    <div><b> </b></div>
 
   </div>
 
@@ -876,50 +1141,49 @@ a különböző desztinációk <b>látnivalóikat!</b>      </p>
       <img src="ajanlatokervenyessege.png" alt="Előfoglalási ajánlatok 2027">
     </div>
 
-    <h3 class="kozlemeny-alcim">
-      ELŐFOGLALÁSI AJÁNLATOK
-    </h3>
-
-    <!-- Naplóstílusú gombok -->
-    <div class="kozlemeny-ajanlatok">
-
-            <a class="kozlemeny-ajanlat-btn"
-         href="https://drive.google.com/file/d/1i01HTJUKwZkxu4DeZETbLeDuw0kkPslY/view?usp=sharing">
-        ITAKA
-      </a>
-      
-      <a class="kozlemeny-ajanlat-btn"
-         href="https://drive.google.com/file/d/1Y5ZkjjkZCfxTR_xuqD6Hmd-PnIuhXYd9/view?usp=sharing">
-        ZEMPLÉN TOURIST
-      </a>
-
-      <a class="kozlemeny-ajanlat-btn"
-         href="https://drive.google.com/file/d/16XcG55Wc82t_-y52iGfdlaBbp8uVahjv/view?usp=sharing">
-        ATLASZ TRAVEL
-      </a>
-
+    <div class="kozlemeny-actions">
+      <button class="notice-offer-btn" id="openAgencyOffersNotice" type="button">✈️ ELŐFOGLALÁSI AKCIÓK</button>
+      <button id="kedvezmenyes-open" class="notice-offer-btn" type="button">💰 KEDVEZMÉNYES AJÁNLATOK</button>
+      <button id="kozlemeny-ok"
+              type="button"
+              onclick="kozlemenyBezaras()">
+        Rendben
+      </button>
     </div>
-
-    <button id="kozlemeny-ok"
-            type="button"
-            onclick="kozlemenyBezaras()">
-      Rendben
-    </button>
 
   </div>
 
 </div>
 
 
-<div class="update-modal" id="agencyOffersModal">
+<!-- KEDVEZMÉNYES AJÁNLATOK MODAL -->
+<div id="kedvezmenyes-modal" aria-hidden="true">
+  <div class="kedvezmenyes-box" role="dialog" aria-modal="true" aria-labelledby="kedvezmenyes-title">
+    <button class="kedvezmenyes-close" id="kedvezmenyes-close" type="button" aria-label="Bezárás">×</button>
+    <h2 class="kedvezmenyes-title" id="kedvezmenyes-title">KEDVEZMÉNYES AJÁNLATOK</h2>
+    <p class="kedvezmenyes-lead">Válassz az aktuális kedvezményes nyaralási ajánlatok közül!</p>
+    <div class="kedvezmenyes-grid">
+      <a class="kedvezmenyes-card" href="malta_latnivalok.html">
+        <img src="maltalogo.webp" alt="Málta kedvezményes ajánlatok">
+        <span>Málta – kedvezményes ajánlatok</span>
+      </a>
+      <a class="kedvezmenyes-card" href="thassos_latnivalok.html">
+        <img src="thasoslogo.jpg" alt="Thasos kedvezményes ajánlatok">
+        <span>Thasos – kedvezményes ajánlatok</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<div class="update-modal" id="agencyOffersModal" aria-hidden="true">
   <div class="update-modal-box">
     <button class="update-modal-close" id="closeAgencyOffers" type="button" aria-label="Bezárás">×</button>
     <h2 class="update-modal-title">ELŐFOGLALÁSI AKCIÓK</h2>
-    <div style="display:flex;flex-wrap:wrap;gap:8px;">
-      <a class="details-btn" href="https://drive.google.com/file/d/1EKDczZYqhiVHc9GAtNZV8-PwI5BNmkmi/view?usp=sharing">Zemplén Tourist - Törökország</a>
-      <a class="details-btn" href="https://drive.google.com/file/d/1Y5ZkjjkZCfxTR_xuqD6Hmd-PnIuhXYd9/view?usp=sharing">Zemplén Tourist - 2027 NYÁR</a>
-      <a class="details-btn" href="https://drive.google.com/file/d/16XcG55Wc82t_-y52iGfdlaBbp8uVahjv/view?usp=sharing">Atlasz Travel - 2027 NYÁR</a>
-      <a class="details-btn" href="https://www.itaka.hu/nyar2027/">ITAKA - 2027 NYÁR</a>
+    <div class="agency-offer-buttons">
+      <a class="agency-offer-btn" href="https://www.itaka.hu/nyar2027/">ITAKA</a>
+      <a class="agency-offer-btn" href="https://drive.google.com/file/d/1Y5ZkjjkZCfxTR_xuqD6Hmd-PnIuhXYd9/view?usp=sharing">ZEMPLÉN TOURIST</a>
+      <a class="agency-offer-btn" href="https://drive.google.com/file/d/16XcG55Wc82t_-y52iGfdlaBbp8uVahjv/view?usp=sharing">ATLASZ TRAVEL</a>
     </div>
   </div>
 </div>
@@ -1218,18 +1482,30 @@ document.addEventListener('keydown', (e) => {
 });
 
 const openAgencyOffers = document.getElementById('openAgencyOffers');
+const openAgencyOffersNotice = document.getElementById('openAgencyOffersNotice');
+const agencyOffersModal = document.getElementById('agencyOffersModal');
+const closeAgencyOffers = document.getElementById('closeAgencyOffers');
 
-openAgencyOffers.addEventListener('click', () => {
-
-  const overlay = document.getElementById('kozlemeny-overlay');
-
-  // Bezárási animáció osztály törlése
-  overlay.classList.remove('bezaras');
-
-  // Ablak ismételt megjelenítése
-  overlay.style.display = 'flex';
-
+function showAgencyOffersModal(){
+  if(!agencyOffersModal) return;
+  agencyOffersModal.classList.add('show');
+  agencyOffersModal.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+}
+function hideAgencyOffersModal(){
+  if(!agencyOffersModal) return;
+  agencyOffersModal.classList.remove('show');
+  agencyOffersModal.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+}
+if(openAgencyOffers) openAgencyOffers.addEventListener('click', showAgencyOffersModal);
+if(openAgencyOffersNotice) openAgencyOffersNotice.addEventListener('click', () => {
+  kozlemenyBezaras();
+  setTimeout(showAgencyOffersModal, 310);
 });
+if(closeAgencyOffers) closeAgencyOffers.addEventListener('click', hideAgencyOffersModal);
+if(agencyOffersModal) agencyOffersModal.addEventListener('click', e => {if(e.target===agencyOffersModal) hideAgencyOffersModal();});
+document.addEventListener('keydown', e => {if(e.key==='Escape' && agencyOffersModal?.classList.contains('show')) hideAgencyOffersModal();});
 const choiceModal=document.getElementById('choiceModal');
 const choiceModalTitle=document.getElementById('choiceModalTitle');
 const choiceModalContent=document.getElementById('choiceModalContent');
@@ -1280,7 +1556,7 @@ const countryAgencyLinks={
 };
 const latnivalokLinks={
  spanyol:'https://utazaskatalogus.hu/spanyolorszag-legszebb-helyei-latnivaloi/',
- thasos:'https://utazaskatalogus.hu/thassos-a-legzoldebb-gorog-sziget/',
+ thasos:'https://greekgift.hu/thassos-latnivalok-a-30-legjobb-nevezetesseg/',
  olasz:'https://olaszorszag.net/calabria',
  torok:'https://utazaskatalogus.hu/torokorszag-legszebb-helyei/',
  malta:'https://www.otptravel.hu/inspiraciok/malta-10-latvanyossag-malta-utazas'
@@ -1317,6 +1593,22 @@ function setupFilterToggle(buttonId,contentId){const b=document.getElementById(b
       overlay.style.display = 'none';
     }, 300);
   }
+</script>
+
+
+<script>
+(function(){
+  const openBtns=[document.getElementById('kedvezmenyes-open'),document.getElementById('kedvezmenyes-open-page')].filter(Boolean);
+  const modal=document.getElementById('kedvezmenyes-modal');
+  const closeBtn=document.getElementById('kedvezmenyes-close');
+  if(!openBtns.length||!modal||!closeBtn)return;
+  function openDiscounts(){modal.classList.add('show');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+  function closeDiscounts(){modal.classList.remove('show');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+  openBtns.forEach(btn=>btn.addEventListener('click',openDiscounts));
+  closeBtn.addEventListener('click',closeDiscounts);
+  modal.addEventListener('click',e=>{if(e.target===modal)closeDiscounts();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('show'))closeDiscounts();});
+})();
 </script>
 
 </body></html>
