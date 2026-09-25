@@ -1068,7 +1068,7 @@ h1{font-size:23px}
 <p style="text-align: justify;">Az utazási irodák folyamatosan töltik fel saját weboldalukra a <strong>2027 - es nyári ajánlataikat</strong>. Azok alapján fog frissülni folyamatosan ez a weboldal is. <strong>Nézz vissza később is, ne marad le a legjobb ajánlatokról! :)</strong><br><br> Az <b>Országválasztóban</b> elérheted a különböző <b>utazási irodák</b> folyamatosan frissülő ajánlataikat!</b></p>
 
 <br><hr>
-<p class="update-note"><i><b>&nbsp;&nbsp;Utolsó frissítés: </b><strong style="color: red;">2026.09.24. 23:00 </i></strong></p>
+<p class="update-note"><i><b>&nbsp;&nbsp;Utolsó frissítés: </b><strong style="color: red;">2026.09.25. 20:00 </i></strong></p>
 
 <button class="update-log-btn" id="openUpdateLog" type="button">
   🕘 FRISSÍTÉSI NAPLÓ
@@ -1095,13 +1095,19 @@ h1{font-size:23px}
     <h2 class="update-modal-title">FRISSÍTÉSI NAPLÓ</h2>
 <div><b> </b></div>
 
+    <div class="update-entry">
+      <span class="update-date">Aktuális: 2026.09.25. 20:00</span>
+      <p class="update-description" style="text-align: justify;">
+        Új <b>kedvezményes ajánlatok </b> kerültek fel a különböző desztinációkba, illetve <b>Thassos - szigeténél</b> felkerültek a <b>Zemplén Tourist</b> iroda ajánlatai is.
+      </div>
+<div><b> </b></div>
     
     <div class="update-entry">
-      <span class="update-date">Aktuális: 2026.09.24. 23:00</span>
+      <span class="update-date">2026.09.24. 23:00</span>
       <p class="update-description" style="text-align: justify;">
-        <b>Elérhetővé</b> váltak egy külön <b>KEDVEZMÉNYES AJÁNLATOK</b> című menüpont alá azok az utak, desztinációk közül, amelyek során a szállás <b>kiemelten jó helyen van, félpanzízós</b> és a <b>teljes összeg 1 millió Ft körül mozog.</b></p>
+        <b>Elérhetővé</b> váltak egy külön <b>KEDVEZMÉNYES AJÁNLATOK</b> című menüpont alá azok az utak, desztinációk közül, amelyek során a szállás <b>kiemelten jó helyen van, félpanziós</b> és a <b>teljes összeg 1 millió Ft körül mozog.</b></p>
     </div>
-<div><b> </b></div>
+
 
          <div class="update-entry">
       <span class="update-date">2026.09.19. 23:00</span>
@@ -1109,7 +1115,7 @@ h1{font-size:23px}
         <b>Elérhetővé </b>vált egy újabb desztináció <b>Málta</b> és elérhető egy újabb funkció amelynek segítségével <b>megnézheted</b>
 a különböző desztinációk <b>látnivalóikat!</b></p>
     </div>
-    <div><b> </b></div>
+    
     <div class="update-entry">
           <div class="update-entry">
       <span class="update-date">2026.09.18. 18:00</span>
@@ -1117,13 +1123,13 @@ a különböző desztinációk <b>látnivalóikat!</b></p>
         Elérhetővé vált újabb <b>három desztináció</b> amelyből az egyik <b>Thasos szigete</b> a másik pedig <b>Olaszország </b>régiói. A harmadik pedig a <b>spanyol riviéra.</b> Nézd meg őket!
       </p>
     </div>
-    <div><b> </b></div>
+    
       <span class="update-date">2026.09.12. 18:00</span>
       <p class="update-description" style="text-align: justify;">
         A 2027-es <b>Zemplén Tourist és Atlaszt Travel</b> nyaralási ajánlataik elérhetővé váltak a <b>Törökországi </b> desztinációba. Hamarosan <b>további </b> ajánlatok is érkeznek a többi utazási irodától is.
       </p>
     </div>
-    <div><b> </b></div>
+    
 
   </div>
 
@@ -1192,8 +1198,8 @@ a különböző desztinációk <b>látnivalóikat!</b></p>
 <h2 class="agency-title" style="margin-top:0;">Országválasztó</h2>
 <div id="countryFilterContent"><div class="country-image-grid">
     <button class="country-image-btn" type="button" data-filter-country="malta"><img src="maltalogo.webp" alt="malta"><span>Málta</span></button>
+    <button class="country-image-btn" type="button" data-filter-country="thasos"><img src="thasoslogo.jpg" alt="Thasos"><span>Thasos - szigete</span></button>  
   <button class="country-image-btn" type="button" data-filter-country="spanyol"><img src="spanyolorszag.jpg" alt="spanyolorszag"><span>Spanyolország</span></button>
-  <button class="country-image-btn" type="button" data-filter-country="thasos"><img src="thasoslogo.jpg" alt="Thasos"><span>Thasos</span></button>
   <button class="country-image-btn" type="button" data-filter-country="olasz"><img src="olaszlogo.webp" alt="olaszorszag"><span>Olaszország</span></button>
 <button class="country-image-btn" type="button" data-filter-country="torok"><img src="törökország.jpg" alt="Törökország"><span>Törökország</span></button>
 
@@ -1532,8 +1538,9 @@ const countryAgencyLinks={
 
   thasos:[
   {name:'ITAKA',img:'itakalogo.jpg',href:'https://www.itaka.hu/keresesi-eredmenyek/nyaralasok/thassos/?dateFrom=01.07.2027&dateTo=22.08.2027&participants%5B0%5D%5Badults%5D=3&participants%5B0%5D%5Bchildren%5D%5B0%5D=01.01.2011'},
-  {name:'Atlasz Travel',img:'atlasztravel.jpg',href:'https://www.atlasztravel.hu/utazas-kereses/1?fbclid=IwY2xjawUZLHJwZG9mAWV4dG4DYWVtAjEwAGJyaWQRMDBWbW9xMjZkOE11ZmdMV3NzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeCJ14btz9qaP8z6OqPekb0B9I1yYtu0rAlhSzX_g_YQ0mxbf3kp1-j0waRz8_aem_WrP1lcGnTVNPVPcixXqyRg&page=1&di%5B0%5D=535&df=2026-09-17&dt=2027-09-16&uf=7&ut=16&ac=3&cc=1&rooms%5B0%5D=18%2C18%2C18%2C16&ti=1&ai%5B0%5D=18&ai%5B1%5D=19&ai%5B2%5D=24&ca1=16'}
- ],
+  {name:'Atlasz Travel',img:'atlasztravel.jpg',href:'https://www.atlasztravel.hu/utazas-kereses/1?fbclid=IwY2xjawUZLHJwZG9mAWV4dG4DYWVtAjEwAGJyaWQRMDBWbW9xMjZkOE11ZmdMV3NzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeCJ14btz9qaP8z6OqPekb0B9I1yYtu0rAlhSzX_g_YQ0mxbf3kp1-j0waRz8_aem_WrP1lcGnTVNPVPcixXqyRg&page=1&di%5B0%5D=535&df=2026-09-17&dt=2027-09-16&uf=7&ut=16&ac=3&cc=1&rooms%5B0%5D=18%2C18%2C18%2C16&ti=1&ai%5B0%5D=18&ai%5B1%5D=19&ai%5B2%5D=24&ca1=16'},
+  {name:'Zemplén Tourist',img:'zemplentouristlogo.png',href:'https://zemplentourist.hu/talalati-lista/thassos-/gGchg'},
+],
 
    olasz:[
   {name:'KARTAGO tours',img:'karthagologo.jpg',href:'https://www.kartagotours.hu/keresesi-eredmenyek?ac1=3&d=63215|63298|219502|63296|63330|63356|63406|63410|63426|63444|63229|64427&dd=2027-07-17&ka1=16&kc1=1&nn=7|8|9|10|11|12|13|14&rd=2027-08-22&to=489|4371&tt=1'},
@@ -1551,7 +1558,7 @@ const countryAgencyLinks={
   {name:'ITAKA',img:'itakalogo.jpg',href:'https://www.itaka.hu/keresesi-eredmenyek/nyaralasok/malta/?durationMax=9&durationMin=7&dateFrom=16.07.2027&dateTo=15.08.2027&participants%5B0%5D%5Badults%5D=3&participants%5B0%5D%5Bchildren%5D%5B0%5D=1.01.2011'},
 
  ],
- 
+
  
 };
 const latnivalokLinks={
@@ -1559,7 +1566,7 @@ const latnivalokLinks={
  thasos:'https://greekgift.hu/thassos-latnivalok-a-30-legjobb-nevezetesseg/',
  olasz:'https://olaszorszag.net/calabria',
  torok:'https://utazaskatalogus.hu/torokorszag-legszebb-helyei/',
- malta:'https://www.otptravel.hu/inspiraciok/malta-10-latvanyossag-malta-utazas'
+ malta:'https://www.otptravel.hu/inspiraciok/malta-10-latvanyossag-malta-utazas',
 };
 
 document.querySelectorAll('.country-image-btn').forEach(btn=>btn.addEventListener('click',()=>{
