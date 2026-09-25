@@ -465,7 +465,9 @@ h1{font-size:23px}
 .filter-section{width:min(820px,100%);margin:14px auto 0}.filter-toggle{width:100%;border:1px solid rgba(8,127,140,.18);border-radius:14px;padding:12px 14px;background:rgba(255,255,255,.78);color:#087f8c;font-size:16px;font-weight:900;text-align:left;cursor:pointer;display:flex;align-items:center;justify-content:space-between;box-shadow:0 7px 18px rgba(75,60,25,.09)}.filter-toggle::after{content:"⌄";font-size:20px;transition:transform .25s}.filter-toggle.open::after{transform:rotate(180deg)}.filter-content{display:none;padding-top:9px}.filter-content.show{display:block}.country-image-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.country-image-btn{width:100%;aspect-ratio:16/9;border:0;border-radius:15px;overflow:hidden;cursor:pointer;position:relative;background:#fff;box-shadow:0 14px 35px rgba(80,60,20,.13);transition:.3s}.country-image-btn:hover{transform:translateY(-6px)}.country-image-btn img{width:100%;height:100%;object-fit:cover;display:block}.country-image-btn span{position:absolute;left:0;right:0;bottom:0;padding:7px 9px;color:#fff;font-weight:900;font-size:13px;text-align:left;background:linear-gradient(transparent,rgba(0,0,0,.72))}@media(max-width:620px){.filter-section{width:100%}.filter-toggle{font-size:14px}.country-image-grid{gap:6px}.country-image-btn span{font-size:11.5px}}
 
 .modal-overlay{display:none;position:fixed;inset:0;z-index:10050;padding:18px;background:rgba(23,50,77,.48);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);align-items:center;justify-content:center}.modal-overlay.show{display:flex}.choice-modal-box{position:relative;width:min(820px,100%);max-height:88vh;overflow-y:auto;background:rgba(255,255,255,.98);border-radius:22px;padding:20px;box-shadow:0 24px 65px rgba(23,50,77,.28);animation:updateModalIn .3s ease}.choice-modal-close{position:sticky;float:right;top:0;z-index:3;width:34px;height:34px;border:0;border-radius:50%;background:#f1f1f1;color:#566b73;font-size:21px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center}.choice-modal-close:hover{background:#ff4d4d;color:#fff}.choice-modal-title{margin:3px 48px 18px 0;font-size:clamp(21px,4vw,28px);font-weight:900;color:#087f8c}.choice-modal-content .agency-card{display:block!important;width:100%;max-width:none;margin:0;box-shadow:none;animation:none}.choice-modal-content .card-image{border-radius:16px;overflow:hidden}.country-link-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.country-agency-link{display:block;position:relative;aspect-ratio:16/9;border-radius:15px;overflow:hidden;text-decoration:none;background:#fff;box-shadow:0 10px 25px rgba(75,60,25,.14);transition:.25s}.country-agency-link:hover{transform:translateY(-4px)}.country-agency-link img{width:100%;height:100%;object-fit:cover;display:block}.country-agency-link span{position:absolute;left:0;right:0;bottom:0;padding:9px;color:#fff;font-weight:900;font-size:13px;background:linear-gradient(transparent,rgba(0,0,0,.76))}.modal-empty{padding:18px 4px;color:#60727b;font-size:14px;line-height:1.55}
-.country-sights-wrap{margin:-8px 0 18px 0}
+.country-sights-wrap{margin:-8px 0 18px 0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.country-discount-btn{background:linear-gradient(135deg,#ff8c42,#ffb703);color:#fff;border-color:rgba(255,183,3,.35);box-shadow:0 5px 14px rgba(255,140,66,.20)}
+.country-discount-btn:hover{background:linear-gradient(135deg,#ff7b29,#f2aa00);color:#fff;transform:translateY(-2px);box-shadow:0 8px 18px rgba(255,140,66,.30)}
 .country-sights-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border:1px solid rgba(8,127,140,.22);border-radius:10px;background:#eef9fa;color:#087f8c;text-decoration:none;font-size:13px;font-weight:900;box-shadow:0 5px 14px rgba(8,127,140,.10);transition:.2s}
 .country-sights-btn:hover{background:#087f8c;color:#fff;transform:translateY(-2px)}@media(max-width:620px){.modal-overlay{padding:10px;align-items:center;justify-content:center}.choice-modal-box{width:min(100%,820px);max-height:90vh;border-radius:20px;padding:14px;margin:auto}.choice-modal-title{font-size:21px;margin-bottom:14px}.country-link-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.country-agency-link span{font-size:11.5px;padding:7px}.choice-modal-content .card-body{padding:12px}.choice-modal-content .offer-text{font-size:13px;line-height:1.5}.choice-modal-content .details-btn{width:100%;text-align:center}}
 
@@ -1050,6 +1052,48 @@ h1{font-size:23px}
 }
 </style>
 
+
+<style>
+/* Mobil: LÁTNIVALÓK + KEDVEZMÉNYES AJÁNLATOK egy sorban */
+@media(max-width:620px){
+  .country-sights-wrap{
+    display:flex;
+    flex-wrap:nowrap;
+    align-items:center;
+    gap:5px;
+  }
+
+  .country-sights-wrap .country-sights-btn{
+    flex:0 1 auto;
+    min-width:0;
+    padding:7px 8px;
+    gap:4px;
+    font-size:10px;
+    white-space:nowrap;
+  }
+}
+
+@media(max-width:390px){
+  .country-sights-wrap .country-sights-btn{
+    padding:6px 6px;
+    gap:3px;
+    font-size:9px;
+  }
+}
+</style>
+
+
+<style>
+/* FRISSÍTÉSI NAPLÓ – elválasztó vonalak nélkül */
+#updateModal .update-entry{
+  border-top:none !important;
+  border-bottom:none !important;
+  border-left:none !important;
+  border-right:none !important;
+  outline:none !important;
+}
+</style>
+
 </head>
 <body>
 <a href="https://csaladiprogramok.github.io/vakaciovagyo/szamlalo.html" class="close-btn" aria-label="Vissza az akciókhoz">×</a>
@@ -1094,13 +1138,13 @@ h1{font-size:23px}
 
     <h2 class="update-modal-title">FRISSÍTÉSI NAPLÓ</h2>
 <div><b> </b></div>
-
+<hr>
     <div class="update-entry">
       <span class="update-date">Aktuális: 2026.09.25. 20:00</span>
       <p class="update-description" style="text-align: justify;">
-        Új <b>kedvezményes ajánlatok </b> kerültek fel a különböző desztinációkba, illetve <b>Thassos - szigeténél</b> felkerültek a <b>Zemplén Tourist</b> iroda ajánlatai is.
+        Új <b>kedvezményes ajánlatok </b> kerültek fel a különböző desztinációkba, illetve <b>Thassos - szigeténél</b> felkerültek a <b>Zemplén Tourist</b> iroda ajánlatai is. Néhány <b>kedvezményes ajánlat</b> megjelent a Zakinthosz desztinációba is!
       </div>
-<div><b> </b></div>
+<hr><br>
     
     <div class="update-entry">
       <span class="update-date">2026.09.24. 23:00</span>
@@ -1108,7 +1152,7 @@ h1{font-size:23px}
         <b>Elérhetővé</b> váltak egy külön <b>KEDVEZMÉNYES AJÁNLATOK</b> című menüpont alá azok az utak, desztinációk közül, amelyek során a szállás <b>kiemelten jó helyen van, félpanziós</b> és a <b>teljes összeg 1 millió Ft körül mozog.</b></p>
     </div>
 
-
+<br>
          <div class="update-entry">
       <span class="update-date">2026.09.19. 23:00</span>
       <p class="update-description" style="text-align: justify;">
@@ -1123,7 +1167,7 @@ a különböző desztinációk <b>látnivalóikat!</b></p>
         Elérhetővé vált újabb <b>három desztináció</b> amelyből az egyik <b>Thasos szigete</b> a másik pedig <b>Olaszország </b>régiói. A harmadik pedig a <b>spanyol riviéra.</b> Nézd meg őket!
       </p>
     </div>
-    
+    <br>
       <span class="update-date">2026.09.12. 18:00</span>
       <p class="update-description" style="text-align: justify;">
         A 2027-es <b>Zemplén Tourist és Atlaszt Travel</b> nyaralási ajánlataik elérhetővé váltak a <b>Törökországi </b> desztinációba. Hamarosan <b>további </b> ajánlatok is érkeznek a többi utazási irodától is.
@@ -1148,7 +1192,9 @@ a különböző desztinációk <b>látnivalóikat!</b></p>
     </div>
 
     <div class="kozlemeny-actions">
+      <!--------
       <button class="notice-offer-btn" id="openAgencyOffersNotice" type="button">✈️ ELŐFOGLALÁSI AKCIÓK</button>
+      ------>
       <button id="kedvezmenyes-open" class="notice-offer-btn" type="button">💰 KEDVEZMÉNYES AJÁNLATOK</button>
       <button id="kozlemeny-ok"
               type="button"
@@ -1176,6 +1222,12 @@ a különböző desztinációk <b>látnivalóikat!</b></p>
       <a class="kedvezmenyes-card" href="thassos_latnivalok.html">
         <img src="thasoslogo.jpg" alt="Thasos kedvezményes ajánlatok">
         <span>Thasos – szigete - kedvezményes ajánlatok</span>
+
+      </a>
+
+      <a class="kedvezmenyes-card" href="zah_latnivalok.html">
+        <img src="zakinthosz.jpg" alt="Málta kedvezményes ajánlatok">
+        <span>Zakinthosz – kedvezményes ajánlatok</span>
       </a>
     </div>
   </div>
@@ -1198,7 +1250,8 @@ a különböző desztinációk <b>látnivalóikat!</b></p>
 <h2 class="agency-title" style="margin-top:0;">Országválasztó</h2>
 <div id="countryFilterContent"><div class="country-image-grid">
     <button class="country-image-btn" type="button" data-filter-country="malta"><img src="maltalogo.webp" alt="malta"><span>Málta</span></button>
-    <button class="country-image-btn" type="button" data-filter-country="thasos"><img src="thasoslogo.jpg" alt="Thasos"><span>Thasos - szigete</span></button>  
+    <button class="country-image-btn" type="button" data-filter-country="thasos"><img src="thasoslogo.jpg" alt="Thasos"><span>Thasos - szigete</span></button>
+    <button class="country-image-btn" type="button" data-filter-country="zah"><img src="zakinthosz.jpg" alt="spanyolorszag"><span>Zakinthosz</span></button>  
   <button class="country-image-btn" type="button" data-filter-country="spanyol"><img src="spanyolorszag.jpg" alt="spanyolorszag"><span>Spanyolország</span></button>
   <button class="country-image-btn" type="button" data-filter-country="olasz"><img src="olaszlogo.webp" alt="olaszorszag"><span>Olaszország</span></button>
 <button class="country-image-btn" type="button" data-filter-country="torok"><img src="törökország.jpg" alt="Törökország"><span>Törökország</span></button>
@@ -1567,6 +1620,13 @@ const latnivalokLinks={
  olasz:'https://olaszorszag.net/calabria',
  torok:'https://utazaskatalogus.hu/torokorszag-legszebb-helyei/',
  malta:'https://www.otptravel.hu/inspiraciok/malta-10-latvanyossag-malta-utazas',
+ zah:'https://wise.com/hu/blog/zakynthos-latnivalok',
+};
+
+const kedvezmenyesLinks={
+ thasos:'thassos_latnivalok.html',
+ malta:'malta_latnivalok.html',
+ zah:'zah_latnivalok.html'
 };
 
 document.querySelectorAll('.country-image-btn').forEach(btn=>btn.addEventListener('click',()=>{
@@ -1576,11 +1636,17 @@ document.querySelectorAll('.country-image-btn').forEach(btn=>btn.addEventListene
 
  const cards=links.length
   ? '<div class="country-link-grid">'+links.map(x=>'<a class="country-agency-link" href="'+x.href+'"><img src="'+x.img+'" alt="'+x.name+'"><span>'+x.name+'</span></a>').join('')+'</div>'
-  : '<p class="modal-empty">Ehhez az országhoz még nincs elérhető ajánlat.</p>';
+  : '<p class="modal-empty">Ehhez az országhoz még nincs elérhető utazási iroda által közétett bőséges ajánlat. <b> Addig is nézd meg a kedvezményes ajánlatokat! </b></p>';
 
- const latnivalok=latnivalokLinks[key]
-  ? '<div class="country-sights-wrap"><a class="country-sights-btn" href="'+latnivalokLinks[key]+'">📍 LÁTNIVALÓK</a></div>'
-  : '';
+ const latnivalok =
+  '<div class="country-sights-wrap">' +
+    (latnivalokLinks[key]
+      ? '<a class="country-sights-btn" href="'+latnivalokLinks[key]+'">📍 LÁTNIVALÓK</a>'
+      : '') +
+    (kedvezmenyesLinks[key]
+      ? '<a class="country-sights-btn country-discount-btn" href="'+kedvezmenyesLinks[key]+'">💰 KEDVEZMÉNYES AJÁNLATOK</a>'
+      : '') +
+  '</div>';
 
  openChoiceModal(name,latnivalok+cards);
 }));
