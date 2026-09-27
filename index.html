@@ -1094,10 +1094,478 @@ h1{font-size:23px}
 }
 </style>
 
+
+<style>
+    /* NAVBAR */
+    .navbar {
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1em 2em;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar a.logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: yellowgreen;
+    }
+
+    .menu {
+      display: flex;
+      gap: 1em;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: #333;
+      margin: 4px;
+      border-radius: 2px;
+    }
+
+    @media(max-width:768px) {
+      .menu {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, .2);
+        border-radius: 10px;
+        text-align: center;
+      }
+
+      .menu.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+
+/* ===== NYÁRI VISSZASZÁMLÁLÓ ===== */
+    #summer-countdown {
+      /* 💻 ASZTALI / LAPTOP: ezt állítsd */
+      top: 80px;
+
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 900;
+
+      width: min(76%, 520px);
+      min-height: 28px;
+      padding: 2px 8px;
+      box-sizing: border-box;
+
+      background: rgba(255,255,255,.96);
+      border-radius: 8px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      overflow: hidden;
+
+      color: #155e75;
+      font-size: clamp(11px, 1.5vw, 14px);
+      font-weight: 800;
+      line-height: 1;
+
+      box-shadow: 0 3px 9px rgba(0,0,0,.12);
+    }
+
+    #summer-countdown::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 -35%;
+      width: 30%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,215,0,.62),
+        transparent
+      );
+      animation: shine 4s linear infinite;
+    }
+
+    #summer-countdown .sun,
+    #summer-countdown .palm,
+    #summer-countdown .text {
+      position: relative;
+      z-index: 1;
+    }
+
+    #summer-countdown .text {
+      flex: 1;
+      min-width: 0;
+      text-align: center;
+      line-height: 1.05;
+      white-space: nowrap;
+    }
+
+    #summer-countdown .sun,
+    #summer-countdown .palm {
+      flex: 0 0 auto;
+      font-size: 15px;
+    }
+
+    #summer-countdown .sun {
+      animation: sun 2.4s ease-in-out infinite;
+    }
+
+    #summer-countdown .palm {
+      transform-origin: bottom center;
+      animation: palm 2.2s ease-in-out infinite;
+    }
+
+    #summer-countdown .days-highlight {
+      color: #ff4f87;
+      font-size: inherit;
+      font-weight: 900;
+      display: inline-block;
+    }
+
+    @keyframes shine {
+      from { left: -35%; }
+      to   { left: 120%; }
+    }
+
+    @keyframes sun {
+      0%,100% { transform: rotate(-8deg) scale(1); }
+      50%     { transform: rotate(8deg) scale(1.08); }
+    }
+
+    @keyframes palm {
+      0%,100% { transform: rotate(-4deg); }
+      50%     { transform: rotate(4deg); }
+    }
+
+    /* 📱 MOBIL: külön állítható TOP */
+    @media (max-width: 700px) {
+      #summer-countdown {
+        top: 68px;   /* 📱 MOBILON EZT ÁLLÍTSD */
+
+        width: 78%;
+        max-width: 360px;
+        min-height: 25px;
+        padding: 2px 6px;
+        gap: 3px;
+        border-radius: 7px;
+        font-size: clamp(9px, 2.8vw, 11px);
+      }
+
+      #summer-countdown .sun,
+      #summer-countdown .palm {
+        font-size: 13px;
+      }
+    }
+
+    /* Keskeny telefonon csak a méret változik, a TOP nem */
+    @media (max-width: 380px) {
+      #summer-countdown {
+        top: 12%;
+        width: 82%;
+        max-width: 300px;
+        font-size: 9px;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+
+      #summer-countdown .sun,
+      #summer-countdown .palm {
+        font-size: 12px;
+      }
+    }
+  
+
+/* ===== OLDAL ALJI 16:9 KÉP + FŐOLDAL GOMB ===== */
+.bottom-home-block {
+  width: min(820px, 100%);
+  margin: 34px auto 12px;
+  padding: 0;
+  text-align: center;
+}
+.bottom-home-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #f3f3f3;
+  box-shadow: 0 8px 22px rgba(0,0,0,.13);
+}
+.bottom-home-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.back-home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+  padding: 13px 22px;
+  border-radius: 999px;
+  background: linear-gradient(135deg,#00b4c4,#087f8c);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 900;
+  box-shadow: 0 8px 20px rgba(8,127,140,.28);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.back-home-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(8,127,140,.36);
+}
+@media(max-width:620px) {
+  .bottom-home-block {
+    width: 100%;
+    margin-top: 26px;
+  }
+  .bottom-home-image {
+    border-radius: 11px;
+  }
+  .back-home-btn {
+    width: 100%;
+    padding: 13px 14px;
+    font-size: 14px;
+  }
+}
+</style>
+<style>
+/* ===== ÚJ, JOBB OLDALRÓL NYÍLÓ HAMBURGER MENÜ =====
+   A referencia elrendezése alapján, az oldal eredeti színvilágával. */
+.menu-overlay{
+  position:fixed;
+  inset:0;
+  z-index:1998;
+  background:rgba(20,20,20,.48);
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .28s ease, visibility .28s ease;
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+}
+.menu-overlay.active{
+  opacity:1;
+  visibility:visible;
+}
+
+@media (max-width:768px){
+  .navbar{
+    position:sticky;
+    top:0;
+    z-index:2000;
+  }
+
+  .hamburger{
+    display:flex;
+    position:relative;
+    z-index:2002;
+    width:42px;
+    height:42px;
+    padding:7px;
+    margin:-7px;
+    align-items:center;
+    justify-content:center;
+    gap:0;
+    border-radius:50%;
+    transition:background .2s ease;
+  }
+  .hamburger:hover{background:rgba(154,205,50,.10)}
+  .hamburger div{
+    position:absolute;
+    width:26px;
+    height:2px;
+    margin:0;
+    border-radius:999px;
+    background:#333;
+    transition:transform .28s ease, opacity .2s ease, background .2s ease;
+  }
+  .hamburger div:nth-child(1){transform:translateY(-8px)}
+  .hamburger div:nth-child(2){transform:translateY(0)}
+  .hamburger div:nth-child(3){transform:translateY(8px)}
+  .hamburger.active div:nth-child(1){transform:rotate(45deg)}
+  .hamburger.active div:nth-child(2){opacity:0}
+  .hamburger.active div:nth-child(3){transform:rotate(-45deg)}
+
+  .menu{
+    display:flex;
+    position:fixed;
+    z-index:1999;
+    top:0;
+    right:0;
+    bottom:0;
+    width:min(84vw,420px);
+    height:100dvh;
+    padding:0 0 24px;
+    margin:0;
+    gap:0;
+    flex-direction:column;
+    align-items:stretch;
+    justify-content:flex-start;
+    overflow-y:auto;
+    background:#fff;
+    border-radius:0;
+    box-shadow:-14px 0 38px rgba(0,0,0,.22);
+    transform:translateX(105%);
+    opacity:1;
+    visibility:hidden;
+    transition:transform .32s cubic-bezier(.22,.8,.25,1), visibility .32s ease;
+  }
+  .menu.active{
+    display:flex;
+    transform:translateX(0);
+    visibility:visible;
+  }
+
+  
+
+  .menu a{
+    display:flex;
+    align-items:center;
+    min-height:74px;
+    padding:0 28px;
+    margin:0;
+    border-bottom:1px solid rgba(51,51,51,.10);
+    color:yellowgreen;
+    background:#fff;
+    font-size:clamp(1.05rem,4.6vw,1.35rem);
+    font-weight:500;
+    letter-spacing:.8px;
+    line-height:1.2;
+    text-align:left;
+    text-transform:uppercase;
+    transition:background .18s ease, padding-left .18s ease, color .18s ease;
+  }
+  .menu a:hover,
+  .menu a:focus-visible{
+    background:rgba(154,205,50,.10);
+    color:#6da06d;
+    padding-left:34px;
+    outline:none;
+  }
+
+  /* A KILÉPÉS marad az eredeti piros kiemeléssel, de nagybetűs lesz. */
+  .menu a i{
+    font-style:normal !important;
+    text-transform:uppercase;
+  }
+
+  body.menu-open{overflow:hidden}
+}
+
+@media (min-width:769px){
+  .menu-overlay{display:none}
+}
+</style>
+
+
+<style>
+/* ===== NYARALÁSKERESŐ TARTALOM HELYE A MENÜ + SZÁMLÁLÓ ALATT ===== */
+#summer-countdown + .close-btn + main.page,
+#summer-countdown ~ main.page {
+  margin-top: 72px;
+}
+
+@media (max-width: 768px) {
+  #summer-countdown + .close-btn + main.page,
+  #summer-countdown ~ main.page {
+    margin-top: 48px;
+  }
+}
+
+@media (max-width: 620px) {
+  #summer-countdown + .close-btn + main.page,
+  #summer-countdown ~ main.page {
+    margin-top: 50px;
+  }
+}
+</style>
+
+
+<style>
+/* ===== MENÜ ALATTI ELHELYEZÉS – SZÁMLÁLÓ + TOPBOX ===== */
+@media (max-width: 768px) {
+  #summer-countdown {
+    top: 75px !important;
+  }
+
+  #summer-countdown + .close-btn + main.page,
+  #summer-countdown ~ main.page {
+    margin-top: 58px !important;
+  }
+}
+
+@media (max-width: 620px) {
+  #summer-countdown {
+    top: 75px !important;
+  }
+
+  #summer-countdown + .close-btn + main.page,
+  #summer-countdown ~ main.page {
+    margin-top: 58px !important;
+  }
+}
+</style>
+
 </head>
 <body>
-<a href="https://csaladiprogramok.github.io/vakaciovagyo/szamlalo.html" class="close-btn" aria-label="Vissza az akciókhoz">×</a>
+<div class="menu-overlay" id="menuOverlay" onclick="closeMenu()" aria-hidden="true"></div>
+<div class="navbar">
+    <a href="index.html" class="logo">VakációVágyó 2027</a>
+    <div class="hamburger" id="hamburgerBtn" onclick="toggleMenu()" role="button" tabindex="0" aria-label="Menü megnyitása" aria-controls="navMenu" aria-expanded="false">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="menu" id="navMenu">
+      <a href="https://csaladiprogramok.github.io/vakaciovagyo/szamlalo.html"><b>SZÁMLÁLÓ</b></a>
+      <a href="https://csaladiprogramok.github.io/vakaciovagyo/befizetesek.html"><b>BEFIZETÉSEK</b></a>
+      <a href="https://csaladiprogramok.github.io/nyaralaskereso/"><b>NYARALÁSKERESŐ</b></a>
+      <a href="https://csaladiprogramok.github.io/vakaciovagyo/eldujra.html"><b>ÉLD ÚJRA</b></a>
+      <a href="https://csaladiprogramok.github.io/vakaciovagyo/akciok.html"><b>AKCIÓK</b></a>
+      <a href="https://csaladiprogramok.github.io/vakaciovagyo/rangom.html"><b>RANGOM</b></a>
+      <a href="https://csaladiprogramok.github.io/vakaciovagyo/tovabbiak.html"><b></b></a>
+      <a href="https://csaladiprogramok.github.io/csaladiprogramjaink/fooldal"><i style="color: red;"><b>KILÉPÉS</b></i></a>
+    </div>
+  </div>
 
+  <!-- NYÁRI VISSZASZÁMLÁLÓ -->
+<div id="summer-countdown">
+    <span class="sun">☀️</span>
+    <span class="text">
+      MÁR CSAK
+      <span class="days-highlight"><span id="days">...</span> NAP</span>
+      ÉS ITT A NYÁR!
+    </span>
+    <span class="palm">🌴</span>
+  </div>
+<!------
+<a href="https://csaladiprogramok.github.io/vakaciovagyo/szamlalo.html" class="close-btn" aria-label="Vissza az akciókhoz">×</a>
+--->
 <main class="page">
 <section class="top-box">
 <header class="hero"><h1>NYARALÁSKERESŐ <br>2027</h1><p class="subtitle">„ Az együtt töltött idő a legszebb ajándék. ”</p></header>
@@ -1262,8 +1730,16 @@ a különböző desztinációk <b>látnivalóikat!</b></p>
 ------->
 </div></div></div>
 
-</section>
 
+<!------
+<div class="bottom-home-block">
+  <div class="bottom-home-image">
+    <img src="johogyittvagy.png" alt="Előfoglalási ajánlatok 2027">
+  </div>
+  <a class="back-home-btn" href="https://csaladiprogramok.github.io/vakaciovagyo/index.html">VISSZA A FŐOLDALRA!</a>
+</div>
+</section>
+------>
 <!------
 <article class="agency-card" id="zemplenCard">
 <div class="card-image"><img id="offerImage" src="törökország.jpg" alt="Zemplén Tour nyári ajánlat"></div>
@@ -1688,4 +2164,85 @@ function setupFilterToggle(buttonId,contentId){const b=document.getElementById(b
 })();
 </script>
 
+
+
+
+
+<script>
+    // NAVIGÁCIÓS MENÜ
+    function setMenuState(open) {
+      const menu = document.getElementById('navMenu');
+      const hamburger = document.getElementById('hamburgerBtn');
+      const overlay = document.getElementById('menuOverlay');
+
+      menu.classList.toggle('active', open);
+      hamburger.classList.toggle('active', open);
+      overlay.classList.toggle('active', open);
+      document.body.classList.toggle('menu-open', open);
+
+      hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      hamburger.setAttribute('aria-label', open ? 'Menü bezárása' : 'Menü megnyitása');
+      overlay.setAttribute('aria-hidden', open ? 'false' : 'true');
+    }
+
+    function toggleMenu() {
+      const menu = document.getElementById('navMenu');
+      setMenuState(!menu.classList.contains('active'));
+    }
+
+    function closeMenu() {
+      setMenuState(false);
+    }
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') closeMenu();
+
+      if ((event.key === 'Enter' || event.key === ' ') &&
+          document.activeElement === document.getElementById('hamburgerBtn')) {
+        event.preventDefault();
+        toggleMenu();
+      }
+    });
+
+    document.querySelectorAll('#navMenu a').forEach(function(link) {
+      link.addEventListener('click', closeMenu);
+    });
+
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768) closeMenu();
+    });
+
+</script>
+<script>
+    function updateCountdown() {
+      const now = new Date();
+      const text = document.querySelector("#summer-countdown .text");
+      const year = now.getFullYear();
+
+      const june1 = new Date(year, 5, 1, 0, 0, 0);
+      const sep1  = new Date(year, 8, 1, 0, 0, 0);
+
+      // Június 1-től augusztus 31-ig nyári felirat
+      if (now >= june1 && now < sep1) {
+        text.innerHTML = '„NYÁR VAN, ALIG FÜRDŐRUHÁBAN...”';
+        return;
+      }
+
+      // Szeptember 1-től május 31-ig visszaszámlálás
+      const target =
+        now >= sep1
+          ? new Date(year + 1, 5, 1, 0, 0, 0)
+          : june1;
+
+      const days = Math.ceil((target - now) / 86400000);
+
+      text.innerHTML =
+        'MÁR CSAK <span class="days-highlight"><span id="days">' +
+        days +
+        '</span> NAP</span> ÉS ITT A NYÁR!';
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 60000);
+  </script>
 </body></html>
