@@ -820,6 +820,19 @@ h1{font-size:23px}
 @media(max-width:600px){.kozlemeny-actions{flex-direction:column}.kozlemeny-actions #kedvezmenyes-open{order:1;width:100%;font-size:14px;padding:13px 16px}.kozlemeny-actions #kozlemeny-ok{order:2;width:100%}.kedvezmenyes-box{padding:14px;border-radius:19px}.kedvezmenyes-title{font-size:21px}.kedvezmenyes-lead{font-size:13px}.kedvezmenyes-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.kedvezmenyes-card span{font-size:11.5px;padding:7px}}
 @media(max-width:360px){.kedvezmenyes-grid{grid-template-columns:1fr}}
 
+
+/* Közlemény – második, 3x alacsonyabb képhely */
+.kozlemeny-kep-masodik {
+  width: 100%;
+  aspect-ratio: 16 / 3;
+  overflow: hidden;
+  border-radius: 14px;
+  margin: -12px auto 22px;
+  background: #f3f3f3;
+  box-shadow: 0 8px 22px rgba(0,0,0,.13);
+}
+.kozlemeny-kep-masodik img { width:100%; height:100%; object-fit:cover; display:block; }
+@media(max-width:600px){ .kozlemeny-kep-masodik{border-radius:11px;margin:-8px auto 18px;} }
 </style>
 
 
@@ -1513,10 +1526,6 @@ h1{font-size:23px}
 <style>
 /* ===== MENÜ ALATTI ELHELYEZÉS – SZÁMLÁLÓ + TOPBOX ===== */
 @media (max-width: 768px) {
-  #summer-countdown {
-    top: 75px !important;
-  }
-
   #summer-countdown + .close-btn + main.page,
   #summer-countdown ~ main.page {
     margin-top: 58px !important;
@@ -1524,10 +1533,6 @@ h1{font-size:23px}
 }
 
 @media (max-width: 620px) {
-  #summer-countdown {
-    top: 75px !important;
-  }
-
   #summer-countdown + .close-btn + main.page,
   #summer-countdown ~ main.page {
     margin-top: 58px !important;
@@ -1535,6 +1540,45 @@ h1{font-size:23px}
 }
 </style>
 
+
+<style>
+/* Közlemény – arányosan kisebb csak laptopon / asztali nézetben */
+@media (min-width: 601px) {
+  #kozlemeny-box {
+    max-width: 440px;
+    padding: 25px 22px 21px;
+  }
+  #kozlemeny-box h2 {
+    margin-bottom: 15px;
+    font-size: 23px;
+  }
+  #kozlemeny-box p {
+    margin-bottom: 21px;
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  #kozlemeny-box .kozlemeny-kep {
+    margin-bottom: 18px;
+    border-radius: 12px;
+  }
+  #kozlemeny-box .kozlemeny-kep-masodik {
+    margin-bottom: 18px;
+    border-radius: 12px;
+  }
+  #kozlemeny-box .kozlemeny-alcim {
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+  #kozlemeny-box .kozlemeny-ajanlatok {
+    margin-bottom: 20px;
+  }
+  #kozlemeny-box #kozlemeny-ok {
+    min-height: 49px !important;
+    padding: 14px 20px !important;
+    font-size: 15px !important;
+  }
+}
+</style>
 </head>
 <body>
 <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()" aria-hidden="true"></div>
@@ -1663,6 +1707,11 @@ a különböző desztinációk <b>látnivalóikat!</b></p>
       <img src="ajanlatokervenyessege.png" alt="Előfoglalási ajánlatok 2027">
     </div>
 
+    <!-- Második képhely: ugyanakkora szélesség, harmadakkora magasság -->
+    <div class="kozlemeny-kep-masodik">
+      <img src="jegjobbelony.jpg" alt="">
+    </div>
+
     <div class="kozlemeny-actions">
       <!--------
       <button class="notice-offer-btn" id="openAgencyOffersNotice" type="button">✈️ ELŐFOGLALÁSI AKCIÓK</button>
@@ -1721,12 +1770,16 @@ a különböző desztinációk <b>látnivalóikat!</b></p>
 <div class="filter-section">
 <h2 class="agency-title" style="margin-top:0;">Országválasztó</h2>
 <div id="countryFilterContent"><div class="country-image-grid">
-    <button class="country-image-btn" type="button" data-filter-country="malta"><img src="maltalogo.webp" alt="malta"><span>Málta</span></button>
+    <button class="country-image-btn" type="button" data-filter-country="spanyol"><img src="spanyolorszag.jpg" alt="spanyolorszag"><span>Spanyolország</span></button>
+    <button class="country-image-btn" type="button" data-filter-country="torok"><img src="törökország.jpg" alt="Törökország"><span>Törökország</span></button>  
+    <button class="country-image-btn" type="button" data-filter-country="albania"><img src="albánia.jpg" alt="albania"><span>Albánia</span></button>
+
     <button class="country-image-btn" type="button" data-filter-country="thasos"><img src="thasoslogo.jpg" alt="Thasos"><span>Thasos - szigete</span></button>
     <button class="country-image-btn" type="button" data-filter-country="zah"><img src="zakinthosz.jpg" alt="spanyolorszag"><span>Zakinthosz</span></button>  
-  <button class="country-image-btn" type="button" data-filter-country="spanyol"><img src="spanyolorszag.jpg" alt="spanyolorszag"><span>Spanyolország</span></button>
+
   <button class="country-image-btn" type="button" data-filter-country="olasz"><img src="olaszlogo.webp" alt="olaszorszag"><span>Olaszország</span></button>
-<button class="country-image-btn" type="button" data-filter-country="torok"><img src="törökország.jpg" alt="Törökország"><span>Törökország</span></button>
+    <button class="country-image-btn" type="button" data-filter-country="malta"><img src="maltalogo.webp" alt="malta"><span>Málta</span></button>
+        <button class="country-image-btn" type="button" data-filter-country="ciprus"><img src="ciprus.jpg" alt="cprus"><span>Ciprus</span></button>
 
 <!----
 <button class="country-image-btn" type="button" data-filter-country="gorog"><img src="gorogorszag.jpg" alt="Görögország"><span>Görögország</span></button>
@@ -2076,14 +2129,12 @@ const countryAgencyLinks={
 ],
 
    olasz:[
-  {name:'KARTAGO tours',img:'karthagologo.jpg',href:'https://www.kartagotours.hu/keresesi-eredmenyek?ac1=3&d=63215|63298|219502|63296|63330|63356|63406|63410|63426|63444|63229|64427&dd=2027-07-17&ka1=16&kc1=1&nn=7|8|9|10|11|12|13|14&rd=2027-08-22&to=489|4371&tt=1'},
   {name:'Atlasz Travel',img:'atlasztravel.jpg',href:'https://www.atlasztravel.hu/utazas-kereses/1?fbclid=IwY2xjawUZLKJwZG9mAWV4dG4DYWVtAjEwAGJyaWQRMDBWbW9xMjZkOE11ZmdMV3NzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEe33-TKxJXH6ekwcaknMCPk47PZIQke2zqggJcHGuoidsbA0ot-_vpIaun4qk_aem_cW7WI8I929PdjXX2CV5s8Q&page=1&di%5B0%5D=265&df=2027-07-15&dt=2027-08-22&uf=7&ut=16&ac=3&cc=1&rooms%5B0%5D=18%2C18%2C18%2C16&ti=1&ai%5B0%5D=18&ai%5B1%5D=19&ai%5B2%5D=24&ca1=16'},
  
  ],
 
     spanyol:[
   {name:'Zemplén Tourist',img:'zemplentouristlogo.png',href:'https://zemplentourist.hu/talalati-lista/spanyolorszag/gvySQ'},
-  {name:'KARTAGO tours',img:'karthagologo.jpg',href:'https://www.kartagotours.hu/keresesi-eredmenyek?ac1=3&d=63213|63226|211764|63241|63242|74459|74460|63284|74464|63349|63350|74465|63245|63313|63354|63455&dd=2027-07-16&ka1=16&kc1=1&nn=7|8|9|10|11|12|13|14&rd=2027-08-22&to=489|4371&tt=1'}
  ],
 
      zah:[
@@ -2099,18 +2150,27 @@ const countryAgencyLinks={
  
 };
 const latnivalokLinks={
- spanyol:'https://utazaskatalogus.hu/spanyolorszag-legszebb-helyei-latnivaloi/',
- thasos:'https://greekgift.hu/thassos-latnivalok-a-30-legjobb-nevezetesseg/',
- olasz:'https://olaszorszag.net/calabria',
- torok:'https://utazaskatalogus.hu/torokorszag-legszebb-helyei/',
- malta:'https://www.otptravel.hu/inspiraciok/malta-10-latvanyossag-malta-utazas',
- zah:'https://wise.com/hu/blog/zakynthos-latnivalok',
+ spanyol:'spanyol_latnivalok2.html',
+ torok:'torok_latnivalok2.html',
+ albania:'albania_latnivalok2.html',
+ thasos:'thasos_latnivalok2.html',
+ zah:'zakinthos_latnivalok2.html',
+ olasz:'calabria_latnivalok2.html',
+ malta:'malta_latnivalok2.html',
+ ciprus:'ciprus_latnivalok2.html',
+
 };
 
 const kedvezmenyesLinks={
+ spanyol:'',
+ torok:'',
+ albania:'',
  thasos:'thassos_latnivalok.html',
+ zah:'zah_latnivalok.html',
+ olasz:'',
  malta:'malta_latnivalok.html',
- zah:'zah_latnivalok.html'
+ ciprus:'',
+
 };
 
 document.querySelectorAll('.country-image-btn').forEach(btn=>btn.addEventListener('click',()=>{
@@ -2120,7 +2180,7 @@ document.querySelectorAll('.country-image-btn').forEach(btn=>btn.addEventListene
 
  const cards=links.length
   ? '<div class="country-link-grid">'+links.map(x=>'<a class="country-agency-link" href="'+x.href+'"><img src="'+x.img+'" alt="'+x.name+'"><span>'+x.name+'</span></a>').join('')+'</div>'
-  : '<p class="modal-empty">Ehhez az országhoz még nincs elérhető utazási iroda által közétett bőséges ajánlat. <br><b> Addig is nézd meg a kedvezményes ajánlatokat! </b></p>';
+  : '<p class="modal-empty">Ehhez az országhoz még nincs elérhető utazási iroda által közétett bőséges ajánlat. <br><b> Addig is nézd meg a többi ajánlatot! </b></p>';
 
  const latnivalok =
   '<div class="country-sights-wrap">' +
