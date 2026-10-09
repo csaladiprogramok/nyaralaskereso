@@ -1589,6 +1589,7 @@ h1{font-size:23px}
   letter-spacing:.2px;text-align:center;box-shadow:0 4px 12px rgba(214,0,0,.12)
 }
 @media(max-width:620px){.price-rise-badge{font-size:10px;padding:5px 8px;margin-bottom:10px}}
+.top-destination-badge{border-color:#16803a;color:#16803a;box-shadow:0 4px 12px rgba(22,128,58,.12)}
 </style>
 </head>
 <body>
@@ -1669,7 +1670,7 @@ h1{font-size:23px}
     <div class="update-entry">
       <span class="update-date">Aktuális: 2026.10.08. 22:00</span>
       <p class="update-description" style="text-align: justify;">
-<b> Egy új kedvezményes ajánlat érkezett a Spanyolországi desztinációba, </b> illetve <b> három új kedvezményes ajánlat érkezett a Törökországi desztinációba! </b>
+<b> Egy új kedvezményes ajánlat érkezett a Spanyolországi desztinációba, kettő új ajánlat érkezett az Albániai desztinációba </b> illetve <b> három új kedvezményes ajánlat érkezett a Törökországi desztinációba! </b>
       </div>
 <hr><br>
 
@@ -1825,10 +1826,11 @@ a különböző desztinációk <b>látnivalóikat!</b></p>
 <div id="countryFilterContent"><div class="country-image-grid">
     <button class="country-image-btn" type="button" data-filter-country="spanyol"><img src="spanyolorszag.jpg" alt="spanyolorszag"><span>Spanyolország</span></button>
     <button class="country-image-btn" type="button" data-filter-country="torok"><img src="törökország.jpg" alt="Törökország"><span>Törökország</span></button>  
+    <button class="country-image-btn" type="button" data-filter-country="zah"><img src="zakinthosz.jpg" alt="spanyolorszag"><span>Zakinthosz</span></button>  
     <button class="country-image-btn" type="button" data-filter-country="albania"><img src="albánia.jpg" alt="albania"><span>Albánia</span></button>
 
     <button class="country-image-btn" type="button" data-filter-country="thasos"><img src="thasoslogo.jpg" alt="Thasos"><span>Thasos - szigete</span></button>
-    <button class="country-image-btn" type="button" data-filter-country="zah"><img src="zakinthosz.jpg" alt="spanyolorszag"><span>Zakinthosz</span></button>  
+    
 
   <button class="country-image-btn" type="button" data-filter-country="olasz"><img src="olaszlogo.webp" alt="olaszorszag"><span>Olaszország</span></button>
     <button class="country-image-btn" type="button" data-filter-country="malta"><img src="maltalogo.webp" alt="malta"><span>Málta</span></button>
@@ -2261,7 +2263,9 @@ document.querySelectorAll('.country-image-btn').forEach(btn=>btn.addEventListene
    ? '<div class="price-rise-badge">AZ AJÁNLATOK IDŐKÖZBEN DRÁGULTAK!</div>'
    : '';
 
- openChoiceModal(name,latnivalok+dragulas+cards);
+ const topRanks = {spanyol:1,torok:2,zah:3,albania:4};
+ const topBadge = topRanks[key] ? '<div class="price-rise-badge top-destination-badge">#TOP'+topRanks[key]+'. DESZTINÁCIÓ</div>' : '';
+ openChoiceModal(name,latnivalok+dragulas+topBadge+cards);
 }));
 function setupFilterToggle(buttonId,contentId){const b=document.getElementById(buttonId),c=document.getElementById(contentId);if(!b||!c)return;b.addEventListener('click',()=>{const o=c.classList.toggle('show');b.classList.toggle('open',o);b.setAttribute('aria-expanded',String(o));});}
 
