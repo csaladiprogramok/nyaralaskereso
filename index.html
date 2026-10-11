@@ -1644,7 +1644,7 @@ h1{font-size:23px}
 <b>több desztinációból, régióból több ajánlatot is választani </b> nehogy a végén ne legyen már foglalható vagy ne tartozzon az aktuális <b>előfoglalási akcióhoz!</b> </span></p>
 
 <br><hr>
-<p class="update-note"><i><b>&nbsp;&nbsp;Utolsó frissítés: </b><strong style="color: red;">2026.10.11. 13:00 </i></strong></p>
+<p class="update-note"><i><b>&nbsp;&nbsp;Utolsó frissítés: </b><strong style="color: red;">2026.10.11. 14:00 </i></strong></p>
 
 <button class="update-log-btn" id="openUpdateLog" type="button">
   🕘 FRISSÍTÉSI NAPLÓ
@@ -1680,9 +1680,9 @@ h1{font-size:23px}
 <div><b> </b></div>
 <hr>
     <div class="update-entry">
-      <span class="update-date">Aktuális: 2026.10.11. 13:00</span>
+      <span class="update-date">Aktuális: 2026.10.11. 14:00</span>
       <p class="update-description" style="text-align: justify;">
-<b>Frissültek Málta kedvezményes ajánlatai!</b> Utazási irodamentes, <b>kockázatosabb ajánlatként bekerült Róma és Nápoly.</b> Továbbá kérlek, <b>add le szavazatodat arra a két desztinációra</b>, amelyet a nyaraláskereső alapos átnézése után megkedveltél. A szavazatodat kérlek, <b>prioritásod sorrendjében add le!</b> <b>Fontos feltétel:</b> Legyen köztük <b>minimum egy utazási iroda által az előfoglalási akcióban támogatott desztináció!</b>
+<b>Frissültek Málta kedvezményes ajánlatai!</b> Utazási irodamentes, <b>kockázatosabb ajánlatként bekerült Nápoly, Róma és Szkiathosz.</b> Továbbá kérlek, <b>add le szavazatodat arra a két desztinációra</b>, amelyet a nyaraláskereső alapos átnézése után megkedveltél. A szavazatodat kérlek, <b>prioritásod sorrendjében add le!</b> <b>Fontos feltétel:</b> Legyen köztük <b>minimum egy utazási iroda által az előfoglalási akcióban támogatott desztináció!</b>
       </div>
 <hr><br>
 
@@ -1881,6 +1881,7 @@ a különböző desztinációk <b>látnivalóikat!</b></p>
   <!-- Ide kerülhetnek az utazási iroda nélkül szervezhető úti célok. -->
   <button class="country-image-btn" type="button" data-filter-country="napoly"><img src="napoly.jpeg" alt="napoly"><span>Nápoly</span></button>
   <button class="country-image-btn" type="button" data-filter-country="roma"><img src="roma.jpeg" alt="roma"><span>Róma</span></button>
+   <button class="country-image-btn" type="button" data-filter-country="szki"><img src="szki.jpeg" alt="szki"><span>Szkiathosz</span></button>
 </div>
 </div></div>
 
@@ -2273,6 +2274,14 @@ const countryAgencyLinks={
   
 
  ],
+
+   szki:[
+  {name:'Booking',img:'Booking.jpg',href:'https://www.booking.com/searchresults.hu.html?ss=Szki%C3%A1thosz&ssne=Szki%C3%A1thosz&ssne_untouched=Szki%C3%A1thosz&efdco=1&label=hu-hu-booking-mobile-_9td8vcLEKH_6wpGG*i7TwSM652796014995%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp9063076%3Ali%3Adem%3Adm&aid=2311236&lang=hu&sb=1&src_elem=sb&src=searchresults&dest_id=2891&dest_type=region&checkin=2027-07-30&checkout=2027-08-06&group_adults=3&no_rooms=1&group_children=1&age=0'},
+  
+
+ ],
+
+ 
   amalfi:[
   {name:'Booking',img:'booking.jpg',href:'https://www.booking.com/searchresults.hu.html?ss=Amalfi+partvid%C3%A9ke%2C+Olaszorsz%C3%A1g&ssne=R%C3%B3ma&ssne_untouched=R%C3%B3ma&label=hu-hu-booking-mobile-_9td8vcLEKH_6wpGG*i7TwSM652796014995%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg%3Afi%3Atikwd-65526620%3Alp9063076%3Ali%3Adem%3Adm&aid=2311236&lang=hu&sb=1&src_elem=sb&src=searchresults&dest_id=1681&dest_type=region&ac_meta=GiBmOGU4Y2IwNDFmMzg3ZjhkMGI2M2IyZGExY2Q2OWUzNCAAKAEyAmh1OgZhbWFsZmk%3D&ac_position=0&ac_click_type=b&ac_langcode=hu&ac_suggestion_list_length=5&search_selected=true&search_pageview_id=f8e8cb041f387f8d0b63b2da1cd69e34&checkin=2027-07-31&checkout=2027-08-08&group_adults=3&no_rooms=1&group_children=1&age=0'},
   
@@ -2300,12 +2309,12 @@ const latnivalokLinks={
 const repulojegyLinks={
  napoly:'https://www.skyscanner.hu/transport/flights/bud/nap/270731/270808/?adultsv2=3&childrenv2=16&cabinclass=economy&rtn=1&outboundaltsenabled=false&inboundaltsenabled=false&preferdirects=false',
  roma:'https://www.skyscanner.hu/transport/repuloutak/bud/rome/270731/270808/?adultsv2=3&cabinclass=economy&childrenv2=16&ref=home&rtn=1&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false',
- amalfi:'',
- foreventura:''
+ szki:'https://www.skyscanner.hu/transport/repuloutak/bud/jsi/270730/270806/?adultsv2=3&cabinclass=economy&childrenv2=16&ref=home&rtn=1&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false',
 };
 const irodamentesLatnivalok={
  napoly:'napoly_latnivalok2.html',
  roma:'roma_latnivalok2.html',
+ szki:'szki_latnivalok2.html',
  amalfi:'https://www.google.com/search?q=Amalfi+part+l%C3%A1tnival%C3%B3k',
  foreventura:'https://www.google.com/search?q=Fuerteventura+l%C3%A1tnival%C3%B3k'
 };
