@@ -508,6 +508,10 @@ h1{font-size:23px}
 
 /* Foglalható időpontok jelzés – kizárólag a megjelölt desztináció képén */
 .country-image-btn .destination-calendar-badge{position:absolute;top:7px;left:7px;width:clamp(40px,6.5vw,64px);height:clamp(40px,6.5vw,64px);object-fit:contain;z-index:2;border-radius:50%;box-shadow:0 2px 9px rgba(0,0,0,.25);pointer-events:none}
+@media(max-width:620px){.country-image-btn .destination-calendar-badge{width:32px;height:32px;top:6px;left:6px}}
+/* Csak a spanyol időpontok gomb új sorban, a Látnivalók alatt */
+.country-sights-wrap .spanyol-idopontok-btn{flex-basis:100%;width:max-content;max-width:100%;justify-content:center}
+@media(max-width:620px){.country-sights-wrap .spanyol-idopontok-btn{flex:0 0 auto;width:auto;max-width:100%;margin-top:2px}}
 </style>
 <!-- KÖZLEMÉNY FELUGRÓ ABLAK -->
 <style>
@@ -1597,6 +1601,34 @@ h1{font-size:23px}
 </style>
 
 
+
+<style>
+/* Végleges mobiljavítás: felülírja a korábbi nowrap szabályokat. */
+@media (max-width:620px){
+  .country-image-btn .destination-calendar-badge{width:30px !important;height:30px !important;top:5px;left:5px}
+  .country-sights-wrap:has(.spanyol-idopontok-btn){flex-wrap:wrap !important}
+  .country-sights-wrap .spanyol-idopontok-btn{flex:0 0 auto !important;width:max-content !important;max-width:100% !important;margin-top:3px;justify-content:center}
+}
+</style>
+<style>
+/* Spanyolország: az IDŐPONTOK külön sorban, a LÁTNIVALÓK alatt. */
+.spanyol-idopontok-row{display:block;margin-top:7px;text-align:left}
+.spanyol-idopontok-row .spanyol-idopontok-btn{display:inline-flex !important;flex:none !important;width:auto !important;max-width:100% !important;box-sizing:border-box !important;white-space:nowrap;align-items:center;justify-content:center}
+@media(max-width:620px){
+  .country-image-btn .destination-calendar-badge{width:38px !important;height:38px !important;top:5px;left:5px}
+  .spanyol-idopontok-row{margin-top:7px}
+  .spanyol-idopontok-row .spanyol-idopontok-btn{width:auto !important;flex:none !important;padding:7px 9px !important;font-size:10px !important}
+}
+</style>
+<style>
+/* Spanyolország: szorosabb gombköz és kisebb tér az alatta lévő képig. */
+.country-sights-wrap.spanyol-sights-wrap{margin-bottom:2px !important}
+.spanyol-idopontok-row{margin-top:6px !important;margin-bottom:5px !important}
+@media(max-width:620px){
+ .country-sights-wrap.spanyol-sights-wrap{margin-bottom:1px !important}
+ .spanyol-idopontok-row{margin-top:6px !important;margin-bottom:3px !important}
+}
+</style>
 </head>
 <body>
 <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()" aria-hidden="true"></div>
@@ -2344,7 +2376,7 @@ document.querySelectorAll('.country-image-btn').forEach(btn=>btn.addEventListene
   : '<p class="modal-empty">Ehhez az országhoz még nincs elérhető utazási iroda által közétett bőséges ajánlat. <br><b> Addig is nézd meg a többi ajánlatot! </b></p>';
 
  const latnivalok =
-  '<div class="country-sights-wrap">' +
+  '<div class="country-sights-wrap'+(key==='spanyol'?' spanyol-sights-wrap':'')+'">' +
     ((latnivalokLinks[key]||irodamentesLatnivalok[key])
       ? '<a class="country-sights-btn" href="'+(latnivalokLinks[key]||irodamentesLatnivalok[key])+'" target="_blank" rel="noopener noreferrer">📍 LÁTNIVALÓK</a>'
       : '') +
@@ -2354,10 +2386,10 @@ document.querySelectorAll('.country-image-btn').forEach(btn=>btn.addEventListene
     (kedvezmenyesLinks[key]
       ? '<a class="country-sights-btn country-discount-btn" href="'+kedvezmenyesLinks[key]+'">💰 KEDVEZMÉNYES AJÁNLATOK</a>'
       : '') +
+  '</div>' +
     (key==='spanyol'
-      ? '<a class="country-sights-btn country-discount-btn" href="'+kedvezmenyesLinks[key]+'">📅 IDŐPONTOK</a>'
-      : '') +
-  '</div>';
+      ? '<div class="spanyol-idopontok-row"><a class="country-sights-btn country-discount-btn spanyol-idopontok-btn" href="'+kedvezmenyesLinks[key]+'">📅 IDŐPONTOK</a></div>'
+      : '');
 
  const irodamentesFigyelmeztetes = (key==='napoly'||key==='roma' ||key==='szki')
   ? '<div class="price-rise-badge">UTAZÁSI IRODAMENTES, KOCKÁZATOSABB!</div>'
