@@ -1603,30 +1603,35 @@ h1{font-size:23px}
 
 
 <style>
-/* Végleges mobiljavítás: felülírja a korábbi nowrap szabályokat. */
-@media (max-width:620px){
-  .country-image-btn .destination-calendar-badge{width:30px !important;height:30px !important;top:5px;left:5px}
-  .country-sights-wrap:has(.spanyol-idopontok-btn){flex-wrap:wrap !important}
-  .country-sights-wrap .spanyol-idopontok-btn{flex:0 0 auto !important;width:max-content !important;max-width:100% !important;margin-top:3px;justify-content:center}
+/* Spanyolország: mindhárom gomb azonos megjelenésű, az időpontok külön sorban. */
+.spanyol-sights-wrap .country-sights-btn,
+.spanyol-idopontok-row .spanyol-idopontok-btn{
+  display:inline-flex !important;align-items:center !important;justify-content:center !important;
+  flex:0 0 auto !important;width:max-content !important;max-width:100% !important;
+  box-sizing:border-box !important;white-space:nowrap !important;
+  padding:8px 14px !important;gap:7px !important;
+  font-size:13px !important;font-weight:900 !important;line-height:normal !important;
+  border:1px solid rgba(8,127,140,.22) !important;border-radius:10px !important;
+  background:#eef9fa !important;color:#087f8c !important;
+  box-shadow:0 5px 14px rgba(8,127,140,.10) !important;
+  text-decoration:none !important;
 }
-</style>
-<style>
-/* Spanyolország: az IDŐPONTOK külön sorban, a LÁTNIVALÓK alatt. */
-.spanyol-idopontok-row{display:block;margin-top:7px;text-align:left}
-.spanyol-idopontok-row .spanyol-idopontok-btn{display:inline-flex !important;flex:none !important;width:auto !important;max-width:100% !important;box-sizing:border-box !important;white-space:nowrap;align-items:center;justify-content:center}
+.country-sights-wrap.spanyol-sights-wrap{margin-bottom:1px !important}
+.spanyol-idopontok-row{display:block;text-align:left;margin-top:6px !important;margin-bottom:3px !important}
 @media(max-width:620px){
-  .country-image-btn .destination-calendar-badge{width:38px !important;height:38px !important;top:5px;left:5px}
-  .spanyol-idopontok-row{margin-top:7px}
-  .spanyol-idopontok-row .spanyol-idopontok-btn{width:auto !important;flex:none !important;padding:7px 9px !important;font-size:10px !important}
+  .country-image-btn .destination-calendar-badge{
+    width:32px !important;height:32px !important;top:7px !important;left:7px !important;
+  }
+  .spanyol-sights-wrap .country-sights-btn,
+  .spanyol-idopontok-row .spanyol-idopontok-btn{
+    padding:7px 8px !important;gap:4px !important;font-size:10px !important;
+  }
 }
-</style>
-<style>
-/* Spanyolország: szorosabb gombköz és kisebb tér az alatta lévő képig. */
-.country-sights-wrap.spanyol-sights-wrap{margin-bottom:2px !important}
-.spanyol-idopontok-row{margin-top:6px !important;margin-bottom:5px !important}
-@media(max-width:620px){
- .country-sights-wrap.spanyol-sights-wrap{margin-bottom:1px !important}
- .spanyol-idopontok-row{margin-top:6px !important;margin-bottom:3px !important}
+@media(max-width:390px){
+  .spanyol-sights-wrap .country-sights-btn,
+  .spanyol-idopontok-row .spanyol-idopontok-btn{
+    padding:6px !important;gap:3px !important;font-size:9px !important;
+  }
 }
 </style>
 </head>
