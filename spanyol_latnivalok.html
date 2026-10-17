@@ -72,7 +72,7 @@ h3{
 }
 @media(max-width:350px){.actions{grid-template-columns:1fr}}
 
-/* Nyári időpontválasztó */
+
 .dates-btn{width:100%;margin-top:10px;border:0;cursor:pointer;background:linear-gradient(110deg,#ffb703,#ff8c42);color:#17324d;font-size:14px;letter-spacing:.4px;box-shadow:0 7px 18px #ffb70344}
 .dates-btn:hover{filter:brightness(1.04)}
 .dates-overlay{position:fixed;inset:0;background:rgba(9,41,58,.65);backdrop-filter:blur(5px);z-index:1000;display:none;align-items:center;justify-content:center;padding:16px}
@@ -91,6 +91,20 @@ h3{
 .dates-close{display:block;margin:22px auto 0;border:0;background:#ff6547;color:white;font-weight:900;font-size:15px;padding:12px 32px;border-radius:11px;cursor:pointer}
 .dates-x{position:absolute;right:16px;top:12px;background:transparent;border:0;font-size:27px;cursor:pointer;color:#345}
 @media(max-width:550px){.dates-dialog{padding:20px 13px}.dates-row{grid-template-columns:1fr auto;gap:5px;font-size:12px}.dates-row a{grid-column:2;grid-row:1/3}.dates-row .dates-price{grid-column:1}}
+
+
+.notice-overlay{position:fixed;inset:0;z-index:2500;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(8,42,62,.62);backdrop-filter:blur(5px)}
+.notice-overlay[hidden]{display:none}
+.notice-modal{position:relative;width:min(460px,100%);max-height:calc(100dvh - 36px);overflow:auto;text-align:center;padding:34px 27px 26px;border-radius:24px;border:2px solid #fff6d7;background:linear-gradient(155deg,#fffef8 0%,#fff5d9 62%,#e4f8f7 100%);box-shadow:0 24px 75px rgba(4,48,69,.32),inset 0 0 0 3px rgba(255,255,255,.55);color:#17324d}
+.notice-modal:before{content:none}
+.notice-heading{font-size:23px;font-weight:900;color:#e96c30;margin-bottom:21px}
+.notice-main{font-size:19px;font-weight:800;line-height:1.43;margin-bottom:24px}
+.notice-main strong{color:#087f8c}
+.notice-detail{font-size:15px;font-style:italic;line-height:1.5;color:#526a76;margin-bottom:24px}
+.notice-time{font-size:14px;font-weight:800;color:#496475;margin-bottom:22px}
+.notice-confirm{border:0;border-radius:13px;padding:12px 37px;font-size:17px;font-weight:900;color:#fff;background:linear-gradient(110deg,#00b4c4,#087f8c);box-shadow:0 7px 18px rgba(8,127,140,.24);cursor:pointer}
+.notice-confirm:hover{filter:brightness(1.08)}
+@media(max-width:480px){.notice-modal{padding:27px 19px 22px}.notice-main{font-size:17px}.notice-heading{font-size:21px}}
 </style>
 </head>
 <body>
@@ -103,7 +117,7 @@ h3{
   </section>
 
   <section class="cards">
-    <!-- KÁRTYA MINTA 1 -->
+    
 
                      <article class="offer-card">
       <div class="slider">
@@ -122,9 +136,7 @@ h3{
           <a class="action sights-btn" href="spanyol_latnivalok2.html">LÁTNIVALÓK</a>
         </div>
         <button type="button" class="action dates-btn" aria-haspopup="dialog">FOGLALHATÓ IDŐPONTOK</button>
-        <!-- 1. KÁRTYA: ITT SZERKESZTHETED A SAJÁT IDŐPONTJAIT, ÁRAIT ÉS LINKJEIT.
-             Az url mezőbe illeszd a konkrét ajánlat linkjét. Ha üres, a szállás megtekintése linket használja.
-             A dates listából sorokat törölhetsz, vagy új sorokat másolhatsz be. -->
+        
         <script type="application/json" class="card-dates-data">
 {
   "subtitle": "Félpanziós ellátással / 7 éjszakával / 8 nappal.",
@@ -208,9 +220,7 @@ h3{
           <a class="action sights-btn" href="spanyol_latnivalok2.html">LÁTNIVALÓK</a>
         </div>
         <button type="button" class="action dates-btn" aria-haspopup="dialog">FOGLALHATÓ IDŐPONTOK </button>
-        <!-- 3. KÁRTYA: ITT SZERKESZTHETED A SAJÁT IDŐPONTJAIT, ÁRAIT ÉS LINKJEIT.
-             Az url mezőbe illeszd a konkrét ajánlat linkjét. Ha üres, a szállás megtekintése linket használja.
-             A dates listából sorokat törölhetsz, vagy új sorokat másolhatsz be. -->
+        
         <script type="application/json" class="card-dates-data">
 {
   "subtitle": "Félpanziós ellátással / 7 éjszakával / 8 nappal.",
@@ -253,9 +263,7 @@ h3{
           <a class="action sights-btn" href="spanyol_latnivalok2.html">LÁTNIVALÓK</a>
         </div>
         <button type="button" class="action dates-btn" aria-haspopup="dialog">FOGLALHATÓ IDŐPONTOK </button>
-        <!-- 2. KÁRTYA: ITT SZERKESZTHETED A SAJÁT IDŐPONTJAIT, ÁRAIT ÉS LINKJEIT.
-             Az url mezőbe illeszd a konkrét ajánlat linkjét. Ha üres, a szállás megtekintése linket használja.
-             A dates listából sorokat törölhetsz, vagy új sorokat másolhatsz be. -->
+        
         <script type="application/json" class="card-dates-data">
 {
   "subtitle": "Félpanziós ellátással / 7 éjszakával / 8 nappal.",
@@ -304,8 +312,7 @@ h3{
  
                   
     
-   <!------
-                    <article class="offer-card">
+<article class="offer-card">
       <div class="slider">
         <img class="slide active" src="SP21.webp" alt="Szállás 1 – kép 1">
         <img class="slide" src="SP22.webp" alt="Szállás 1 – kép 2">
@@ -320,13 +327,7 @@ h3{
           <a class="action hotel-btn" href="https://www.atlasztravel.hu/utazas-megtekintes/best-los-angeles/70833a?df=2027-07-17&dt=2027-07-24&uf=6&ut=8&ac=3&cc=1&ti=1&pt=15000000&ci%5B0%5D=214&rooms%5B0%5D=18%2C18%2C18%2C16&ca1=16&ai%5B0%5D=18">SZÁLLÁS MEGTEKINTÉSE</a>
           <a class="action sights-btn" href="spanyol_latnivalok2.html">LÁTNIVALÓK</a>
         </div>
-        <button type="button" class="action dates-btn" aria-haspopup="dialog">FOGLALHATÓ IDŐPONTOK </button>
-       4. KÁRTYA: ITT SZERKESZTHETED A SAJÁT IDŐPONTJAIT, ÁRAIT ÉS LINKJEIT.
-             Az url mezőbe illeszd a konkrét ajánlat linkjét. Ha üres, a szállás megtekintése linket használja.
-             A dates listából sorokat törölhetsz, vagy új sorokat másolhatsz be. -->
- 
- <!----------
-             <script type="application/json" class="card-dates-data"> 
+<script type="application/json" class="card-dates-data"> 
 {
   "subtitle": "Félpanziós ellátással / 7 éjszakával / 8 nappal.",
   "dates": [
@@ -362,8 +363,8 @@ h3{
 }
         </script>
       </div>
-    </article> 
-        <article class="offer-card">
+    </article>
+<article class="offer-card">
       <div class="slider">
         <img class="slide active" src="SH1.webp" alt="Szállás 1 – kép 1">
         <img class="slide" src="SH2.webp" alt="Szállás 1 – kép 2">
@@ -378,12 +379,7 @@ h3{
           <a class="action hotel-btn" href="https://www.atlasztravel.hu/utazas-megtekintes/best-cap-salou/70888a?df=2027-07-17&dt=2027-07-24&uf=6&ut=8&ac=3&cc=1&ti=1&pt=15000000&ci%5B0%5D=214&rooms%5B0%5D=18%2C18%2C18%2C16&ca1=16&ai%5B0%5D=18">SZÁLLÁS MEGTEKINTÉSE</a>
           <a class="action sights-btn" href="spanyol_latnivalok2.html">LÁTNIVALÓK</a>
         </div>
-        <button type="button" class="action dates-btn" aria-haspopup="dialog">FOGLALHATÓ IDŐPONTOK ☀️</button>
-         5. KÁRTYA: ITT SZERKESZTHETED A SAJÁT IDŐPONTJAIT, ÁRAIT ÉS LINKJEIT.
-             Az url mezőbe illeszd a konkrét ajánlat linkjét. Ha üres, a szállás megtekintése linket használja.
-             A dates listából sorokat törölhetsz, vagy új sorokat másolhatsz be. -->
-      <!--------
-             <script type="application/json" class="card-dates-data">
+<script type="application/json" class="card-dates-data">
 {
   "subtitle": "Félpanziós ellátással / 7 éjszakával / 8 nappal.",
   "dates": [
@@ -421,8 +417,7 @@ h3{
         </script>
      </div>
     </article>
-
-        <article class="offer-card">
+<article class="offer-card">
       <div class="slider">
         <img class="slide active" src="S21.webp" alt="Szállás 1 – kép 1">
         <img class="slide" src="S.webp" alt="Szállás 1 – kép 2">
@@ -437,12 +432,7 @@ h3{
           <a class="action hotel-btn" href="https://www.atlasztravel.hu/utazas-megtekintes/best-cambrils/98460a?df=2027-07-17&dt=2027-07-24&uf=6&ut=8&ac=3&cc=1&ti=1&pt=15000000&ci%5B0%5D=214&rooms%5B0%5D=18%2C18%2C18%2C16&ca1=16&ai%5B0%5D=18">SZÁLLÁS MEGTEKINTÉSE</a>
           <a class="action sights-btn" href="spanyol_latnivalok2.html">LÁTNIVALÓK</a>
         </div>
-        <button type="button" class="action dates-btn" aria-haspopup="dialog">FOGLALHATÓ IDŐPONTOK ☀️</button>
-        6. KÁRTYA: ITT SZERKESZTHETED A SAJÁT IDŐPONTJAIT, ÁRAIT ÉS LINKJEIT.
-             Az url mezőbe illeszd a konkrét ajánlat linkjét. Ha üres, a szállás megtekintése linket használja.
-             A dates listából sorokat törölhetsz, vagy új sorokat másolhatsz be. -->
-       <!-----
-             <script type="application/json" class="card-dates-data">
+<script type="application/json" class="card-dates-data">
 {
   "subtitle": "Félpanziós ellátással / 7 éjszakával / 8 nappal.",
   "dates": [
@@ -479,8 +469,7 @@ h3{
          </script>
       </div>
     </article>
-
-    <article class="offer-card">
+<article class="offer-card">
       <div class="slider">
         <img class="slide active" src="S11.webp" alt="Szállás 1 – kép 1">
         <img class="slide" src="S12.webp" alt="Szállás 1 – kép 2">
@@ -495,13 +484,7 @@ h3{
           <a class="action hotel-btn" href="https://www.atlasztravel.hu/utazas-megtekintes/best-negresco/70668a?df=2027-07-17&dt=2027-07-24&uf=6&ut=8&ac=3&cc=1&ti=1&pt=15000000&ci%5B0%5D=214&rooms%5B0%5D=18%2C18%2C18%2C16&ca1=16&ai%5B0%5D=18">SZÁLLÁS MEGTEKINTÉSE</a>
           <a class="action sights-btn" href="spanyol_latnivalok2.html">LÁTNIVALÓK</a>
         </div>
-        <button type="button" class="action dates-btn" aria-haspopup="dialog">FOGLALHATÓ IDŐPONTOK ☀️</button>
-       7. KÁRTYA: ITT SZERKESZTHETED A SAJÁT IDŐPONTJAIT, ÁRAIT ÉS LINKJEIT.
-             Az url mezőbe illeszd a konkrét ajánlat linkjét. Ha üres, a szállás megtekintése linket használja.
-             A dates listából sorokat törölhetsz, vagy új sorokat másolhatsz be. -->
-         <!-- 
-        
-             <script type="application/json" class="card-dates-data">
+<script type="application/json" class="card-dates-data">
 {
   "subtitle": "Félpanziós ellátással / 7 éjszakával / 8 nappal.",
   "dates": [
@@ -538,16 +521,6 @@ h3{
         </script>
       </div>
     </article>
-
----->
-
-
-
-
-
-
-
-
   </section>
 </main>
 
@@ -565,7 +538,6 @@ h3{
 </div>
 <script>
 
-// A megadott időpontok és árak mintadatok; a MEGNÉZEM a megfelelő szálloda ajánlatára mutat.
 const datesOverlay=document.getElementById('datesOverlay');
 const datesRows=document.getElementById('datesRows');
 let lastTrigger=null;
@@ -576,7 +548,7 @@ document.querySelectorAll('.dates-btn').forEach(button=>button.addEventListener(
   const url=card.querySelector('.hotel-btn').href;
   document.getElementById('datesHotel').textContent=card.querySelector('.hotel-name').textContent;
   datesRows.replaceChildren();
-  // Minden kártya a saját, fent szerkeszthető JSON adatait olvassa be.
+
   let cardData;
   try { cardData=JSON.parse(card.querySelector('.card-dates-data').textContent); }
   catch(error) { console.error('Hibás időpont-adatok:',error); cardData={subtitle:'',dates:[]}; }
@@ -599,7 +571,7 @@ document.querySelectorAll('.slider').forEach((slider, sliderIndex) => {
   const slides = [...slider.querySelectorAll('.slide')];
   const dots = [...slider.querySelectorAll('.dot')];
   let current = 0;
-  // Kis eltérés, hogy több kártya ne pontosan egyszerre váltson.
+
   setTimeout(() => {
     setInterval(() => {
       slides[current].classList.remove('active');
@@ -610,6 +582,24 @@ document.querySelectorAll('.slider').forEach((slider, sliderIndex) => {
     }, 5000);
   }, sliderIndex * 450);
 });
+</script>
+<div class="notice-overlay" id="summerNoticeOverlay">
+  <section class="notice-modal" role="dialog" aria-modal="true" aria-labelledby="summerNoticeTitle" aria-describedby="summerNoticeText">
+    <div class="notice-heading" id="summerNoticeTitle">📢 KÖZLEMÉNY 📢</div>
+    <p class="notice-main" id="summerNoticeText">Az <strong>Atlasz Travel</strong> weboldalán található információk, foglalási naptár alapján a spanyolországi utazásokra elérhető, előfoglalási kedvezményes helyek száma gyorsan csökkent bizonyos szállások esetében.</p>
+    <p class="notice-detail">Ezért előfordulhat, hogy egyes időpontokra vagy keresési feltételekre a weboldal már nem jelenít meg elérhető ajánlatot.</p>
+    <p class="notice-time">2026. október 17. 11:00</p>
+    <button class="notice-confirm" type="button" id="summerNoticeConfirm">Rendben</button>
+  </section>
+</div>
+<script>
+(function(){
+  const overlay=document.getElementById('summerNoticeOverlay');
+  const confirm=document.getElementById('summerNoticeConfirm');
+  confirm.addEventListener('click',()=>{overlay.hidden=true;});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!overlay.hidden){overlay.hidden=true;}});
+  confirm.focus();
+})();
 </script>
 </body>
 </html>
