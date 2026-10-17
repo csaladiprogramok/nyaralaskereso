@@ -269,7 +269,7 @@ document.querySelectorAll('.dates-btn').forEach(button=>button.addEventListener(
   document.getElementById('datesSubtitle').textContent=cardData.subtitle || '';
   (cardData.dates || []).forEach(({from,to,price,url:rowUrl})=>{
     const row=document.createElement('div');row.className='dates-row';
-    const date=document.createElement('span');date.textContent=from+' – '+to;
+    const date=document.createElement('span');date.innerHTML='';const dateText=document.createElement('span');dateText.textContent=from+' – '+to;const duration=document.createElement('span');duration.textContent='7 éj / 8 nap';duration.style.cssText='display:block;margin-top:4px;font-size:12px;font-weight:600;color:#60727b';date.append(dateText,duration);
     const amount=document.createElement('span');amount.className='dates-price';amount.textContent=price+' – Ft';
     const link=document.createElement('a');link.href=rowUrl || url;link.target='_blank';link.rel='noopener noreferrer';link.textContent='MEGNÉZEM';
     row.append(date,amount,link);datesRows.append(row);
