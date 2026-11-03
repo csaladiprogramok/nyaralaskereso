@@ -1652,8 +1652,31 @@ h1{font-size:23px}
 .frissites-ertesites-notice p{margin:0;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.4;font-weight:700;font-style:italic;text-align:justify;text-justify:inter-word;hyphens:auto;overflow-wrap:break-word}
 @media(max-width:480px){.frissites-ertesites-notice{gap:8px;padding:7px}.frissites-ertesites-notice img{width:42px;height:42px;flex-basis:42px}.frissites-ertesites-notice p{font-size:10px}}
 </style>
+<style>
+/* ÚJ, SÁRGA KÉPES BELÉPŐ MODÁL – kizárólag ennek az ablaknak a stílusa */
+#sunny-image-overlay{position:fixed;inset:0;z-index:2000001;display:flex;align-items:center;justify-content:center;padding:12px;background:repeating-linear-gradient(135deg,#fff7ca 0 24px,#ffd056 24px 27px,#fffbe0 27px 52px);backdrop-filter:none;-webkit-backdrop-filter:none}
+#sunny-image-overlay[hidden]{display:none}
+#sunny-image-dialog{box-sizing:border-box;display:flex;flex-direction:column;align-items:stretch;gap:12px;width:min(680px,calc(100vw - 24px),calc((100dvh - 105px)*16/9));min-width:0;max-height:calc(100dvh - 24px);overflow:hidden;padding:12px;border:3px solid #e9a600;border-radius:20px;background:repeating-linear-gradient(145deg,#fffdf3 0 30px,#fff4d5 30px 60px);box-shadow:0 25px 75px rgba(128,88,0,.28),0 0 0 7px rgba(255,255,255,.45);animation:sunnyImageEnter .65s cubic-bezier(.18,.85,.22,1.08) both}
+#sunny-image-dialog.is-leaving{animation:sunnyImageExit .48s ease-in both}
+#sunny-image-frame{position:relative;flex:0 0 auto;width:100%;aspect-ratio:16 / 9;overflow:hidden;border-radius:12px;background:#fff3d0;box-shadow:0 8px 22px rgba(128,88,0,.14)}
+#sunny-image-frame img{position:absolute;inset:0;display:block;width:100%;height:100%;max-width:none;max-height:none;object-fit:contain;object-position:center}
+#sunny-image-close{appearance:none;display:block;visibility:visible;opacity:1;position:relative;flex:0 0 auto;align-self:stretch;width:100%;margin:0;min-width:0;min-height:44px;padding:10px 20px;border:0;border-radius:12px;background:linear-gradient(135deg,#ffcb39,#e69a00);color:#543600;font:900 16px Arial,Helvetica,sans-serif;line-height:1.2;text-align:center;cursor:pointer;box-shadow:0 7px 18px rgba(173,112,0,.25);transition:transform .2s,box-shadow .2s}
+#sunny-image-close:hover{transform:translateY(-2px);box-shadow:0 12px 22px rgba(173,112,0,.35)}
+#sunny-image-close:focus-visible{outline:3px solid #087f8c;outline-offset:3px}
+@keyframes sunnyImageEnter{from{opacity:0;transform:translateX(-110vw) rotate(-5deg)}to{opacity:1;transform:translateX(0) rotate(0)}}
+@keyframes sunnyImageExit{to{opacity:0;transform:translateX(110vw) rotate(5deg)}}
+@media(prefers-reduced-motion:reduce){#sunny-image-dialog,#sunny-image-dialog.is-leaving{animation-duration:.01ms}#sunny-image-close{transition:none}}
+</style>
 </head>
 <body>
+<!-- Új, képes belépő ablak; a meglévő modálok változatlanok -->
+<div id="sunny-image-overlay" role="dialog" aria-modal="true" aria-label="Képes tájékoztató">
+  <div id="sunny-image-dialog">
+    <div id="sunny-image-frame"><img src="frissitesalatt.jpg" alt="Tájékoztató kép"></div>
+    <button id="sunny-image-close" type="button">BEZÁRÁS</button>
+  </div>
+</div>
+
 <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()" aria-hidden="true"></div>
 <div class="navbar">
     <a href="index.html" class="logo">VakációVágyó 2027</a>
@@ -2555,4 +2578,33 @@ function setupFilterToggle(buttonId,contentId){const b=document.getElementById(b
     setInterval(updateCountdown, 60000);
   </script>
 
+<script>
+/* SÁRGA KÉPES MODÁL – KI/BE KAPCSOLÁS
+   true  = megjelenik
+   false = nem jelenik meg (a többi modál változatlan)
+*/
+const SARGA_MODAL_BEKAPCSOLVA = true;
+
+/* Csak az új képes modált vezérli. */
+(function(){
+  const overlay=document.getElementById('sunny-image-overlay');
+  const dialog=document.getElementById('sunny-image-dialog');
+  const close=document.getElementById('sunny-image-close');
+  if (!SARGA_MODAL_BEKAPCSOLVA) {
+    overlay.hidden = true;
+    return;
+  }
+  const previousOverflow=document.body.style.overflow;
+  document.body.style.overflow='hidden';
+  close.focus({preventScroll:true});
+  close.addEventListener('click',function(){
+    if(dialog.classList.contains('is-leaving'))return;
+    dialog.classList.add('is-leaving');
+    let done=false;
+    function finish(){if(done)return;done=true;window.location.href='https://csaladiprogramok.github.io/vakaciovagyo/szamlalo.html';}
+    dialog.addEventListener('animationend',finish,{once:true});
+    setTimeout(finish,650);
+  });
+})();
+</script>
 </body></html>
