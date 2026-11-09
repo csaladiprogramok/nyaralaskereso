@@ -35,6 +35,7 @@ h3{
   animation:colors 5s linear infinite
 }
 .intro{margin-top:9px;color:#60727b;font-size:14px;line-height:1.55}
+.departure-label{display:inline-block;margin-top:10px;padding:7px 12px;border:2px solid #c62828;border-radius:9px;color:#c62828;background:#fff8f7;font-size:13px;font-weight:900;letter-spacing:.3px}
 .cards{width:min(900px,100%);margin:auto;display:grid;grid-template-columns:1fr;gap:16px}
 .offer-card{
   overflow:hidden;background:rgba(255,255,255,.97);border-radius:20px;
@@ -75,6 +76,8 @@ h3{
 
 .dates-btn{width:100%;margin-top:10px;border:0;cursor:pointer;background:linear-gradient(110deg,#ffb703,#ff8c42);color:#17324d;font-size:14px;letter-spacing:.4px;box-shadow:0 7px 18px #ffb70344}
 .dates-btn:hover{filter:brightness(1.04)}
+/* Kártyánként: data-foglalhato-idopontok="true" vagy "false". */
+.offer-card[data-foglalhato-idopontok="false"] .dates-btn{display:none}
 .dates-overlay{position:fixed;inset:0;background:rgba(9,41,58,.65);backdrop-filter:blur(5px);z-index:1000;display:none;align-items:center;justify-content:center;padding:16px}
 .dates-overlay.open{display:flex}
 .dates-dialog{position:relative;width:min(650px,100%);max-height:90vh;overflow-y:auto;background:linear-gradient(150deg,#fffdf4,#fff2d6);border:2px solid #fff;border-radius:23px;box-shadow:0 25px 80px #062b4260;padding:26px}
@@ -101,13 +104,15 @@ h3{
     <a class="back" href="index.html">← Vissza a nyaraláskeresőhöz</a>
     <h2>KIEMELT AJÁNLATOK</h2>
     <h3>SPANYOLORSZÁG</h3>
-    <p class="intro" style="text-align: justify;">Válogass a kiemelt szállásajánlatok közül.<b>Sok jó ajánlat van a Spanyolországi desztinációba, érdemes megnézni az utazási irodák többi ajánlatát is.</b><br><br> <b>További javaslat: Nézd meg a többi ajánlatot is a főoldalon utazási irodánként válogatva!</b><br><b style="color: green;">Nézd meg a válogatott foglalható időpontokat a szállásoknál!</b><p style="color:#c62828;font-size:14px;line-height:1.55;margin-top:14px;font-weight:700; text-align: justify;" >KÖZLEMÉNY - Az Atlasz Travel weboldalán található információk és foglalási naptár alapján a spanyolországi utazásokra elérhető, előfoglalási kedvezményes helyek száma gyorsan csökkent. Emiatt előfordulhat, hogy bizonyos időpontokra vagy keresési feltételekkel már nem található elérhető ajánlat.<span style="display:block;margin-top:7px;font-size:12px;"><i>2026. október 17. 11:00</i></span></p></p>
+          <div class="departure-label">BÉCSI ÉS BUDAPESTI INDULÁSOKKAL</div>
+    <p class="intro" style="text-align: justify;">Válogass a kiemelt szállásajánlatok közül! <!----<b>Sok jó ajánlat van a Spanyolországi desztinációba, érdemes megnézni az utazási irodák többi ajánlatát is.</b><br><br> <b>További javaslat: Nézd meg a többi ajánlatot is a főoldalon utazási irodánként válogatva!</b><br><b style="color: green;">Nézd meg a válogatott foglalható időpontokat a szállásoknál!</b><!-- <p style="color:#c62828;font-size:14px;line-height:1.55;margin-top:14px;font-weight:700; text-align: justify;" >KÖZLEMÉNY - Az Atlasz Travel weboldalán található információk és foglalási naptár alapján a spanyolországi utazásokra elérhető, előfoglalási kedvezményes helyek száma gyorsan csökkent. Emiatt előfordulhat, hogy bizonyos időpontokra vagy keresési feltételekkel már nem található elérhető ajánlat.<span style="display:block;margin-top:7px;font-size:12px;"><i>2026. október 17. 11:00</i></span></p> --></p> 
+
   </section>
 
   <section class="cards">
     
 
-                     <article class="offer-card">
+                     <article class="offer-card" data-foglalhato-idopontok="false">
       <div class="slider">
         <img class="slide active" src="SP+11.webp" alt="Szállás 1 – kép 1">
         <img class="slide" src="SP+12.webp" alt="Szállás 1 – kép 2">
@@ -221,7 +226,7 @@ h3{
       </div>
     </article> 
 
-       <article class="offer-card">
+       <article class="offer-card" data-foglalhato-idopontok="false">
       <div class="slider">
         <img class="slide active" src="SPP11.webp" alt="Szállás 1 – kép 1">
         <img class="slide" src="SPP12.webp" alt="Szállás 1 – kép 2">
@@ -263,7 +268,7 @@ h3{
       </div>
     </article> 
 
-              <article class="offer-card">
+              <article class="offer-card" data-foglalhato-idopontok="false">
       <div class="slider">
         <img class="slide active" src="SP11.webp" alt="Szállás 1 – kép 1">
         <img class="slide" src="SP12.webp" alt="Szállás 1 – kép 2">
