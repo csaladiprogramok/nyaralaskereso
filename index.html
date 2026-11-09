@@ -1691,6 +1691,17 @@ h1{font-size:23px}
 .bevezeto-zarojel{font-size:inherit;line-height:1.5;flex:0 0 auto}
 .bevezeto-zarojel-tartalom .update-note{font-size:inherit}
 </style>
+<style>
+
+/* Frissítési napló: egyszerű, egységes tipográfia és balra igazított dátumok. */
+#updateModal .update-modal-box{font-family:Arial,Helvetica,sans-serif}
+#updateModal .update-entry{padding:11px 0;text-align:left}
+#updateModal .update-date{display:table;margin:0 0 6px 0;font-family:inherit;font-size:12px;font-weight:700;text-align:left}
+#updateModal .update-description{font-family:inherit;font-size:13px;line-height:1.5;font-weight:400}
+@media(max-width:620px){#updateModal .update-description{font-size:13px}}
+/* A modál tartalmának tetejéről történő lehúzás is működhessen. */
+#updateModal .update-modal-box{overscroll-behavior-y:auto;-webkit-overflow-scrolling:touch}
+</style>
 </head>
 <body>
 <!-- Új, képes belépő ablak; a meglévő modálok változatlanok -->
@@ -2762,6 +2773,33 @@ const SARGA_MODAL_BEKAPCSOLVA = false;
   window.addEventListener('resize',fit);
   if(window.visualViewport)window.visualViewport.addEventListener('resize',fit);
   fit();
+})();
+</script>
+<script>
+
+/* Mobilon a frissítési napló tetejéről lehúzva az oldal újratölthető.
+   A böngésző szokásos oldalfrissítési gesztusát máshol nem módosítjuk. */
+(function(){
+  const modal=document.getElementById('updateModal');
+  const box=modal && modal.querySelector('.update-modal-box');
+  if(!box) return;
+  let startY=null, startX=null, eligible=false;
+  box.addEventListener('touchstart',function(e){
+    if(e.touches.length!==1){eligible=false;return;}
+    startY=e.touches[0].clientY;
+    startX=e.touches[0].clientX;
+    eligible=box.scrollTop<=1;
+  },{passive:true});
+  box.addEventListener('touchend',function(e){
+    if(!eligible || startY===null || !e.changedTouches.length) return;
+    const dy=e.changedTouches[0].clientY-startY;
+    const dx=e.changedTouches[0].clientX-startX;
+    if(dy>115 && Math.abs(dx)<65 && box.scrollTop<=1 && modal.classList.contains('show')){
+      window.location.reload();
+    }
+    eligible=false;startY=null;
+  },{passive:true});
+  box.addEventListener('touchcancel',function(){eligible=false;startY=null},{passive:true});
 })();
 </script>
 </body></html>
