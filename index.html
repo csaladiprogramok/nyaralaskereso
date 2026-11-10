@@ -1674,7 +1674,7 @@ h1{font-size:23px}
 #sunny-image-dialog #sunny-image-frame img{
   position:static;display:block;width:100%;height:auto;max-width:100%;max-height:none;object-fit:contain;
 }
-#sunny-image-dialog > img[src="tudtad_2.0.jpg"]{
+#sunny-image-dialog > img[src="tudtad_2.1.jpg"]{
   display:block;width:100% !important;height:auto !important;
   max-width:100% !important;max-height:none !important;min-height:0 !important;
   flex:0 0 auto !important;align-self:stretch;object-fit:contain;margin:0;
@@ -1727,7 +1727,7 @@ h1{font-size:23px}
 <div id="sunny-image-overlay" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Képes tájékoztató">
   <div id="sunny-image-dialog">
     <div id="sunny-image-frame"><img src="frissitesalatt2.0.jpg" alt="Tájékoztató kép"></div>
-    <img src="tudtad_2.0.jpg" alt="Tudtad?" style="display:block;width:100%;height:auto;max-height:110px;object-fit:contain;border-radius:12px;flex:0 1 auto;min-height:0;">
+    <img src="tudtad_2.1.jpg" alt="Tudtad?" style="display:block;width:100%;height:auto;max-height:110px;object-fit:contain;border-radius:12px;flex:0 1 auto;min-height:0;">
     <button id="sunny-image-close" type="button">BEZÁRÁS</button>
   </div>
 </div>
@@ -1930,7 +1930,7 @@ a különböző desztinációk <b>látnivalóikat!</b></p>
 
     <!-- Második képhely: ugyanakkora szélesség, harmadakkora magasság -->
     <div class="kozlemeny-kep-masodik">
-      <img src="tudtad_2.0.jpg" alt="">
+      <img src="tudtad_2.1.jpg" alt="">
     </div>
 
     <div class="kozlemeny-actions">
@@ -2834,6 +2834,26 @@ const SARGA_MODAL_BEKAPCSOLVA = true;
     eligible=false;startY=null;
   },{passive:true});
   box.addEventListener('touchcancel',function(){eligible=false;startY=null},{passive:true});
+})();
+</script>
+<script>
+/* A legfelső sárga modál nyitva tartása közben is lehúzással frissíthető az oldal mobilon. */
+(function(){
+  const overlay=document.getElementById('sunny-image-overlay');
+  if(!overlay)return;
+  let startX=0,startY=0,tracking=false;
+  overlay.addEventListener('touchstart',function(e){
+    tracking=!overlay.hidden && e.touches.length===1 && !e.target.closest('button, a, input, textarea, select');
+    if(tracking){startX=e.touches[0].clientX;startY=e.touches[0].clientY;}
+  },{passive:true});
+  overlay.addEventListener('touchend',function(e){
+    if(!tracking || !e.changedTouches.length)return;
+    tracking=false;
+    const dx=e.changedTouches[0].clientX-startX;
+    const dy=e.changedTouches[0].clientY-startY;
+    if(dy>115 && Math.abs(dx)<65 && !overlay.hidden){window.location.reload();}
+  },{passive:true});
+  overlay.addEventListener('touchcancel',function(){tracking=false;},{passive:true});
 })();
 </script>
 </body></html>
